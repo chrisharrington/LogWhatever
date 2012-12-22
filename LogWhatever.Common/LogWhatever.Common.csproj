@@ -38,6 +38,7 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Optimization">
@@ -57,6 +58,8 @@
     <Compile Include="Adapters\Bundling\BundleFactory.cs" />
     <Compile Include="Adapters\Bundling\IBundle.cs" />
     <Compile Include="Adapters\Bundling\IBundleFactory.cs" />
+    <Compile Include="Configuration\IConfigurationProvider.cs" />
+    <Compile Include="Configuration\WebConfigProvider.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Event.cs" />

@@ -26,7 +26,7 @@ namespace LogWhatever.MvcApplication
 
 		internal ILog Logger
 		{
-			get { return LogManager.GetLogger("SimplicityDashboard"); }
+			get { return LogManager.GetLogger("SimplicityLogWhatever"); }
 		}
 		#endregion
 
@@ -47,15 +47,19 @@ namespace LogWhatever.MvcApplication
 		{
 			var routes = RouteTable.Routes;
 
-			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+			routes.MapHttpRoute("ControllerAndAction", "api/{controller}/{action}", new { action = RouteParameter.Optional });
 			routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Shared", action = "Index", id = UrlParameter.Optional });
-			routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
 		}
 
 		internal virtual void BundleJavascript()
 		{
-			AddBundleToBundlesTable(ResolveFromContainer<IBundleFactory>().CreateJavascriptBundle("~/js").IncludeDirectory("~/Scripts", "*.js"));
+			AddBundleToBundlesTable(ResolveFromContainer<IBundleFactory>().CreateJavascriptBundle("~/js")
+				.IncludeDirectory("~/Scripts/Prereqs", "*.js")
+				.IncludeDirectory("~/Scripts/Extensions", "*.js")
+				.IncludeDirectory("~/Scripts/ThirdParty", "*.js")
+				.IncludeDirectory("~/Scripts/Plugins", "*.js")
+				.IncludeDirectory("~/Scripts/Controls", "*.js")
+				.IncludeDirectory("~/Scripts/Routers", "*.js"));
 		}
 
 		internal virtual void BundleCss()

@@ -129,6 +129,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AspAutofacDependencyResolver.cs" />
+    <Compile Include="Controllers\Api\BaseApiController.cs" />
+    <Compile Include="Controllers\Api\ConfigurationController.cs" />
+    <Compile Include="Controllers\Api\UserController.cs" />
+    <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -137,6 +141,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Controls\Autocomplete.js" />
+    <Content Include="Scripts\Controls\Dialog.js" />
+    <Content Include="Scripts\Controls\Ellipsis.js" />
+    <Content Include="Scripts\Controls\Feedback.js" />
+    <Content Include="Scripts\Controls\Table.js" />
+    <Content Include="Scripts\Extensions\ArrayExtensions.js" />
+    <Content Include="Scripts\Extensions\DateExtensions.js" />
+    <Content Include="Scripts\Extensions\ObjectExtensions.js" />
+    <Content Include="Scripts\Extensions\StringExtensions.js" />
+    <Content Include="Scripts\Plugins\Clearbox.js" />
+    <Content Include="Scripts\Plugins\EnterKeypress.js" />
+    <Content Include="Scripts\Plugins\ExtendWithUnderscore.js" />
+    <Content Include="Scripts\Plugins\NumbersOnly.js" />
+    <Content Include="Scripts\Plugins\QueryString.js" />
+    <Content Include="Scripts\Prereqs\Global.js" />
+    <Content Include="Scripts\Prereqs\Init.js" />
+    <Content Include="Scripts\Routers\BaseRouter.js" />
+    <Content Include="Scripts\Routers\WelcomeRouter.js" />
     <Content Include="Scripts\ThirdParty\finch.js" />
     <Content Include="Style\Fonts.css" />
     <Content Include="Style\Site.css" />
@@ -150,7 +172,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\Api\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -170,7 +191,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\Pages\Welcome.html" />
+    <None Include="Views\Templates\Pages\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Style\Fonts\ITC-Franklin-Gothic-Standard.woff" />
