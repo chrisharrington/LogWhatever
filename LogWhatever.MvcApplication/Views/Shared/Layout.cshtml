@@ -5,12 +5,24 @@
 <html>
 	<head>
 		<title>Log Whatever</title>
-		@*<link href="~/css" rel="stylesheet" type="text/css" />*@
+		<link href="~/css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
+		
+		<header></header>
+		
+		<div class="content">
+			
+			<div class="tile">
+				<h3>A tile of some sort</h3>
+				<div></div>
+			</div>
+
+		</div>
+
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-		@*@Scripts.Render("~/js")*@
+		@Scripts.Render("~/js")
 		<script type="text/javascript">
 			@*Dashboard.Configuration = { VirtualDirectory: "@Url.Content("~/")" };*@
 		</script>

@@ -1,0 +1,15 @@
+﻿html { background:#DCF2DD -webkit-gradient(linear, 0% 0%, 0% 100%, from(#A8EBA4), to(#DCF2DD)) no-repeat; height:100%; }
+body { background-color:#FFF; margin:0; padding:0; }
+
+header { float:left; width:100%; height:50px; background-color:#222; border-bottom:solid 2px #34AB2E; }
+div.content { float:left; width:100%; height:500px; box-sizing:border-box; padding:1%; }
+
+h1 { font-family:itc-franklin-gothic-standard; font-size:28px; text-transform:uppercase; margin:0; padding:0; }
+h2 { font-family:itc-franklin-gothic-standard; font-size:24px; text-transform:uppercase; margin:0; padding:0; }
+h3 { font-family:itc-franklin-gothic-standard; font-size:20px; text-transform:uppercase; margin:0; padding:0; }
+h4 { font-family:itc-franklin-gothic-standard; font-size:16px; text-transform:uppercase; margin:0; padding:0; }
+h5 { font-family:itc-franklin-gothic-standard; font-size:12px; text-transform:uppercase; margin:0; padding:0; }
+
+div.tile { float:left; background-color:#FFF; border-radius:4px; box-sizing:border-box; padding:15px; width:300px; }
+div.tile>h3 { float:left; width:100%; }
+div.tile>div { float:left; width:100%; margin-top:10px; }
