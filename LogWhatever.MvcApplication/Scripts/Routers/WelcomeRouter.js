@@ -19,15 +19,34 @@ LogWhatever.Routers.WelcomeRouter.prototype._onLoading = function () {
     this._clearSubheader();
     this._hookupEvents();
 
-    $.when(this._container.find("img").load()).done(function () {
+	$.when(this._container.find("img").load()).done(function () {	    
         deferred.resolve();
     });
 
     return deferred.promise();
 };
 
+LogWhatever.Routers.WelcomeRouter.prototype._onLoaded = function() {
+	this._container.find("#email-address").focus();
+};
+
 LogWhatever.Routers.WelcomeRouter.prototype._hookupEvents = function () {
-	this._container.find("div.LogWhatever-project-tile>h1").die("click").live("click", function () {
-		Finch.navigate("/projects/" + $(this).text().replace( / /g , "_"));
-	});
+	var me = this;
+	this._container.find("#sign-in").click(function () { me._signIn(); });
+};
+
+LogWhatever.Routers.WelcomeRouter.prototype._signIn = function() {
+	var emailAddress = this._container.find("#email-address").val();
+	if (!emailAddress || emailAddress == "")
+		throw new Error("When signing in, your email address is required.");
+
+	var password = this._container.find("#password").val();
+	if (!password || password == "")
+		throw new Error("When signing in, your password is required.");
+
+	this._sendSignInCommand(emailAddress, password);
+};
+
+LogWhatever.Routers.WelcomeRouter.prototype._sendSignInCommand = function(emailAddress, password) {
+	alert(emailAddress + " " + password);
 };
