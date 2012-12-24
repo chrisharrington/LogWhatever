@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Images\menu-selected-icon.png" />
     <Content Include="Scripts\Controls\Autocomplete.js" />
     <Content Include="Scripts\Controls\Dialog.js" />
     <Content Include="Scripts\Controls\Ellipsis.js" />

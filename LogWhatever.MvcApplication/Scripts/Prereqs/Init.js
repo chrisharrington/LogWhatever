@@ -24,25 +24,11 @@ LogWhatever.Init.create = function() {
 
 LogWhatever.Init.prototype._createRouters = function () {
 	LogWhatever.Routers.WelcomeRouter.create({ html: "templates/welcome", navigation: "welcome" });
-    //LogWhatever.Routers.UsersRouter.create({ html: "users/list", navigation: "users", menu: $("#users") });
-    //LogWhatever.Routers.LogWhateverRouter.create({ html: "LogWhatever/list", navigation: "home", menu: $("#LogWhatever") });
-    //LogWhatever.Routers.ProjectDetailsRouter.create({ html: "projects/:name", navigation: "projects/:name", menu: $("#LogWhatever") });
-    //LogWhatever.Routers.ProjectsRouter.create({ html: "projects/list", navigation: "projects", menu: $("#projects") });
-    //LogWhatever.Routers.TimeEntryRouter.create({ html: "timeentry/details", navigation: "time-entry", menu: $("#time-entry") });
-    //LogWhatever.Routers.MissingRouter.create({ html: "missing", navigation: "missing" });
-    //LogWhatever.Routers.LoginRouter.create({ html: "account/login", navigation: "login" });
-    //LogWhatever.Routers.ReportsRouter.create({ html: "reports/list", navigation: "reports", menu: $("#reports") });
     Finch.listen();
 };
 
 LogWhatever.Init.prototype._hookupMenuLinks = function () {
-    var me = this;
-    $("#LogWhatever").click(function () { Finch.navigate("/home"); });
-    $("#users").click(function () { Finch.navigate("/users"); });
-    $("#projects").click(function () { Finch.navigate("/projects"); });
-    $("#time-entry").click(function () { Finch.navigate("/time-entry"); });
-    $("#reports").click(function() { Finch.navigate("/reports"); });
-    $("#log-out").click(function () { me._logOut(); });
+	$("div.menu>div").click(function() { Finch.navigate("/" + $(this).attr("data-navigation")); });
 };
 
 LogWhatever.Init.prototype._getConfigurationData = function () {

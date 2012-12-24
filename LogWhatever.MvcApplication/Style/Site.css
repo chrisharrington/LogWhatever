@@ -1,7 +1,6 @@
 ﻿html { background:#DCF2DD -webkit-gradient(linear, 0% 0%, 0% 100%, from(#A8EBA4), to(#DCF2DD)) no-repeat; height:100%; }
-body { background-color:#FFF; margin:0; padding:0; }
+body { background-color:#FFF; margin:0; padding:0; font-family:'Rambla', helvetica; font-size:12px; }
 
-header { float:left; width:100%; height:50px; background-color:#222; border-bottom:solid 2px #34AB2E; }
 div.content { float:left; width:100%; height:500px; box-sizing:border-box; padding:1%; }
 
 h1 { font-family:itc-franklin-gothic-standard; font-size:28px; text-transform:uppercase; margin:0; padding:0; }
@@ -10,6 +9,35 @@ h3 { font-family:itc-franklin-gothic-standard; font-size:20px; text-transform:up
 h4 { font-family:itc-franklin-gothic-standard; font-size:16px; text-transform:uppercase; margin:0; padding:0; }
 h5 { font-family:itc-franklin-gothic-standard; font-size:12px; text-transform:uppercase; margin:0; padding:0; }
 
-div.tile { float:left; background-color:#FFF; border-radius:4px; box-sizing:border-box; padding:15px; width:300px; }
-div.tile>h3 { float:left; width:100%; }
-div.tile>div { float:left; width:100%; margin-top:10px; }
+.hidden { display:none; }
+
+button { font-family:itc-franklin-gothic-standard; text-transform:uppercase; background-color:#137A10; color:#DDD; padding:3px 8px; margin:0px; border-radius:3px; border:none; }
+
+div.tile { display:table-cell; box-sizing:border-box; background-color:transparent; }
+div.tile>div { float:left; width:100%; background-color:#FFF; border-radius:4px; box-sizing:border-box; padding:15px; }
+div.tile>div>h3 { float:left; width:100%; color:#34AB2E; }
+div.tile>div>div { float:left; width:100%; margin-top:10px; }
+
+header { float:left; width:100%; height:50px; background-color:#333; color:#DDD; padding:10px 15px; box-sizing:border-box; border-bottom:solid 3px #34AB2E; font-size:1em; }
+header>div.user { float:right; margin-top:6px; display:none; }
+header>div.user>a { float:left; margin-left:12px; padding-left:12px; border-left:solid 2px #888; }
+header>div.user>a:first-child { padding-left:0px; margin-left:0px; border-left:none; }
+header>div.menu { float:left; }
+header>div.menu>div { float:left; padding:5px 10px; margin-left:5px; margin-right:5px; cursor:pointer; box-sizing:border-box; }
+header>div.menu>div>span { float:left; text-align:center; width:100%; font-size:14px; font-family:itc-franklin-gothic-standard; text-transform:uppercase; }
+header>div.menu>div>img { visibility:hidden; margin:auto; display:block; width:13px; margin-top:23px; }
+header>div.menu>div.selected>img { visibility:visible; }
+header>div.menu>div.selected>span { color:#34AB2E; }
+
+div.subheader { float:left; width:100%; color:#FFF; background:#DDD; overflow:hidden; display:none; height:50px; border-bottom:solid 1px #BBB; }
+div.subheader>div { float:left; width:100%; height:100%; }
+div.subheader>div>button { float:left; margin-left:10px; margin-top:11px; }
+div.subheader>div>button:first-child { margin-left:1%; }
+div.subheader>div>img { float:right; margin-top:18px; margin-right:18px; cursor:pointer; }
+div.subheader>div>span { float:left; margin-top:18px; margin-left:10px; color:#000; }
+
+div.form>div { float:left; width:100%; margin-top:5px; }
+div.form>div:first-child { margin-top:0px; }
+div.form>div>span { float:left; width:100%; color:#777; text-transform:none; font-weight:normal; }
+div.form>div>input[type='text'], div.form>div>input[type='password'] { float:left; width:100%; border:solid 1px #AAA; padding:5px; border-radius:3px; box-sizing:border-box; }
+div.form>div>button { float:right; margin-left:5px; }

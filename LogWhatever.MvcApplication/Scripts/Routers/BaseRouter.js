@@ -21,7 +21,6 @@ LogWhatever.Routers.BaseRouter.prototype.load = function (parameters) {
 
     var me = this;
     $.when(this._loadData(parameters), this._container.fadeOut(200)).done(function (result) {
-	    alert("blah");
         me._container.empty().html(result[0]);
 
         $.when(me._onLoading()).done(function () {
