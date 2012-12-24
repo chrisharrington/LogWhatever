@@ -1,7 +1,7 @@
 ﻿html { background:#DCF2DD -webkit-gradient(linear, 0% 0%, 0% 100%, from(#A8EBA4), to(#DCF2DD)) no-repeat; height:100%; }
 body { background-color:#FFF; margin:0; padding:0; font-family:'Rambla', helvetica; font-size:12px; }
 
-div.content { float:left; width:100%; height:500px; box-sizing:border-box; padding:1%; }
+div.content { float:left; width:100%; height:500px; box-sizing:border-box; padding:1%; border-top:solid 3px #34AB2E; }
 
 h1 { font-family:itc-franklin-gothic-standard; font-size:28px; text-transform:uppercase; margin:0; padding:0; }
 h2 { font-family:itc-franklin-gothic-standard; font-size:24px; text-transform:uppercase; margin:0; padding:0; }
@@ -18,7 +18,7 @@ div.tile>div { float:left; width:100%; background-color:#FFF; border-radius:4px;
 div.tile>div>h3 { float:left; width:100%; color:#34AB2E; }
 div.tile>div>div { float:left; width:100%; margin-top:10px; }
 
-header { float:left; width:100%; height:50px; background-color:#333; color:#DDD; padding:10px 15px; box-sizing:border-box; border-bottom:solid 3px #34AB2E; font-size:1em; }
+header { float:left; width:100%; height:50px; background-color:#333; color:#DDD; padding:10px 15px; box-sizing:border-box; font-size:1em; }
 header>div.user { float:right; margin-top:6px; display:none; }
 header>div.user>a { float:left; margin-left:12px; padding-left:12px; border-left:solid 2px #888; }
 header>div.user>a:first-child { padding-left:0px; margin-left:0px; border-left:none; }

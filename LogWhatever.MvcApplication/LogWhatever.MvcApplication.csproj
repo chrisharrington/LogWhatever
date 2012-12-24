@@ -131,7 +131,7 @@
     <Compile Include="AspAutofacDependencyResolver.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\ConfigurationController.cs" />
-    <Compile Include="Controllers\Api\UserController.cs" />
+    <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Global.asax.cs">
@@ -162,6 +162,7 @@
     <Content Include="Scripts\Routers\BaseRouter.js" />
     <Content Include="Scripts\Routers\WelcomeRouter.js" />
     <Content Include="Scripts\ThirdParty\finch.js" />
+    <Content Include="Style\Feedback.css" />
     <Content Include="Style\Fonts.css" />
     <Content Include="Style\Site.css" />
     <Content Include="Web.config" />

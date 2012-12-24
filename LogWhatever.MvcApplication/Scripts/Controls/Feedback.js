@@ -15,39 +15,36 @@ LogWhatever.Controls.Feedback.prototype.error = function (message) {
 
 LogWhatever.Controls.Feedback.prototype.clear = function () {
 	if (this._components)
-		this._components.panel.fadeOut(200);
+		this._components.panel.slideUp(200);
 };
 
 /*--------------------------------------------------------------------------------------------*/
 /* Private Methods */
 
-LogWhatever.Controls.Feedback.prototype._showMessage = function (className, message, timeout) {
+LogWhatever.Controls.Feedback.prototype._showMessage = function (className, message) {
 	if (!this._components)
 		this._components = this._loadComponents();
 
 	if (this._timeout)
 		clearTimeout(this._timeout);
 
-	this._components.panel.removeClass("success error");
-
 	this._setMessage(message, className);
-	this._setFadeTimeout(timeout);
 
 	if (!this._components.panel.is(":visible"))
-		this._components.panel.fadeIn(200);
+		this._components.panel.slideDown(200);
 };
 
 LogWhatever.Controls.Feedback.prototype._setMessage = function (message, className) {
 	if (this._components.panel.is(":visible")) {
 		var me = this;
-		this._components.panel.fadeOut(150, function () {
-			me._components.panel.addClass(className);
-			me._setMessageAndPosition(message);
+		this._components.label.fadeOut(150, function () {
+			me._components.panel.removeClass("success error").addClass(className);
+			me._components.label.fadeIn(150).text(message);
 		});
 	}
 	else {
-		this._setMessageAndPosition(message);
-		this._components.panel.addClass(className);
+		this._components.label.text(message);
+		this._components.panel.removeClass("success error").addClass(className);
 	}
 };
 

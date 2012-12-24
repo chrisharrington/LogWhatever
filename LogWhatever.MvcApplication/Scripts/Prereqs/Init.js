@@ -43,7 +43,7 @@ LogWhatever.Init.prototype._getConfigurationData = function () {
 };
 
 LogWhatever.Init.prototype._getLoggedInUser = function () {
-	return $.get(LogWhatever.Configuration.VirtualDirectory + "api/user/signed-in").success(function (user) {
+	return $.get(LogWhatever.Configuration.VirtualDirectory + "api/users/signed-in").success(function (user) {
         LogWhatever.User = user;
         if (!user)
             return;
@@ -70,7 +70,6 @@ window.onerror = function (e) {
 	if (e.toLowerCase().indexOf("highcharts") > -1)
 		return;
 
-	//var error = e.replace("Uncaught Error: ", "");
-	//LogWhatever.Feedback.error(error);
-	alert(e);
+	var error = e.replace("Uncaught Error: ", "");
+	LogWhatever.Feedback.error(error);
 };
