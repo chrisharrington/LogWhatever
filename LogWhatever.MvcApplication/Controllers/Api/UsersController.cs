@@ -1,23 +1,40 @@
 ﻿using System;
-using System.Web.Http;
+using System.Web.Security;
 using LogWhatever.Common.Models;
+using LogWhatever.Common.Repositories;
+using LogWhatever.Common.Service.Authentication;
 
 namespace LogWhatever.MvcApplication.Controllers.Api
 {
 	public class UsersController : BaseApiController
 	{
+		#region Properties
+		public IMembershipProvider MembershipProvider { get; set; }
+		public IUserRepository UserRepository { get; set; }
+		#endregion
+
 		#region Public Methods
-		[ActionName("signed-in")]
+		[System.Web.Http.ActionName("signed-in")]
 		public User GetSignedInUser()
 		{
 			return new User {EmailAddress = "chrisharrington99@gmail.com", Id = Guid.NewGuid(), Name = "Chris Harrington"};
 		}
 
-		[ActionName("sign-in")]
-		[AcceptVerbs("GET")]
-		public User SignIn(string emailAddress, string password)
+		[System.Web.Http.ActionName("sign-in")]
+		[System.Web.Http.AcceptVerbs("GET")]
+		public User SignIn(string emailAddress, string password, bool staySignedIn)
 		{
-			return null;
+			if (string.IsNullOrEmpty(emailAddress))
+				throw new ArgumentNullException("emailAddress");
+			if (string.IsNullOrEmpty(password))
+				throw new ArgumentNullException("password");
+
+			var isUserValidated = MembershipProvider.ValidateUser(emailAddress, password);
+			if (!isUserValidated)
+				return null;
+
+			FormsAuthentication.SetAuthCookie(emailAddress, staySignedIn);
+			return UserRepository.GetByEmail(emailAddress);
 		}
 		#endregion
 	}

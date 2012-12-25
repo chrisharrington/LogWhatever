@@ -48,11 +48,11 @@ LogWhatever.Routers.WelcomeRouter.prototype._signIn = function () {
 		throw new Error("When signing in, your password is required.");
 	}
 
-	this._sendSignInCommand(emailAddress, password);
+	this._sendSignInCommand(emailAddress, password, this._container.find("#stay-signed-in").is(":checked"));
 };
 
-LogWhatever.Routers.WelcomeRouter.prototype._sendSignInCommand = function (emailAddress, password) {
-	$.get(LogWhatever.Configuration.VirtualDirectory + "api/users/sign-in", { emailAddress: emailAddress, password: password }).success(function (user) {
+LogWhatever.Routers.WelcomeRouter.prototype._sendSignInCommand = function (emailAddress, password, staySignedIn) {
+	$.get(LogWhatever.Configuration.VirtualDirectory + "api/users/sign-in", { emailAddress: emailAddress, password: password, staySignedIn: staySignedIn }).success(function (user) {
 		if (!user)
 			LogWhatever.Feedback.error("The email address and password combination you provided is incorrect.");
 		else

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogWhatever.Common", "LogWh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogWhatever.Container", "LogWhatever.Container\LogWhatever.Container.csproj", "{C9AA8519-8835-4BA0-BE79-C189C4F3D27F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogWhatever.Service", "LogWhatever.Service\LogWhatever.Service.csproj", "{A951E387-FFA3-494C-86EA-3CD309FBD29B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogWhatever.Repositories", "LogWhatever.Repositories\LogWhatever.Repositories.csproj", "{6EE27778-15E3-448C-9C71-07AE94C8DDC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{C9AA8519-8835-4BA0-BE79-C189C4F3D27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9AA8519-8835-4BA0-BE79-C189C4F3D27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9AA8519-8835-4BA0-BE79-C189C4F3D27F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A951E387-FFA3-494C-86EA-3CD309FBD29B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A951E387-FFA3-494C-86EA-3CD309FBD29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A951E387-FFA3-494C-86EA-3CD309FBD29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A951E387-FFA3-494C-86EA-3CD309FBD29B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EE27778-15E3-448C-9C71-07AE94C8DDC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EE27778-15E3-448C-9C71-07AE94C8DDC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EE27778-15E3-448C-9C71-07AE94C8DDC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EE27778-15E3-448C-9C71-07AE94C8DDC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

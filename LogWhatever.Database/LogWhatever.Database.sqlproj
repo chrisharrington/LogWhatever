@@ -63,7 +63,7 @@
     <Build Include="Tables\Logs.table.sql" />
     <Build Include="Tables\Tags.table.sql" />
     <Build Include="Tables\Measurements.table.sql" />
-    <Build Include="Tables\Users.table.sql" />
+    <Build Include="Tables\LogUsers.table.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Local.publish.xml" />
