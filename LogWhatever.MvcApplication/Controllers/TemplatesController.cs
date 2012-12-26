@@ -10,6 +10,12 @@ namespace LogWhatever.MvcApplication.Controllers
 		{
 			return PartialView("~/Views/Templates/Pages/Welcome.cshtml");
 		}
+
+		[ActionName("dashboard")]
+		public PartialViewResult Dashboard()
+		{
+			return PartialView("~/Views/Templates/Pages/Dashboard.cshtml");
+		}
 		#endregion
 	}
 }

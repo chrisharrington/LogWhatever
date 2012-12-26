@@ -55,8 +55,10 @@ LogWhatever.Routers.WelcomeRouter.prototype._sendSignInCommand = function (email
 	$.get(LogWhatever.Configuration.VirtualDirectory + "api/users/sign-in", { emailAddress: emailAddress, password: password, staySignedIn: staySignedIn }).success(function (user) {
 		if (!user)
 			LogWhatever.Feedback.error("The email address and password combination you provided is incorrect.");
-		else
+		else {
 			LogWhatever.Feedback.clear();
+			FInch.navigate("/dashboard");
+		}
 	}).error(function() {
 		LogWhatever.Feedback.error("An error has occurred while signing you in. Please contact technical support.");
 	});

@@ -24,11 +24,12 @@ LogWhatever.Init.create = function() {
 
 LogWhatever.Init.prototype._createRouters = function () {
 	LogWhatever.Routers.WelcomeRouter.create({ html: "templates/welcome", navigation: "welcome" });
+	LogWhatever.Routers.DashboardRouter.create({ html: "templates/dashboard", navigation: "dashboard" });
     Finch.listen();
 };
 
 LogWhatever.Init.prototype._hookupMenuLinks = function () {
-	$("div.menu>div").click(function() { Finch.navigate("/" + $(this).attr("data-navigation")); });
+	$("div.menu>a").click(function() { Finch.navigate("/" + $(this).attr("data-navigation")); });
 };
 
 LogWhatever.Init.prototype._getConfigurationData = function () {

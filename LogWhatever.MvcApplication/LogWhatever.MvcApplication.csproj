@@ -160,6 +160,7 @@
     <Content Include="Scripts\Prereqs\Global.js" />
     <Content Include="Scripts\Prereqs\Init.js" />
     <Content Include="Scripts\Routers\BaseRouter.js" />
+    <Content Include="Scripts\Routers\DashboardRouter.js" />
     <Content Include="Scripts\Routers\WelcomeRouter.js" />
     <Content Include="Scripts\ThirdParty\finch.js" />
     <Content Include="Style\Feedback.css" />
@@ -194,6 +195,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Templates\Pages\Dashboard.cshtml" />
     <None Include="Views\Templates\Pages\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
