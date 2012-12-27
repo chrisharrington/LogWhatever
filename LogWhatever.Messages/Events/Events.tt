@@ -1,0 +1,22 @@
+﻿<#@ output extension=".cs" #>
+<#@ include file="Functions.ttinclude" #>
+<#@ include file="SaveOutputToMultipleFiles.ttinclude" #>
+<#foreach(var codeFile in GetCommands()) {#>
+using System;
+
+namespace LogWhatever.Messages.Events 
+{
+	public class  <#=RenameCommandToEvent(codeFile.Parent.Name.Replace(".cs",""))#> : BaseEvent {
+	<#foreach(var element in GetCodeElementsInFile(codeFile)){#>
+		<# if(element.Kind.ToString() == "vsCMElementProperty") { #> 	
+			public <#=((EnvDTE.CodeProperty)element).Type.AsFullName#> <#=element.Name#> {get;set;}
+		 <#}#>  
+	<#}#> 
+	}
+}
+<#SaveOutput(RenameCommandToEvent(codeFile.Parent.Name.Replace(".cs","")) + ".cs");
+}
+DeleteOldOutputs();
+#>
+
+

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6EE27778-15E3-448C-9C71-07AE94C8DDC9}</ProjectGuid>
+    <ProjectGuid>{8BFB80EB-8372-4236-8967-300A1CD8E921}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogWhatever.Repositories</RootNamespace>
-    <AssemblyName>LogWhatever.Repositories</AssemblyName>
+    <RootNamespace>LogWhatever.Messages</RootNamespace>
+    <AssemblyName>LogWhatever.Messages</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,11 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper">
-      <HintPath>..\packages\Dapper.1.12.1\lib\net40\Dapper.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,10 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseRepository.cs" />
-    <Compile Include="LogRepository.cs" />
+    <Compile Include="Commands\AddLog.cs" />
+    <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Events\BaseEvent.cs" />
+    <Compile Include="Events\Events.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Events.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Events\LogAdded.cs">
+      <DependentUpon>Events.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogWhatever.Common\LogWhatever.Common.csproj">
@@ -54,8 +58,17 @@
       <Name>LogWhatever.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="Events\Events.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Events.cs</LastGenOutput>
+    </None>
+    <None Include="Events\Functions.ttinclude" />
+    <None Include="Events\SaveOutputToMultipleFiles.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

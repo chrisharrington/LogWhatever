@@ -59,6 +59,10 @@
       <Project>{14927D91-A4BB-471F-8F39-D0207C06A6F8}</Project>
       <Name>LogWhatever.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogWhatever.Handlers\LogWhatever.Handlers.csproj">
+      <Project>{E278C5A4-0FDF-405F-8EAC-6620A2CEA0AC}</Project>
+      <Name>LogWhatever.Handlers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogWhatever.Repositories\LogWhatever.Repositories.csproj">
       <Project>{6EE27778-15E3-448C-9C71-07AE94C8DDC9}</Project>
       <Name>LogWhatever.Repositories</Name>

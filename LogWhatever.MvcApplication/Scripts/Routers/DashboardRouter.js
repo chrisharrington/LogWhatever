@@ -41,7 +41,8 @@ LogWhatever.Routers.DashboardRouter.prototype._hookupEvents = function () {
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._save = function() {
-	this._validate();
+	//this._validate();
+	this._sendLogCommand(this._getLogParameters());
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._validate = function () {
@@ -76,4 +77,32 @@ LogWhatever.Routers.DashboardRouter.prototype._validateTime = function () {
 		time.addClass("error");
 		throw new Error("The time is formatted incorrectly.");
 	}
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._getLogParameters = function() {
+	return {
+		Name: "the name",
+		Date: "12/20/2012",
+		Time: "7:00 PM",
+		Measurements: [
+			{ Name: "the measurement name", Quantity: 10.5, Unit: "km" },
+			{ Name: "the measurement name 2", Quantity: 15, Unit: "grams" }
+		],
+		Tags: [
+			{ Name: "the first tag", },
+			{ Name: "the second tag" }
+		]
+	};
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._sendLogCommand = function(parameters) {
+	var inputs = this._container.find("input, textarea, select").attr("disabled", true);
+
+	$.post(LogWhatever.Configuration.VirtualDirectory + "api/logs", parameters).success(function() {
+		LogWhatever.Feedback.success("Your data has been logged.");
+	}).error(function() {
+		LogWhatever.Feedback.error("An error has occurred while logging your data. No data was saved. Please contact technical support.");
+	}).complete(function() {
+		inputs.attr("disabled", false);
+	});
 };

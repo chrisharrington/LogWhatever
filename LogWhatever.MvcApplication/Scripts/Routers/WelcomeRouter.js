@@ -57,7 +57,7 @@ LogWhatever.Routers.WelcomeRouter.prototype._sendSignInCommand = function (email
 			LogWhatever.Feedback.error("The email address and password combination you provided is incorrect.");
 		else {
 			LogWhatever.Feedback.clear();
-			FInch.navigate("/dashboard");
+			Finch.navigate("/dashboard");
 		}
 	}).error(function() {
 		LogWhatever.Feedback.error("An error has occurred while signing you in. Please contact technical support.");

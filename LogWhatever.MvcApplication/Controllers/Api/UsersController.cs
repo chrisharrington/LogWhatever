@@ -34,7 +34,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 				return null;
 
 			FormsAuthentication.SetAuthCookie(emailAddress, staySignedIn);
-			return UserRepository.GetByEmail(emailAddress);
+			return UserRepository.Email(emailAddress);
 		}
 		#endregion
 	}

@@ -10,7 +10,7 @@ namespace LogWhatever.Service.Logging
 		#region Properties
 		public ILog Logger
 		{
-			get { return LogManager.GetLogger("SimplicityDashboard"); }
+			get { return LogManager.GetLogger("LogWhatever"); }
 		}
 		#endregion
 

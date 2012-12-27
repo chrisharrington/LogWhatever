@@ -131,6 +131,7 @@
     <Compile Include="AspAutofacDependencyResolver.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\ConfigurationController.cs" />
+    <Compile Include="Controllers\Api\LogsController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
@@ -194,6 +195,10 @@
     <ProjectReference Include="..\LogWhatever.Container\LogWhatever.Container.csproj">
       <Project>{C9AA8519-8835-4BA0-BE79-C189C4F3D27F}</Project>
       <Name>LogWhatever.Container</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogWhatever.Messages\LogWhatever.Messages.csproj">
+      <Project>{8BFB80EB-8372-4236-8967-300A1CD8E921}</Project>
+      <Name>LogWhatever.Messages</Name>
     </ProjectReference>
     <ProjectReference Include="..\LogWhatever.Service\LogWhatever.Service.csproj">
       <Project>{a951e387-ffa3-494c-86ea-3cd309fbd29b}</Project>

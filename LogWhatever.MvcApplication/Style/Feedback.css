@@ -1,3 +1,4 @@
 ﻿div.feedback { float:left; width:100%; box-sizing:border-box; padding:8px; display:none; }
 div.feedback.error { background-color:#9C0E0E; border-color:#D14949; }
+div.feedback.success { background-color:#0F7806; border-color:#249E19; }
 div.feedback>span { float:left; width:100%; color:#FFF; }

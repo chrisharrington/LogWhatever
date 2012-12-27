@@ -1,0 +1,127 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Configuration" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data.Common" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Globalization" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Configuration" #>
+
+<#+
+	public IEnumerable<EnvDTE.Project> GetProjects()  {
+  
+        IServiceProvider _ServiceProvider = (IServiceProvider)Host;
+        if (_ServiceProvider == null)
+            throw new Exception("Host property returned unexpected value (null)");
+
+        EnvDTE.DTE dte = (EnvDTE.DTE)_ServiceProvider.GetService(typeof(EnvDTE.DTE));
+        if (dte == null)
+            throw new Exception("Unable to retrieve EnvDTE.DTE");
+
+    
+		List<EnvDTE.Project> projects = new List<EnvDTE.Project>();
+		foreach(object o in dte.Solution.Projects)
+		{
+			projects.Add((EnvDTE.Project)o);
+		}
+        return projects;
+
+    }
+
+	public EnvDTE.Project GetMessagesProject()
+	{
+		return GetProjects().Where(x=>x.Name=="LogWhatever.Messages").FirstOrDefault();
+	}
+
+	public IEnumerable<EnvDTE.ProjectItem> GetProjectItems(EnvDTE.Project projectToExplore)
+	{
+		List<EnvDTE.ProjectItem> items = new List<EnvDTE.ProjectItem>();
+		foreach(var o in projectToExplore.ProjectItems)
+			items.Add((EnvDTE.ProjectItem)o);
+		return items;
+	}
+
+	public IEnumerable<EnvDTE.FileCodeModel> GetCommands()
+	{
+		var commands = GetProjectItems(GetMessagesProject()).Where(x=>x.Name=="Commands").First().ProjectItems;
+
+		List<EnvDTE.FileCodeModel> items = new List<EnvDTE.FileCodeModel>();
+		foreach(var o in commands)
+		{
+			var item = (EnvDTE.ProjectItem)o;
+			if(!item.Name.StartsWith("Base"))
+				items.Add(((EnvDTE.ProjectItem)item).FileCodeModel);
+			
+		}
+		return items;
+	}
+
+	public IEnumerable<EnvDTE.CodeElement> GetCodeElementsInFile(EnvDTE.FileCodeModel fileModel)
+	{
+		List<EnvDTE.CodeElement> elements = new List<EnvDTE.CodeElement>();
+		foreach(var codeElement in fileModel.CodeElements)
+		{
+			try{
+				if(((EnvDTE.CodeElement)codeElement).Kind.ToString()=="vsCMElementNamespace"){
+					foreach(var child in ((EnvDTE.CodeNamespace)codeElement).Members.Item(1).Children)
+					{
+						elements.Add((EnvDTE.CodeElement)child);
+					}
+				}
+			}
+		   catch(Exception){}
+		}
+		return elements;
+	}
+
+   protected internal string RenameCommandToEvent(string commandName)
+        {
+            string action = GetPastTense(GetWordsFromCamelCase(commandName).First());
+            string item = String.Join("", GetWordsFromCamelCase(commandName).Skip(1));
+            string itemObject = "";
+            if (item.Contains("To"))
+            {
+                itemObject = "To" + item.Substring(0, item.IndexOf("To"));
+                item = item.Substring(item.IndexOf("To") + 2);
+            }
+            if (item.Contains("From"))
+            {
+                itemObject = "From" + item.Substring(item.IndexOf("From") + 4);
+                item = item.Substring(0, item.IndexOf("From")); 
+            }
+            return item + action + itemObject;
+        }
+
+	public string GetPastTense(string toPasttensify)
+	{
+		if(toPasttensify=="Set")
+			return "Set";
+		if(toPasttensify.EndsWith("e"))
+			return toPasttensify + "d";
+		return toPasttensify + "ed";
+	}
+
+	public IEnumerable<string> GetWordsFromCamelCase(string camelCaseString)
+	{
+		StringBuilder sb = new StringBuilder();
+        foreach (Char c in camelCaseString)
+        {
+            if (Char.IsUpper(c))
+            {
+                sb.Append(" ");
+            }
+            sb.Append(c);
+        }
+        string workingString = sb.ToString().Trim();
+		return workingString.Split(' ');
+	}
+#>

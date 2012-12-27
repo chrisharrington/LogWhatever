@@ -2,10 +2,10 @@
 
 namespace LogWhatever.Common.Repositories
 {
-	public interface IUserRepository
+	public interface ILogRepository
 	{
 		#region Public Methods
-		User Email(string emailAddress);
+		Log Name(string name);
 		#endregion
 	}
 }

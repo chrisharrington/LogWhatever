@@ -29,7 +29,7 @@ namespace LogWhatever.Service.Logging
 			if (IsDebuggingEnabled())
 				return;
 
-			Emailer.Send("error@simplicitydashboard.com", Recipients, "Simplicity Dashboard - Error", CreateBody(loggingEvent));
+			Emailer.Send("error@LogWhatever.com", Recipients, "Simplicity Dashboard - Error", CreateBody(loggingEvent));
 		}
 		#endregion
 

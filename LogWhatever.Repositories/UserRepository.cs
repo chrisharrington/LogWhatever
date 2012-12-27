@@ -9,7 +9,7 @@ namespace LogWhatever.Repositories
 	public class UserRepository : BaseRepository, IUserRepository
 	{
 		#region Public Methods
-		public User GetByEmail(string emailAddress)
+		public User Email(string emailAddress)
 		{
 			if (string.IsNullOrEmpty(emailAddress))
 				throw new ArgumentNullException("emailAddress");
