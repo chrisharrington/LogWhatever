@@ -9,6 +9,7 @@ using Autofac.Integration.Mvc;
 using LogWhatever.Common.Adapters.Bundling;
 using LogWhatever.Container;
 using log4net;
+using log4net.Config;
 
 namespace LogWhatever.MvcApplication
 {
@@ -26,29 +27,40 @@ namespace LogWhatever.MvcApplication
 
 		internal ILog Logger
 		{
-			get { return LogManager.GetLogger("SimplicityLogWhatever"); }
+			get { return LogManager.GetLogger("LogWhatever"); }
 		}
 		#endregion
 
 		#region Event Handlers
 		protected void Application_Start()
 		{
+			XmlConfigurator.Configure();
+
+			Logger.Info("----------------------------------------------");
+			Logger.Info("Application starting.");
+
 			BuildDependencyContainer();
 			RegisterRoutes();
 			BundleJavascript();
 			BundleCss();
 
 			GlobalFilters.Filters.Add(new HandleErrorAttribute());
+
+			Logger.Info("Application start finished.");
 		}
 		#endregion
 
 		#region internal virtual Methods
 		internal virtual void RegisterRoutes()
 		{
+			Logger.Info("Registering routes...");
+
 			var routes = RouteTable.Routes;
 
 			routes.MapHttpRoute("ControllerAndAction", "api/{controller}/{action}", new { action = RouteParameter.Optional });
 			routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Shared", action = "Index", id = UrlParameter.Optional });
+
+			Logger.Info("Routes registered.");
 		}
 
 		internal virtual void BundleJavascript()
@@ -60,11 +72,13 @@ namespace LogWhatever.MvcApplication
 				.IncludeDirectory("~/Scripts/Plugins", "*.js")
 				.IncludeDirectory("~/Scripts/Controls", "*.js")
 				.IncludeDirectory("~/Scripts/Routers", "*.js"));
+			Logger.Info("Bundled javascript.");
 		}
 
 		internal virtual void BundleCss()
 		{
 			AddBundleToBundlesTable(ResolveFromContainer<IBundleFactory>().CreateCssBundle("~/css").IncludeDirectory("~/Style", "*.css"));
+			Logger.Info("Bundled css.");
 		}
 
 		internal virtual void BuildDependencyContainer()
@@ -80,6 +94,8 @@ namespace LogWhatever.MvcApplication
 			DependencyResolver.SetResolver(new AutofacDependencyResolver(_container));
 			var autofacDependencyResolver = new AutofacDependencyResolver(_container);
 			GlobalConfiguration.Configuration.DependencyResolver = new AspAutofacDependencyResolver(autofacDependencyResolver);
+
+			Logger.Info("Built dependency container.");
 		}
 
 		internal virtual void AddBundleToBundlesTable(IBundle bundle)

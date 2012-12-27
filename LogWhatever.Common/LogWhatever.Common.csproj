@@ -71,6 +71,7 @@
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Service\Authentication\IMembershipProvider.cs" />
     <Compile Include="Service\Email\IEmailer.cs" />
+    <Compile Include="Service\Logging\ILogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
