@@ -26,7 +26,12 @@ LogWhatever.Routers.DashboardRouter.prototype._onLoading = function () {
     return deferred.promise();
 };
 
-LogWhatever.Routers.DashboardRouter.prototype._onLoaded = function() {
+LogWhatever.Routers.DashboardRouter.prototype._onLoaded = function () {
+	this._container.find("#name").clearbox();
+	this._container.find("#measurement-name").clearbox();
+	this._container.find("#measurement-quantity").clearbox();
+	this._container.find("#measurement-units").clearbox();
+	this._container.find("#tag-name").clearbox();
 	this._container.find("#email-address").focus();
 };
 

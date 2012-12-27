@@ -12,7 +12,7 @@ h5 { font-family:itc-franklin-gothic-standard; font-size:12px; text-transform:up
 .hidden { display:none; }
 
 button { font-family:itc-franklin-gothic-standard; text-transform:uppercase; background-color:#137A10; color:#DDD; padding:3px 8px; margin:0px; border-radius:3px; border:none; cursor:pointer; }
-input[type='text'], input[type='password'] { border:solid 1px #AAA; padding:3px 5px; box-sizing:border-box; border-radius:3px; }
+input[type='text'], input[type='password'] { border:solid 1px #CCC; padding:3px 5px; box-sizing:border-box; border-radius:3px; }
 
 div.tile { display:table-cell; box-sizing:border-box; background-color:transparent; }
 div.tile>div { float:left; width:100%; background-color:#FFF; border-radius:4px; box-sizing:border-box; padding:15px; }
