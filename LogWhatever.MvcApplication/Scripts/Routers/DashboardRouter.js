@@ -44,10 +44,36 @@ LogWhatever.Routers.DashboardRouter.prototype._save = function() {
 	this._validate();
 };
 
-LogWhatever.Routers.DashboardRouter.prototype._validate = function() {
-	var name = $("#name").clearbox("value");
-	if (!name || name == "")
+LogWhatever.Routers.DashboardRouter.prototype._validate = function () {
+	this._container.find("input[type='text'].error").removeClass("error");
+
+	var name = this._container.find("#name");
+	if (name.clearbox("value") == "") {
+		name.addClass("error");
 		throw new Error("The name is required.");
-	
-	
+	}
+
+	this._validateTime();
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._validateMeasurements = function() {
+	var panel = this._container.find("div.measurements>div");
+	if (panel.find("input.measurement-name").clearbox("value") == "")
+		throw new Error("The name for measurements is required.");
+	if (panel.find("input.measurement-quantity").clearbox("value") == "")
+		throw new Error("The quantity for measurements is required.");
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._validateTag = function() {
+	var panel = this._container.find("div.tags>div");
+	if (panel.find("input.tag-name").clearbox("value") == "")
+		throw new Error("The name for tags is required.");
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._validateTime = function () {
+	var time = this._container.find("#time");
+	if (!/^((([0]?[1-9]|1[0-2])(:|\.)[0-5][0-9]((:|\.)[0-5][0-9])?( )?(AM|am|aM|Am|PM|pm|pM|Pm))|(([0]?[0-9]|1[0-9]|2[0-3])(:|\.)[0-5][0-9]((:|\.)[0-5][0-9])?))$/.test(time.val())) {
+		time.addClass("error");
+		throw new Error("The time is formatted incorrectly.");
+	}
 };
