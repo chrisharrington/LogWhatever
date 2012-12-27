@@ -36,5 +36,18 @@ LogWhatever.Routers.DashboardRouter.prototype._onLoaded = function () {
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._hookupEvents = function () {
+	var me = this;
+	this._container.find("#save").click(function () { me._save(); });
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._save = function() {
+	this._validate();
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._validate = function() {
+	var name = $("#name").clearbox("value");
+	if (!name || name == "")
+		throw new Error("The name is required.");
+	
 	
 };

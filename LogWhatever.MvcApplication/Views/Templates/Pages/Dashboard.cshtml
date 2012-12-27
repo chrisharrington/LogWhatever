@@ -1,11 +1,13 @@
 ﻿<style type="text/css">
 	div.add { float:left; width:100%; }
-	div.add>div>div { float:left; width:33%; margin-top:0px; display:table-cell; border-left:solid 2px #DDD; box-sizing:border-box; padding-left:20px; padding-right:20px; }
 	div.add input[type='text'] { font-size:10px; padding:5px 6px; }
-	div.add>div>div:first-child { border-left:none; padding-left:0px; }
+	div.add>div>div { float:left; width:33.33333%; margin-top:0px; display:table-cell; border-left:solid 2px #EEE; box-sizing:border-box; padding-left:20px; padding-right:20px; }
+	div.add>div>div.info { float:left; width:100%; border-left:0px; margin-bottom:10px; border-bottom:solid 0px #EEE; padding-bottom:10px; padding-right:0px; }
+	div.add>div>div.info>button { float:right; margin-left:10px; width:100px; }
 	div.add>div>div:last-child { padding-right:0px; }
 	div.add>div>div>h5 { float:left; width:100%; }
 	div.add>div>div>span { float:left; width:100%; color:#AAA; margin-top:5px; }
+	div.add>div>div.name { border-left:none; padding-left:0px; }
 	div.add>div>div.name>input[type='text'] { float:left; width:100%; margin-top:5px; }
 	div.add>div>div.name>#name { margin-top:8px; }
 	div.add>div>div.name>#date { width:49%; margin-right:1%; }
@@ -20,6 +22,10 @@
 
 <div class="tile add">
 	<div>
+		<div class="info">
+			<button id="save">Save</button>
+			<button id="cancel">Cancel</button>
+		</div>
 		<div class="name">
 			<h5>Name:</h5>
 			<span>The name of the log is its identifier. If you're logging something that you've logged before, make sure you enter the same name as before to keep a running record of your activity.</span>
@@ -31,18 +37,18 @@
 			<h5>Measurements:</h5>
 			<span>Add any measurements (and their optional units) here. A measurement would be the duration of your run, for example. You can have many measurements; another example would be how far you ran.</span>
 			<div>
-				<input type="text" id="measurement-name" value="Name?" />
-				<input type="text" id="measurement-quantity" value="How many?" />
-				<input type="text" id="measurement-units" value="What units?" />
-				<button id="add-measurement">Add Measurement</button>
+				<input type="text" class="measurement-name" value="Name?" />
+				<input type="text" class="measurement-quantity" value="How many?" />
+				<input type="text" class="measurement-units" value="What units?" />
+				<button id="new-measurement">New Measurement</button>
 			</div>
 		</div>
 		<div class="values tags">
 			<h5>Tags:</h5>
 			<span>Tags should indicate something to do with the event you're logging. For example, if you're tracking weight lifting, a tag could be the exercise you performed while the measurement would be the amount lifted.</span>
 			<div>
-				<input type="text" id="tag-name" value="Name?" />
-				<button id="add-tag">Add Tag</button>
+				<input type="text" class="tag-name" value="Name?" />
+				<button id="new-tag">New Tag</button>
 			</div>
 		</div>
 	</div>
