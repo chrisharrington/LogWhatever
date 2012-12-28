@@ -50,6 +50,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Optimization">
@@ -92,6 +93,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ILogRepository.cs" />
+    <Compile Include="Repositories\IMeasurementRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Service\Authentication\IMembershipProvider.cs" />
     <Compile Include="Service\Email\IEmailer.cs" />

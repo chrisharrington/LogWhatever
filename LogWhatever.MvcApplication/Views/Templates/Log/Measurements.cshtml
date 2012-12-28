@@ -1,0 +1,10 @@
+﻿@model IEnumerable<LogWhatever.Common.Models.Measurement>
+
+@foreach (var measurement in Model)
+{
+	<div>
+		<input type="text" class="measurement-name" value="@measurement.Name" />
+		<input type="text" class="measurement-quantity" value="@measurement.Quantity.ToString("0.00")" />
+		<input type="text" class="measurement-units" value="@measurement.Unit" />
+	</div>
+}

@@ -21,7 +21,9 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			SaveMeasurements(data.User, log, @event, data.Measurements);
 			SaveTags(data.User, log, @event, data.Tags);
 		}
+		#endregion
 
+		#region Private Methods
 		private void SaveTags(User user, Log log, Event @event, IEnumerable<Tag> tags)
 		{
 			foreach (var tag in tags)

@@ -23,8 +23,8 @@ LogWhatever.Init.create = function() {
 /* Private Methods */
 
 LogWhatever.Init.prototype._createRouters = function () {
-	LogWhatever.Routers.WelcomeRouter.create({ html: "templates/welcome", navigation: "welcome" });
-	LogWhatever.Routers.DashboardRouter.create({ html: "templates/dashboard", navigation: "dashboard" });
+	LogWhatever.Routers.WelcomeRouter.create({ html: "pages/welcome", navigation: "welcome" });
+	LogWhatever.Routers.DashboardRouter.create({ html: "pages/dashboard", navigation: "dashboard" });
     Finch.listen();
 };
 

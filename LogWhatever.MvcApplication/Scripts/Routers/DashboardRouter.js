@@ -28,11 +28,13 @@ LogWhatever.Routers.DashboardRouter.prototype._onLoading = function () {
 
 LogWhatever.Routers.DashboardRouter.prototype._onLoaded = function () {
 	this._container.find("#name").clearbox();
-	this._container.find("#measurement-name").clearbox();
-	this._container.find("#measurement-quantity").clearbox();
-	this._container.find("#measurement-units").clearbox();
+	this._container.find(".measurement-name").clearbox();
+	this._container.find(".measurement-quantity").clearbox();
+	this._container.find(".measurement-units").clearbox();
 	this._container.find("#tag-name").clearbox();
 	this._container.find("#email-address").focus();
+
+	this._loadMeasurements("the name");
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._hookupEvents = function () {
@@ -105,4 +107,8 @@ LogWhatever.Routers.DashboardRouter.prototype._sendLogCommand = function(paramet
 	}).complete(function() {
 		inputs.attr("disabled", false);
 	});
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._loadMeasurements = function (logName) {
+	this._container.find("#added-measurements").load(LogWhatever.Configuration.VirtualDirectory + "log/measurements?name=" + encodeURIComponent(logName));
 };

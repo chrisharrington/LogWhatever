@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
 using LogWhatever.Service.Authentication;
 
-namespace LogWhatever.MvcApplication.Controllers
+namespace LogWhatever.MvcApplication.Controllers.Templates
 {
 	[CustomAuthorize]
-	public class TemplatesController : Controller
+	public class PagesController : Controller
 	{
 		#region Public Methods
 		[Service.Authentication.AllowAnonymous]

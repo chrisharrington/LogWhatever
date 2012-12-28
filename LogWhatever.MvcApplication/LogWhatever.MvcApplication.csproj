@@ -141,8 +141,9 @@
     <Compile Include="Controllers\Api\ConfigurationController.cs" />
     <Compile Include="Controllers\Api\LogsController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
-    <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
+    <Compile Include="Controllers\Templates\LogController.cs" />
+    <Compile Include="Controllers\Templates\PagesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,6 +153,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Images\menu-selected-icon.png" />
+    <Content Include="Images\remove-icon.png" />
     <Content Include="Scripts\Controls\Autocomplete.js" />
     <Content Include="Scripts\Controls\Dialog.js" />
     <Content Include="Scripts\Controls\Ellipsis.js" />
@@ -215,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Templates\Pages\Dashboard.cshtml" />
+    <Content Include="Views\Templates\Log\Measurements.cshtml" />
     <None Include="Views\Templates\Pages\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>

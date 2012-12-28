@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Entity.Design.PluralizationServices;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -30,6 +32,11 @@ namespace LogWhatever.Common.Extensions
             var workingString = sb.ToString().Trim();
 			return workingString.Split(' ').Any(x => x.Length == 1) ? value : workingString;
         }
+
+		public static string Pluralize(this string value)
+		{
+			return PluralizationService.CreateService(CultureInfo.CurrentCulture).Pluralize(value);
+		}
 
 		public static string Capitalize(this string value)
 		{
