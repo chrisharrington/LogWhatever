@@ -3,10 +3,10 @@ using LogWhatever.Messages.Commands;
 
 namespace LogWhatever.Handlers.Commands
 {
-	public class AddLogHandler : BaseCommandHandler, IHandleMessagesOfType<AddLog>
+	public class EventHandler : BaseCommandHandler, IHandleMessagesOfType<AddEvent>
 	{
 		#region Public Methods
-		public void Handle(AddLog message)
+		public void Handle(AddEvent message)
 		{
 			CreateAndDispatchEvent(message);
 		}

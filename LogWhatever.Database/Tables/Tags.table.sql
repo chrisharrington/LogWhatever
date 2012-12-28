@@ -5,6 +5,5 @@
 	UserId uniqueidentifier not null,
 	LogId uniqueidentifier not null,
 	LogName nvarchar(255) not null,
-	EventId uniqueidentifier not null,
-	Value nvarchar(255) not null
+	EventId uniqueidentifier not null
 )
