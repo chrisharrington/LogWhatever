@@ -11,7 +11,7 @@ namespace LogWhatever.Handlers.Denormalizers
 		{
 			using (var connection = OpenConnection())
 			{
-				connection.Insert("Logs", new {message.Id, message.UpdatedDate, message.Name, message.UserId});
+				connection.Insert("Logs", new {message.Id, message.UpdatedDate, message.Name, message.UserId, message.Date});
 			}
 		}
 		#endregion

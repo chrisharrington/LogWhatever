@@ -12,6 +12,10 @@ namespace LogWhatever.Messages.Events
 			 	
 			public System.Guid UserId {get;set;}
 		   
+			 	
+			public System.DateTime Date {get;set;}
+		   
+			  
 	 
 	}
 }

@@ -7,6 +7,7 @@ namespace LogWhatever.Common.Models
 		#region Properties
 		public Guid UserId { get; set; }
 		public string Name { get; set; }
+		public DateTime Date { get; set; }
 		#endregion
 	}
 }

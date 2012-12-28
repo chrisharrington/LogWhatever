@@ -8,6 +8,7 @@ namespace LogWhatever.Messages.Commands
 		#region Properties
 		public string Name { get; set; }
 		public Guid UserId { get; set; }
+		public DateTime Date { get; set; }
 		#endregion
 
 		#region Public Methods
@@ -17,7 +18,8 @@ namespace LogWhatever.Messages.Commands
 				Id = log.Id,
 				Name = log.Name,
 				UpdatedDate = log.UpdatedDate,
-				UserId = log.UserId
+				UserId = log.UserId,
+				Date = log.Date
 			};
 		}
 		#endregion

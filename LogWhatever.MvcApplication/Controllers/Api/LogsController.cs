@@ -23,10 +23,15 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			var log = LogRepository.Name(data.Name);
 			if (log == null)
 			{
-				log = new Log {Id = Guid.NewGuid(), Name = data.Name, UserId = GetCurrentlySignedInUser().Id};
+				log = new Log {Id = Guid.NewGuid(), Name = data.Name, UserId = GetCurrentlySignedInUser().Id, Date = MergeDateAndTime(data.Date, data.Time)};
 				Dispatcher.Dispatch(AddLog.CreateFrom(log));
 			}
 			return log;
+		}
+
+		private DateTime MergeDateAndTime(DateTime date, DateTime time)
+		{
+			return date.AddHours(time.Hour).AddMinutes(time.Minute).AddSeconds(time.Second).AddMilliseconds(time.Millisecond);
 		}
 		#endregion
 
