@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Security;
 using LogWhatever.Common.Models;
-using LogWhatever.Common.Repositories;
 using LogWhatever.Common.Service.Authentication;
 
 namespace LogWhatever.MvcApplication.Controllers.Api
@@ -10,14 +9,13 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 	{
 		#region Properties
 		public IMembershipProvider MembershipProvider { get; set; }
-		public IUserRepository UserRepository { get; set; }
 		#endregion
 
 		#region Public Methods
 		[System.Web.Http.ActionName("signed-in")]
 		public User GetSignedInUser()
 		{
-			return new User {EmailAddress = "chrisharrington99@gmail.com", Id = Guid.NewGuid(), Name = "Chris Harrington"};
+			return GetCurrentlySignedInUser();
 		}
 
 		[System.Web.Http.ActionName("sign-in")]

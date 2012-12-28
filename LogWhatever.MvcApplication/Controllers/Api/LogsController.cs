@@ -6,7 +6,7 @@ using LogWhatever.Messages.Commands;
 
 namespace LogWhatever.MvcApplication.Controllers.Api
 {
-	public class LogsController : BaseApiController
+	public class LogsController : AuthorizedController
 	{
 		#region Properties
 		public ILogRepository LogRepository { get; set; }
@@ -23,7 +23,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			var log = LogRepository.Name(data.Name);
 			if (log == null)
 			{
-				log = new Log {Id = Guid.NewGuid(), Name = data.Name, UserId = GetSignedInUser().Id};
+				log = new Log {Id = Guid.NewGuid(), Name = data.Name, UserId = GetCurrentlySignedInUser().Id};
 				Dispatcher.Dispatch(AddLog.CreateFrom(log));
 			}
 			return log;

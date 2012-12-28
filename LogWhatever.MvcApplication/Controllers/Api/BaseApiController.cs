@@ -13,9 +13,9 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		#endregion
 
 		#region Protected Methods
-		protected User GetSignedInUser()
+		protected User GetCurrentlySignedInUser()
 		{
-			return UserRepository.Email(User.Identity.Name);
+			return string.IsNullOrEmpty(User.Identity.Name) ? null : UserRepository.Email(User.Identity.Name);
 		}
 		#endregion
 	}

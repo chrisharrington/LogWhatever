@@ -61,11 +61,11 @@ LogWhatever.Routers.BaseRouter.prototype._createDefaults = function () {
 
 LogWhatever.Routers.BaseRouter.prototype._loadData = function (parameters) {
     return $.get(LogWhatever.Configuration.VirtualDirectory + this._replacePlaceHoldersWithParameters(this._html, parameters)).complete(function (request) {
-        var status = request.status;
+    	var status = request.status;
         if (status == 404)
             Finch.navigate("/missing");
         else if (status == 401)
-            Finch.navigate("/login");
+            Finch.navigate("/welcome");
     });
 };
 
