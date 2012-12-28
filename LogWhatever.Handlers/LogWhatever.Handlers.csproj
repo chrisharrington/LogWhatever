@@ -43,7 +43,8 @@
     <Compile Include="Commands\AddLogHandler.cs" />
     <Compile Include="Commands\BaseCommandHandler.cs" />
     <Compile Include="Denormalizers\BaseDenormalizer.cs" />
-    <Compile Include="Denormalizers\LogAddedHandler.cs" />
+    <Compile Include="Denormalizers\EventDenormalizer.cs" />
+    <Compile Include="Denormalizers\LogDenormalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

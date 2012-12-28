@@ -4,14 +4,14 @@ using LogWhatever.Messages.Events;
 
 namespace LogWhatever.Handlers.Denormalizers
 {
-	public class LogAddedHandler : BaseDenormalizer, IHandleMessagesOfType<LogAdded>
+	public class EventDenormalizer : BaseDenormalizer, IHandleMessagesOfType<EventAdded>
 	{
 		#region Public Methods
-		public void Handle(LogAdded message)
+		public void Handle(EventAdded message)
 		{
 			using (var connection = OpenConnection())
 			{
-				connection.Insert("Logs", new {message.Id, message.UpdatedDate, message.Name, message.UserId, message.Date});
+				connection.Insert("Events", message);
 			}
 		}
 		#endregion

@@ -8,18 +8,17 @@ namespace LogWhatever.Messages.Commands
 		#region Properties
 		public string Name { get; set; }
 		public Guid UserId { get; set; }
-		public DateTime Date { get; set; }
 		#endregion
 
 		#region Public Methods
 		public static object CreateFrom(Log log)
 		{
-			return new AddLog {
+			return new AddLog
+			{
 				Id = log.Id,
 				Name = log.Name,
 				UpdatedDate = log.UpdatedDate,
-				UserId = log.UserId,
-				Date = log.Date
+				UserId = log.UserId
 			};
 		}
 		#endregion

@@ -39,9 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddEvent.cs" />
     <Compile Include="Commands\AddLog.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Events\BaseEvent.cs" />
+    <Compile Include="Events\EventAdded.cs">
+      <DependentUpon>Events.tt</DependentUpon>
+    </Compile>
     <Compile Include="Events\Events.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

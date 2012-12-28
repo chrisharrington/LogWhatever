@@ -16,6 +16,20 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		public void Post(LogData data)
 		{
 			var log = GetLog(data);
+			var @event = CreateEvent(data, log);
+		}
+
+		private Event CreateEvent(LogData data, Log log)
+		{
+			var @event =  new Event {
+				Date = MergeDateAndTime(data.Date, data.Time),
+				Id = Guid.NewGuid(),
+				LogId = log.Id,
+				LogName = log.Name,
+				UserId = GetCurrentlySignedInUser().Id
+			};
+			Dispatcher.Dispatch(AddEvent.CreateFrom(@event));
+			return @event;
 		}
 
 		private Log GetLog(LogData data)
@@ -23,7 +37,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			var log = LogRepository.Name(data.Name);
 			if (log == null)
 			{
-				log = new Log {Id = Guid.NewGuid(), Name = data.Name, UserId = GetCurrentlySignedInUser().Id, Date = MergeDateAndTime(data.Date, data.Time)};
+				log = new Log {Id = Guid.NewGuid(), Name = data.Name, UserId = GetCurrentlySignedInUser().Id};
 				Dispatcher.Dispatch(AddLog.CreateFrom(log));
 			}
 			return log;
