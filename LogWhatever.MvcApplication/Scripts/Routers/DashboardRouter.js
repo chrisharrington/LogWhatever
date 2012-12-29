@@ -31,19 +31,20 @@ LogWhatever.Routers.DashboardRouter.prototype._onLoaded = function () {
 	this._container.find(".measurement-name").clearbox();
 	this._container.find(".measurement-quantity").clearbox();
 	this._container.find(".measurement-units").clearbox();
-	this._container.find("#tag-name").clearbox();
+	this._container.find(".tag-name").clearbox();
 	this._container.find("#email-address").focus();
-
-	this._loadMeasurements("the name");
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._hookupEvents = function () {
 	var me = this;
 	this._container.find("#save").click(function () { me._save(); });
+	this._container.find("#name").change(function () { me._loadMeasurements($(this).val()); me._loadTags($(this).val()); });
+	this._container.find("div.added img.remove-tag").live("click", function() { $(this).parent().fadeOut(200, function() { $(this).remove(); }); });
+	
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._save = function() {
-	//this._validate();
+	this._validate();
 	this._sendLogCommand(this._getLogParameters());
 };
 
@@ -110,5 +111,25 @@ LogWhatever.Routers.DashboardRouter.prototype._sendLogCommand = function(paramet
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._loadMeasurements = function (logName) {
-	this._container.find("#added-measurements").load(LogWhatever.Configuration.VirtualDirectory + "log/measurements?name=" + encodeURIComponent(logName));
+	var container = this._container.find("div.measurements>div.added");
+	container.find(">div").slideUp(150, function() {
+		$(this).remove();
+	});
+
+	$.get(LogWhatever.Configuration.VirtualDirectory + "log/measurements", { name: logName }).success(function(html) {
+		container.prepend(html);
+		container.find("div.new").slideDown(150).find("input").numbersOnly();
+	});
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._loadTags = function (logName) {
+	var container = this._container.find("div.tags>div.added");
+	container.find(">div").slideUp(150, function () {
+		$(this).remove();
+	});
+
+	$.get(LogWhatever.Configuration.VirtualDirectory + "log/tags", { name: logName }).success(function (html) {
+		container.prepend(html);
+		container.find("div.new").slideDown(150);
+	});
 };

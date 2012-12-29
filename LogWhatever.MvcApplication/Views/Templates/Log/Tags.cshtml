@@ -1,0 +1,9 @@
+﻿@model IEnumerable<LogWhatever.Common.Models.Tag>
+
+@foreach (var tag in Model)
+{
+	<div class="new hidden">
+		<h5 class="ellipsis">@tag.Name</h5>
+		<img class="remove-tag" src="@Url.Content("~/Images/remove-icon.png")" alt=""/>
+	</div>
+}

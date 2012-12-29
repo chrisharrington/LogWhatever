@@ -2,26 +2,40 @@
 	div.add { float:left; width:100%; }
 	div.add input[type='text'] { font-size:10px; padding:5px 6px; }
 	div.add input[type='text'].error { border-color:#F00; }
-	div.add>div>div { float:left; width:33.33333%; margin-top:0px; display:table-cell; border-left:solid 2px #EEE; box-sizing:border-box; padding-left:20px; padding-right:20px; }
+	div.add>div { height:100%; }
+	div.add>div>div { float:left; width:33.33333%; margin-top:0px; display:table-cell; border-left:solid 2px #EEE; box-sizing:border-box; padding-left:20px; padding-right:20px; height:100%; }
 	div.add>div>div.info { float:left; width:100%; border-left:0px; margin-bottom:10px; border-bottom:solid 0px #EEE; padding-bottom:10px; padding-right:0px; }
 	div.add>div>div.info>button { float:right; margin-left:10px; width:100px; }
 	div.add>div>div:last-child { padding-right:0px; }
-	div.add>div>div>h5 { float:left; width:100%; }
+	div.add>div>div>h4 { float:left; width:100%; }
 	div.add>div>div>span { float:left; width:100%; color:#AAA; margin-top:5px; }
-	div.add>div>div.name { border-left:none; padding-left:0px; }
-	div.add>div>div.name>input[type='text'] { float:left; width:100%; margin-top:5px; }
-	div.add>div>div.name>#name { margin-top:8px; }
-	div.add>div>div.name>#date { width:49%; margin-right:1%; }
-	div.add>div>div.name>#time { width:49%; margin-left:1%; }
-	div.add>div>div.values>div { float:left; width:100%; margin-top:3px; }
-	div.add>div>div.measurements>div>input[type='text'], #added-measurements>div>input[type='text'] { float:left; width:32%; margin-left:2%; margin-top:0px; }
-	div.add>div>div.measurements>div>input[type='text']:first-child, #added-measurements>div>input[type='text']:first-child { margin-left:0px; }
-	div.add>div>div.tags>div>input[type='text'] { float:left; width:100%; }
-	div.add>div>div.tags>div>input[type='text']:first-child { margin-left:0px; }
-	div.add>div>div.values>div>button { float:left; width:100%; margin-top:5px; }
+	
+	div.name { border-left:none !important; padding-left:0px !important; }
+	div.name>input[type='text'] { float:left; width:100%; margin-top:5px; }
+	div.name>#name { margin-top:8px; }
+	div.name>#date { width:49%; margin-right:1%; }
+	div.name>#time { width:49%; margin-left:1%; }
+	
+	div.values>div { float:left; width:100%; margin-top:3px; }
+	div.values>div.new { margin-top:8px !important; }
+	div.values>div.new>input[type='text'] { height:24px; }
+	div.values>div.new>input[type='text'].measurement-name { float:left; width:34%; }
+	div.values>div.new>input[type='text'].measurement-quantity { float:left; width:20%; margin-left:2%; }
+	div.values>div.new>input[type='text'].measurement-units { float:left; width:20%; margin-left:2%; }
+	div.values>div.new>input[type='text'].tag-name { float:left; width:78%; }
+	div.values>div.new>button { float:left; width:20%; margin-left:2%; height:24px; }
 
-	div.added { float:left; width:100%; margin-top:5px !important; }
-	div.added>div { float:left; width:100%; margin-top:3px; }
+	div.measurements>div.added>div { float:left; width:100%; margin-top:5px; padding:5px; box-sizing:border-box; background-color:#EEE; border-radius:3px; }
+	div.measurements>div.added>div>div { float:left; width:60%; }
+	div.measurements>div.added>div>div>h5.name { float:left; width:100%; }
+	div.measurements>div.added>div>div>span.unit { float:left; width:100%; font-size:10px; color:#999; }
+	div.measurements>div.added>div>input { float:left; width:39%; margin-left:1%; }
+
+	div.tags>div.new { margin-bottom:5px; }
+	div.tags>div.added>div { float:left; width:49.5%; margin-right:1%; margin-top:3px; padding:5px; padding-bottom:4px; box-sizing:border-box; background-color:#EEE; border-radius:3px; }
+	div.tags>div.added>div:nth-child(even) { margin-right:0%; }
+	div.tags>div.added>div>h5 { position:relative; margin-right:18px; display:inline; line-height:12px; }
+	div.tags>div.added>div>img { float:right; width:12px; height:12px; cursor:pointer; }
 </style>
 
 <div class="tile add">
@@ -31,31 +45,31 @@
 			<button id="cancel">Cancel</button>
 		</div>
 		<div class="name">
-			<h5>Name:</h5>
+			<h4>Name:</h4>
 			<span>The name of the log is its identifier. If you're logging something that you've logged before, make sure you enter the same name as before to keep a running record of your activity.</span>
 			<input type="text" id="name" value="Name?" />
 			<input type="text" id="date" value="@DateTime.Now.ToShortDateString()" />
 			<input type="text" id="time" value="12:00 AM" />
 		</div>
 		<div class="values measurements">
-			<h5>Measurements:</h5>
+			<h4>Measurements:</h4>
 			<span>Add any measurements (and their optional units) here. A measurement would be the duration of your run, for example. You can have many measurements; another example would be how far you ran.</span>
-			<div id="added-measurements" class="added"></div>
-			<div>
+			<div class="new">
 				<input type="text" class="measurement-name" value="Name?" />
 				<input type="text" class="measurement-quantity" value="How many?" />
 				<input type="text" class="measurement-units" value="What units?" />
-				<button id="new-measurement">New Measurement</button>
+				<button id="new-measurement">Add</button>
 			</div>
+			<div class="added"></div>
 		</div>
 		<div class="values tags">
-			<h5>Tags:</h5>
+			<h4>Tags:</h4>
 			<span>Tags should indicate something to do with the event you're logging. For example, if you're tracking weight lifting, a tag could be the exercise you performed while the measurement would be the amount lifted.</span>
-			<div id="added-tags" class="added"></div>
-			<div>
-				<input type="text" id="tag-name" value="Name?" />
-				<button id="new-tag">New Tag</button>
+			<div class="new">
+				<input type="text" class="tag-name" value="Name?" />
+				<button id="new-tag">Add</button>
 			</div>
+			<div class="added"></div>
 		</div>
 	</div>
 </div>
