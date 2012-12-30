@@ -177,6 +177,7 @@
     <Content Include="Style\Feedback.css" />
     <Content Include="Style\Fonts.css" />
     <Content Include="Style\Site.css" />
+    <Content Include="Templates\Log\Tag.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

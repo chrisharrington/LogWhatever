@@ -42,7 +42,8 @@ LogWhatever.Routers.DashboardRouter.prototype._hookupEvents = function () {
 	this._container.find("#name").change(function () { me._loadMeasurements($(this).val()); me._loadTags($(this).val()); });
 	this._container.find("div.added img.remove-tag").live("click", function () { $(this).parent().fadeOut(200, function () { $(this).remove(); }); });
 	this._container.find("#add-measurement").click(function () { me._addMeasurement(); });
-	this._container.find("div.added img.remove-measurement").live("click", function() { $(this).parent().slideUp(200, function() { $(this).remove(); }); });
+	this._container.find("div.added img.remove-measurement").live("click", function () { $(this).parent().fadeOut(200, function () { $(this).remove(); }); });
+	this._container.find("#add-tag").click(function() { me._addTag(); });
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._addMeasurement = function() {
@@ -150,25 +151,25 @@ LogWhatever.Routers.DashboardRouter.prototype._sendLogCommand = function(paramet
 
 LogWhatever.Routers.DashboardRouter.prototype._loadMeasurements = function (logName) {
 	var container = this._container.find("div.measurements>div.added");
-	container.find(">div").slideUp(150, function() {
+	container.find(">div").slideUp(200, function() {
 		$(this).remove();
 	});
 
 	$.get(LogWhatever.Configuration.VirtualDirectory + "log/measurements", { name: logName }).success(function(html) {
 		container.prepend(html);
-		container.find("div.new").slideDown(150).find("input").numbersOnly();
+		container.find("div.new").slideDown(200).find("input").numbersOnly();
 	});
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._loadTags = function (logName) {
 	var container = this._container.find("div.tags>div.added");
-	container.find(">div").slideUp(150, function () {
+	container.find(">div").slideUp(200, function () {
 		$(this).remove();
 	});
 
 	$.get(LogWhatever.Configuration.VirtualDirectory + "log/tags", { name: logName }).success(function (html) {
 		container.prepend(html);
-		container.find("div.new").slideDown(150);
+		container.find("div.new").slideDown(200);
 	});
 };
 
@@ -176,4 +177,19 @@ LogWhatever.Routers.DashboardRouter.prototype._loadTemplates = function() {
 	$.get(LogWhatever.Configuration.VirtualDirectory + "Templates/Log/Measurement.html").success(function(html) {
 		$.template("add-measurement", html);
 	});
+
+	$.get(LogWhatever.Configuration.VirtualDirectory + "Templates/Log/Tag.html").success(function(html) {
+		$.template("add-tag", html);
+	});
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._addTag = function () {
+	var name = this._container.find("input.tag-name");
+	if (name.clearbox("value") == "") {
+		name.addClass("error").focus();
+		throw new Error("The tag name is required.");
+	}
+
+	this._container.find("div.tags>div.added").prepend($.tmpl("add-tag", { name: name.clearbox("value") }));
+	this._container.find("div.tags>div.added>div.new").slideDown(200);
 };
