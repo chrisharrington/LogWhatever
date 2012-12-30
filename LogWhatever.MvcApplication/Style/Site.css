@@ -1,7 +1,8 @@
 ﻿html { background:#DCF2DD -webkit-gradient(linear, 0% 0%, 0% 100%, from(#A8EBA4), to(#DCF2DD)) no-repeat; height:100%; }
 body { background-color:#FFF; margin:0; padding:0; font-family:helvetica, 'Signika', helvetica; font-size:12px; }
 
-div.content { float:left; width:100%; height:500px; box-sizing:border-box; padding:1%; border-top:solid 3px #34AB2E; }
+div.container { float:left; width:100%; height:500px; box-sizing:border-box; padding:1%; border-top:solid 3px #34AB2E; }
+div.content { float:left; width:100%; }
 
 h1 { font-family:itc-franklin-gothic-standard; font-size:28px; text-transform:uppercase; margin:0; padding:0; }
 h2 { font-family:itc-franklin-gothic-standard; font-size:24px; text-transform:uppercase; margin:0; padding:0; }

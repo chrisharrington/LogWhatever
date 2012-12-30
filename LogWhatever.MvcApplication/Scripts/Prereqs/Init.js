@@ -8,6 +8,7 @@ LogWhatever.Init = function () {
     $.when(this._getConfigurationData(), this._getLoggedInUser()).done(function () {
         me._createRouters();
         me._hookupMenuLinks();
+	    me._createAddLogEntryControl();
 
         $("div.tile.selectable, div.tile.deletable").live("click", function () {
             $(this).toggleClass("selected");
@@ -61,6 +62,13 @@ LogWhatever.Init.prototype._logOut = function () {
     }).error(function () {
         LogWhatever.Feedback.error("An error has occurred while logging you out. Please contact technical support.");
     });
+};
+
+LogWhatever.Init.prototype._createAddLogEntryControl = function() {
+	LogWhatever.Logger = new LogWhatever.Controls.Logger({
+		container: $("div.container"),
+		onLoaded: function () {  }
+	});
 };
 
 $(function () {

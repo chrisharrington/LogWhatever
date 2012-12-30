@@ -155,9 +155,11 @@
     <Content Include="Images\menu-selected-icon.png" />
     <Content Include="Images\remove-icon.png" />
     <Content Include="Scripts\Controls\Autocomplete.js" />
+    <Content Include="Scripts\Controls\Base.js" />
     <Content Include="Scripts\Controls\Dialog.js" />
     <Content Include="Scripts\Controls\Ellipsis.js" />
     <Content Include="Scripts\Controls\Feedback.js" />
+    <Content Include="Scripts\Controls\Logger.js" />
     <Content Include="Scripts\Controls\Table.js" />
     <Content Include="Scripts\Extensions\ArrayExtensions.js" />
     <Content Include="Scripts\Extensions\DateExtensions.js" />
@@ -177,6 +179,7 @@
     <Content Include="Style\Feedback.css" />
     <Content Include="Style\Fonts.css" />
     <Content Include="Style\Site.css" />
+    <Content Include="Templates\Log\Logger.html" />
     <Content Include="Templates\Log\Tag.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
