@@ -46,7 +46,9 @@ LogWhatever.Routers.DashboardRouter.prototype._hookupEvents = function () {
 	this._container.find("#add-tag").click(function() { me._addTag(); });
 };
 
-LogWhatever.Routers.DashboardRouter.prototype._addMeasurement = function() {
+LogWhatever.Routers.DashboardRouter.prototype._addMeasurement = function () {
+	this._container.find("input.error").removeClass("error");
+
 	var container = this._container.find("div.measurements>div.new");
 	var name = container.find("input.measurement-name");
 	var quantity = container.find("input.measurement-quantity");
@@ -123,18 +125,29 @@ LogWhatever.Routers.DashboardRouter.prototype._validateTime = function () {
 
 LogWhatever.Routers.DashboardRouter.prototype._getLogParameters = function() {
 	return {
-		Name: "the name",
-		Date: "12/20/2012",
-		Time: "7:00 PM",
-		Measurements: [
-			{ Name: "the measurement name", Quantity: 10.5, Unit: "km" },
-			{ Name: "the measurement name 2", Quantity: 15, Unit: "grams" }
-		],
-		Tags: [
-			{ Name: "the first tag", },
-			{ Name: "the second tag" }
-		]
+		Name: this._container.find("#name").clearbox("value"),
+		Date: this._container.find("#date").val(),
+		Time: this._container.find("#time").val(),
+		Measurements: this._getLogMeasurementParameters(),
+		Tags: this._getLogTagParameters()
 	};
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._getLogMeasurementParameters = function() {
+	var measurements = new Array();
+	this._container.find("div.measurements>div.added>div").each(function() {
+		var panel = $(this);
+		measurements.push({ Name: panel.find("h5").text(), Quantity: panel.find("input").val(), Unit: panel.find("span").text() });
+	});
+	return measurements;
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._getLogTagParameters = function() {
+	var tags = new Array();
+	this._container.find("div.tags>div.added>div").each(function() {
+		tags.push({ Name: $(this).find("h5").text() });
+	});
+	return tags;
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._sendLogCommand = function(parameters) {
@@ -184,6 +197,8 @@ LogWhatever.Routers.DashboardRouter.prototype._loadTemplates = function() {
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._addTag = function () {
+	this._container.find("input.error").removeClass("error");
+	
 	var name = this._container.find("input.tag-name");
 	if (name.clearbox("value") == "") {
 		name.addClass("error").focus();
