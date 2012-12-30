@@ -1,7 +1,8 @@
 ﻿namespace("LogWhatever.Routers");
 
 LogWhatever.Routers.DashboardRouter = function (params) {
-    this._init(params);
+	this._init(params);
+	this._loadTemplates();
 };
 
 LogWhatever.Routers.DashboardRouter.create = function (params) {
@@ -19,7 +20,7 @@ LogWhatever.Routers.DashboardRouter.prototype._onLoading = function () {
     this._clearSubheader();
     this._hookupEvents();
 
-	$.when(this._container.find("img").load()).done(function () {	    
+	$.when(this._container.find("img").load()).done(function () {
         deferred.resolve();
     });
 
@@ -39,8 +40,34 @@ LogWhatever.Routers.DashboardRouter.prototype._hookupEvents = function () {
 	var me = this;
 	this._container.find("#save").click(function () { me._save(); });
 	this._container.find("#name").change(function () { me._loadMeasurements($(this).val()); me._loadTags($(this).val()); });
-	this._container.find("div.added img.remove-tag").live("click", function() { $(this).parent().fadeOut(200, function() { $(this).remove(); }); });
+	this._container.find("div.added img.remove-tag").live("click", function () { $(this).parent().fadeOut(200, function () { $(this).remove(); }); });
+	this._container.find("#add-measurement").click(function () { me._addMeasurement(); });
+	this._container.find("div.added img.remove-measurement").live("click", function() { $(this).parent().slideUp(200, function() { $(this).remove(); }); });
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._addMeasurement = function() {
+	var container = this._container.find("div.measurements>div.new");
+	var name = container.find("input.measurement-name");
+	var quantity = container.find("input.measurement-quantity");
+	var unit = container.find("input.measurement-units");
 	
+	if (name.clearbox("value") == "") {
+		name.addClass("error").focus();
+		throw new Error("The measurement name is required.");
+	}
+
+	if (quantity.clearbox("value") == "") {
+		quantity.addClass("error").focus();
+		throw new Error("The ")
+	}
+	
+	if (isNaN(parseFloat(quantity.clearbox("value")))) {
+		quantity.addClass("error").focus();
+		throw new Error("The measurement quantity is invalid.");
+	}
+
+	this._container.find("div.measurements>div.added").prepend($.tmpl("add-measurement", { name: name.clearbox("value"), quantity: quantity.clearbox("value"), unit: unit.clearbox("value") }));
+	this._container.find("div.measurements>div.added>div.new").slideDown(200);
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._save = function() {
@@ -50,22 +77,33 @@ LogWhatever.Routers.DashboardRouter.prototype._save = function() {
 
 LogWhatever.Routers.DashboardRouter.prototype._validate = function () {
 	this._container.find("input[type='text'].error").removeClass("error");
+	this._validateName();
+	this._validateTime();
+	this._validateMeasurements();
+};
 
+LogWhatever.Routers.DashboardRouter.prototype._validateName = function() {
 	var name = this._container.find("#name");
 	if (name.clearbox("value") == "") {
 		name.addClass("error");
 		throw new Error("The name is required.");
 	}
-
-	this._validateTime();
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._validateMeasurements = function() {
-	var panel = this._container.find("div.measurements>div");
-	if (panel.find("input.measurement-name").clearbox("value") == "")
-		throw new Error("The name for measurements is required.");
-	if (panel.find("input.measurement-quantity").clearbox("value") == "")
-		throw new Error("The quantity for measurements is required.");
+	this._container.find("div.measurements>div.added input[type='text']").each(function() {
+		var value = $(this).val();
+		var error;
+		if (value == "")
+			error = "The measurement quantity is required.";
+		else if (isNaN(parseFloat(value)))
+			error = "The measurement quantity is invalid.";
+
+		if (error) {
+			$(this).addClass("error").focus();
+			throw new Error(error);
+		}
+	});
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._validateTag = function() {
@@ -131,5 +169,11 @@ LogWhatever.Routers.DashboardRouter.prototype._loadTags = function (logName) {
 	$.get(LogWhatever.Configuration.VirtualDirectory + "log/tags", { name: logName }).success(function (html) {
 		container.prepend(html);
 		container.find("div.new").slideDown(150);
+	});
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._loadTemplates = function() {
+	$.get(LogWhatever.Configuration.VirtualDirectory + "Templates/Log/Measurement.html").success(function(html) {
+		$.template("add-measurement", html);
 	});
 };

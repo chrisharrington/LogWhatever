@@ -219,6 +219,7 @@
     <Content Include="Views\Templates\Pages\Dashboard.cshtml" />
     <Content Include="Views\Templates\Log\Measurements.cshtml" />
     <Content Include="Views\Templates\Log\Tags.cshtml" />
+    <Content Include="Templates\Log\Measurement.html" />
     <None Include="Views\Templates\Pages\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
