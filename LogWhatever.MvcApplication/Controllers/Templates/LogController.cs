@@ -21,7 +21,7 @@ namespace LogWhatever.MvcApplication.Controllers.Templates
 		public PartialViewResult Measurements(string name)
 		{
 			var log = LogRepository.Name(name);
-			var measurements = log == null ? new List<Measurement>() : MeasurementRepository.LogId(log.Id);
+			var measurements = log == null ? new List<Measurement>() : MeasurementRepository.Log(log.Id);
 			if (measurements.Any())
 				measurements = measurements.GroupBy(x => x.EventId).First();
 			return PartialView("~/Views/Templates/Log/Measurements.cshtml", measurements.ToList().OrderBy(x => x.Name));

@@ -7,7 +7,8 @@ namespace LogWhatever.Common.Repositories
 	public interface IMeasurementRepository
 	{
 		#region Public Methods
-		IEnumerable<Measurement> LogId(Guid logId);
+		IEnumerable<Measurement> Log(Guid logId);
+		IEnumerable<Measurement> User(Guid userId);
 		#endregion
 	}
 }

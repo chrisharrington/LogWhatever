@@ -2,7 +2,7 @@
 body { background-color:#FFF; margin:0; padding:0; font-family:helvetica, 'Signika', helvetica; font-size:12px; }
 
 div.container { float:left; width:100%; height:500px; box-sizing:border-box; padding:1%; border-top:solid 3px #70C8EB; }
-div.content { float:left; width:100%; }
+div.content { float:left; width:100%; display:table; }
 
 h1 { font-family:itc-franklin-gothic-standard; font-size:28px; text-transform:uppercase; margin:0; padding:0; }
 h2 { font-family:itc-franklin-gothic-standard; font-size:24px; text-transform:uppercase; margin:0; padding:0; }
@@ -19,16 +19,17 @@ input[type='text'], input[type='password'] { border:solid 1px #CCC; padding:3px 
 
 div.tile { display:table-cell; box-sizing:border-box; background-color:transparent; }
 div.tile>div { float:left; width:100%; background-color:#FFF; border-radius:4px; box-sizing:border-box; padding:15px; }
-div.tile>div>h3 { float:left; width:100%; color:#34AB2E; }
+div.tile>div>h3 { float:left; width:100%; color:#498FCC; }
 div.tile>div>div { float:left; width:100%; margin-top:10px; }
 
-header { float:left; width:100%; background-color:#333; color:#DDD; padding:5px 15px; box-sizing:border-box; font-size:1em; }
-header>div.user { float:right; display:none; width:200px; }
-header>div.user>button { float:right; margin-top:8px; background:-webkit-linear-gradient(top, #356EB0, #0C4B94); border:solid 1px #666; }
-header>div.user>div { float:right; }
-header>div.user>div>span { float:left; cursor:pointer; margin-right:12px; padding-right:12px; border-right:solid 1px #888; font-size:9px; text-transform:uppercase; }
+header { float:left; width:100%; background-color:#333; color:#DDD; padding:10px 15px; box-sizing:border-box; font-size:1em; }
+header>div.user { float:right; display:none; }
+header>div.user>button { float:left; background:-webkit-linear-gradient(top, #356EB0, #0C4B94); border:solid 1px #666; margin-left:10px; }
+header>div.user>div { float:left; }
+header>div.user>div>span { float:left; width:100%; cursor:pointer; font-size:8px; text-transform:uppercase; text-align:right; margin-right:10px; margin-top:1px; }
 header>div.user>div>span:last-child { margin-right:0px; padding-right:0px; border-right:none; }
-header>div.menu { float:left; margin-top:10px; }
+header>div.user>div>span:hover { text-decoration:underline; }
+header>div.menu { float:left; }
 header>div.menu>a { float:left; cursor:pointer; text-align:center; width:100%; font-size:16px; margin-top:2px; font-family:itc-franklin-gothic-standard; text-transform:uppercase; }
 header.div.menu>a.selected { color:#34AB2E; }
 

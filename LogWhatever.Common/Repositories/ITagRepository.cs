@@ -8,6 +8,7 @@ namespace LogWhatever.Common.Repositories
 	{
 		#region Public Methods
 		IEnumerable<Tag> LogId(Guid logId);
+		IEnumerable<Tag> User(Guid userId);
 		#endregion
 	}
 }

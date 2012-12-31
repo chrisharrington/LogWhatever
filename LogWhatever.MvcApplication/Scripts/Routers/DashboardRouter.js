@@ -18,7 +18,7 @@ LogWhatever.Routers.DashboardRouter.prototype._onLoading = function () {
 
     this._clearSubheader();
 
-	$.when(this._container.find("img").load()).done(function () {
+    $.when(this._container.find("img").load()).done(function () {
         deferred.resolve();
     });
 
@@ -26,11 +26,21 @@ LogWhatever.Routers.DashboardRouter.prototype._onLoading = function () {
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._onLoaded = function () {
-	this._container.find("#name").clearbox();
-	this._container.find(".measurement-name").clearbox();
-	this._container.find(".measurement-quantity").clearbox();
-	this._container.find(".measurement-units").clearbox();
-	this._container.find(".tag-name").clearbox();
-	this._container.find("#email-address").focus();
+	this._setLogTileHeights();
 };
 
+LogWhatever.Routers.DashboardRouter.prototype._setLogTileHeights = function () {
+	var localMax;
+	var me = this;
+	this._container.find("div.log").each(function (index) {
+		if (index % 4 == 0 && localMax > 0) {
+			me._container.find("div.log.local-max").height(localMax).removeClass("local-max");
+			localMax = 0;
+		}
+
+		$(this).addClass("local-max");
+		localMax = $(this).height();
+	});
+
+	this._container.find("div.log.local-max").height(localMax).removeClass("local-max");
+};
