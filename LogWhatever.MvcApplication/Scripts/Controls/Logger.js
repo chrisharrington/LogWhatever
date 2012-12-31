@@ -7,6 +7,7 @@ LogWhatever.Controls.Logger = function (parameters) {
 	this._loadTemplates().done(function () {
 		me._loadView();
 		me._onLoaded();
+		me._hookupEvents();
 	});
 };
 
@@ -19,8 +20,14 @@ $.extend(LogWhatever.Controls.Logger.prototype, LogWhatever.Controls.Base.protot
 //--------------------------------------------------------------------------------------------------------------------------------------------
 /* Public Methods */
 
-LogWhatever.Controls.Logger.prototype.show = function() {
-	alert("show");
+LogWhatever.Controls.Logger.prototype.show = function () {
+	var me = this;
+	this._container.fadeIn(200, function () {
+		me._container.find("#email-address").focus();
+	});
+
+	this._container.find("#date").val(new Date().toShortDateString());
+	this._container.find("#name").focus();
 };
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
@@ -34,17 +41,24 @@ LogWhatever.Controls.Logger.prototype._createDefaults = function() {
 
 LogWhatever.Controls.Logger.prototype._loadView = function () {
 	$.tmpl("logger").prependTo(this._container).hide();
-	this._container = this._container.find("div.add");
+	this._container = this._container.find("div.logger");
+	
+	this._container.find("#name").clearbox();
+	this._container.find(".measurement-name").clearbox();
+	this._container.find(".measurement-quantity").clearbox();
+	this._container.find(".measurement-units").clearbox();
+	this._container.find(".tag-name").clearbox();
 };
 
 LogWhatever.Controls.Logger.prototype._hookupEvents = function () {
 	var me = this;
-	this._container.find("#save").click(function () { me._save(); });
+	this._container.find("#logger-save").click(function () { me._save(); });
 	this._container.find("#name").change(function () { me._loadMeasurements($(this).val()); me._loadTags($(this).val()); });
 	this._container.find("div.added img.remove-tag").live("click", function () { $(this).parent().fadeOut(200, function () { $(this).remove(); }); });
 	this._container.find("#add-measurement").click(function () { me._addMeasurement(); });
 	this._container.find("div.added img.remove-measurement").live("click", function () { $(this).parent().fadeOut(200, function () { $(this).remove(); }); });
 	this._container.find("#add-tag").click(function () { me._addTag(); });
+	this._container.find("#logger-cancel").click(function () { me._container.fadeOut(200); });
 };
 
 LogWhatever.Controls.Logger.prototype._addMeasurement = function () {
@@ -72,6 +86,22 @@ LogWhatever.Controls.Logger.prototype._addMeasurement = function () {
 
 	this._container.find("div.measurements>div.added").prepend($.tmpl("add-measurement", { name: name.clearbox("value"), quantity: quantity.clearbox("value"), unit: unit.clearbox("value") }));
 	this._container.find("div.measurements>div.added>div.new").slideDown(200);
+	this._container.find("input.measurement-name, input.measurement-quantity, input.measurement-units").clearbox("reset");
+	name.focus();
+};
+
+LogWhatever.Controls.Logger.prototype._addTag = function () {
+	this._container.find("input.error").removeClass("error");
+
+	var name = this._container.find("input.tag-name");
+	if (name.clearbox("value") == "") {
+		name.addClass("error").focus();
+		throw new Error("The tag name is required.");
+	}
+
+	this._container.find("div.tags>div.added").prepend($.tmpl("add-tag", { name: name.clearbox("value") }));
+	this._container.find("div.tags>div.added>div.new").slideDown(200);
+	name.clearbox("reset").focus();
 };
 
 LogWhatever.Controls.Logger.prototype._save = function () {
@@ -89,7 +119,7 @@ LogWhatever.Controls.Logger.prototype._validate = function () {
 LogWhatever.Controls.Logger.prototype._validateName = function () {
 	var name = this._container.find("#name");
 	if (name.clearbox("value") == "") {
-		name.addClass("error");
+		name.addClass("error").focus();
 		throw new Error("The name is required.");
 	}
 };
@@ -197,17 +227,4 @@ LogWhatever.Controls.Logger.prototype._loadTemplates = function () {
 		deferred.resolve();
 	});
 	return deferred.promise();
-};
-
-LogWhatever.Controls.Logger.prototype._addTag = function () {
-	this._container.find("input.error").removeClass("error");
-
-	var name = this._container.find("input.tag-name");
-	if (name.clearbox("value") == "") {
-		name.addClass("error").focus();
-		throw new Error("The tag name is required.");
-	}
-
-	this._container.find("div.tags>div.added").prepend($.tmpl("add-tag", { name: name.clearbox("value") }));
-	this._container.find("div.tags>div.added>div.new").slideDown(200);
 };

@@ -60,6 +60,14 @@ namespace LogWhatever.Common.Extensions
 
 			return !isDescending ? list.AsQueryable().OrderBy(sortExpression) : list.AsQueryable().OrderByDescending(sortExpression);
 		}
+
+		public static IEnumerable<T> Distinct<T>(this IEnumerable<T> list, Func<T, T, bool> equalityComparer)
+		{
+			var results = new List<T>();
+			foreach (var item in list.Where(item => !results.Aggregate(false, (current, result) => current || equalityComparer(item, result))))
+				results.Add(item);
+			return results;
+		}  
         #endregion
     }
 }

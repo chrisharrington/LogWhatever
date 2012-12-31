@@ -8,6 +8,11 @@
             });
             return aggregate.substr(1);
         }
+        else if (command == "reset") {
+	        return this.each(function() {
+		        $(this).val($(this).attr("data-orig-value")).css("color", "#AAA");
+	        });
+        }
         else {
             return this.each(function () {
                 if (this.toString() != "[object HTMLInputElement]" || (this.type != "text" && this.type != "password"))

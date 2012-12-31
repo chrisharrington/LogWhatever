@@ -8,7 +8,11 @@ LogWhatever.Init = function () {
     $.when(this._getConfigurationData(), this._getLoggedInUser()).done(function () {
         me._createRouters();
         me._hookupMenuLinks();
-	    me._createAddLogEntryControl();
+        me._createAddLogEntryControl();
+
+	    $("button.logger").click(function() {
+		    me._logger.show();
+	    });
 
         $("div.tile.selectable, div.tile.deletable").live("click", function () {
             $(this).toggleClass("selected");
@@ -51,7 +55,7 @@ LogWhatever.Init.prototype._getLoggedInUser = function () {
             return;
 
         var userPanel = $("header>div.user");
-        userPanel.find("a:first").text(user.Name);
+        userPanel.find("span:first").text(user.Name);
         userPanel.fadeIn(200);
     });
 };
@@ -65,7 +69,7 @@ LogWhatever.Init.prototype._logOut = function () {
 };
 
 LogWhatever.Init.prototype._createAddLogEntryControl = function() {
-	LogWhatever.Logger = new LogWhatever.Controls.Logger({
+	this._logger = new LogWhatever.Controls.Logger({
 		container: $("div.container"),
 		onLoaded: function () {  }
 	});
