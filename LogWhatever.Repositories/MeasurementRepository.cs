@@ -13,7 +13,7 @@ namespace LogWhatever.Repositories
 			if (logId == Guid.Empty)
 				throw new ArgumentNullException("logId");
 
-			return Query<Measurement>("select * from Measurements where Log = @logId", new {logId});
+			return Query<Measurement>("select * from Measurements where LogId = @logId", new {logId});
 		}
 
 		public IEnumerable<Measurement> User(Guid userId)

@@ -34,12 +34,13 @@ namespace LogWhatever.MvcApplication.Controllers.Templates
 			var tags = TagRepository.User(user.Id).ToArray();
 			var logs = LogRepository.User(user.Id).ToArray();
 		
-			return PartialView("~/Views/Templates/Pages/Dashboard.cshtml", logs.Select(log => new DashboardLogModel {
-				Name = log.Name,
-				Date = log.UpdatedDate,
-				Measurements = measurements.Where(measurement => measurement.LogId == log.Id).GroupBy(x => x.EventId).OrderByDescending(x => x.Any() ? x.First().UpdatedDate : DateTime.Now).FirstOrDefault().OrderBy(x => x.Name),
-				Tags = tags.Where(tag => tag.LogId == log.Id).GroupBy(x => x.EventId).OrderByDescending(x => x.Any() ? x.First().UpdatedDate : DateTime.Now).FirstOrDefault().OrderBy(x => x.Name)
-			}).ToArray());
+			//return PartialView("~/Views/Templates/Pages/Dashboard.cshtml", logs.Select(log => new DashboardLogModel {
+			//	Name = log.Name,
+			//	Date = log.UpdatedDate,
+			//	Measurements = measurements.Where(measurement => measurement.LogId == log.Id).GroupBy(x => x.EventId).OrderByDescending(x => x.Any() ? x.First().UpdatedDate : DateTime.Now).FirstOrDefault().OrderBy(x => x.Name),
+			//	Tags = tags.Where(tag => tag.LogId == log.Id).GroupBy(x => x.EventId).OrderByDescending(x => x.Any() ? x.First().UpdatedDate : DateTime.Now).FirstOrDefault().OrderBy(x => x.Name)
+			//}).ToArray());
+			return PartialView("~/Views/Templates/Pages/Dashboard.cshtml", new List<DashboardLogModel>());
 		}
 		#endregion
 		

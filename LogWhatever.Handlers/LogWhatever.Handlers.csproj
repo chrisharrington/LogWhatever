@@ -44,11 +44,13 @@
     <Compile Include="Commands\LogHandler.cs" />
     <Compile Include="Commands\BaseCommandHandler.cs" />
     <Compile Include="Commands\MeasurementHandler.cs" />
+    <Compile Include="Commands\MeasurementValueHandler.cs" />
     <Compile Include="Commands\TagHandler.cs" />
     <Compile Include="Denormalizers\BaseDenormalizer.cs" />
     <Compile Include="Denormalizers\EventDenormalizer.cs" />
     <Compile Include="Denormalizers\LogDenormalizer.cs" />
     <Compile Include="Denormalizers\MeasurementDenormalizer.cs" />
+    <Compile Include="Denormalizers\MeasurementValueDenormalizer.cs" />
     <Compile Include="Denormalizers\TagDenormalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

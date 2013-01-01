@@ -183,7 +183,6 @@ LogWhatever.Controls.Logger.prototype._getLogTagParameters = function () {
 
 LogWhatever.Controls.Logger.prototype._sendLogCommand = function (parameters) {
 	var inputs = this._container.find("input, textarea, select").attr("disabled", true);
-
 	$.post(LogWhatever.Configuration.VirtualDirectory + "api/logs", parameters).success(function () {
 		LogWhatever.Feedback.success("Your data has been logged.");
 	}).error(function () {

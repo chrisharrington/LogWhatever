@@ -13,7 +13,7 @@ namespace LogWhatever.Repositories
 			if (logId == Guid.Empty)
 				throw new ArgumentNullException("logId");
 
-			return Query<Tag>("select * from Tags where Log = @logId", new {logId});
+			return Query<Tag>("select * from Tags where LogId = @logId", new {logId});
 		}
 
 		public IEnumerable<Tag> User(Guid userId)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 using LogWhatever.Messages.Commands;
@@ -10,6 +11,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 	{
 		#region Properties
 		public ILogRepository LogRepository { get; set; }
+		public IMeasurementRepository MeasurementRepository { get; set; }
 		#endregion
 
 		#region Public Methods
@@ -37,17 +39,24 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			}
 		}
 
-		private void SaveMeasurements(User user, Log log, Event @event, IEnumerable<Measurement> measurements)
+		private void SaveMeasurements(User user, Log log, Event @event, IEnumerable<MeasurementData> values)
 		{
-			foreach (var measurement in measurements)
+			foreach (var value in values)
 			{
-				measurement.Id = Guid.NewGuid();
-				measurement.LogId = log.Id;
-				measurement.LogName = log.Name;
-				measurement.EventId = @event.Id;
-				measurement.UserId = user.Id;
+				var measurement = GetMeasurement(value.Name, value.Unit, log, @event, user);
+				Dispatcher.Dispatch(AddMeasurementValue.CreateFrom(new MeasurementValue {Id = Guid.NewGuid(), MeasurementId = measurement.Id, Quantity = value.Quantity}));
+			}
+		}
+
+		private Measurement GetMeasurement(string name, string unit, Log log, Event @event, User user)
+		{
+			var measurement = MeasurementRepository.Log(log.Id).FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
+			if (measurement == null)
+			{
+				measurement = new Measurement {Id = Guid.NewGuid(), LogId = log.Id, LogName = log.Name, EventId = @event.Id, UserId = user.Id, Name = name, Unit = unit};
 				Dispatcher.Dispatch(AddMeasurement.CreateFrom(measurement));
 			}
+			return measurement;
 		}
 
 		private Event CreateEvent(LogData data, Log log)
@@ -82,8 +91,24 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			public string Name { get; set; }
 			public DateTime Date { get; set; }
 			public DateTime Time { get; set; }
-			public IEnumerable<Measurement> Measurements { get; set; }
+			public IEnumerable<MeasurementData> Measurements { get; set; } 
 			public IEnumerable<Tag> Tags { get; set; } 
+			#endregion
+
+			#region Constructors
+			public LogData()
+			{
+				Tags = new List<Tag>();
+			}
+			#endregion
+		}
+
+		public class MeasurementData
+		{
+			#region Properties
+			public string Name { get; set; }
+			public decimal Quantity { get; set; }
+			public string Unit { get; set; }
 			#endregion
 		}
 		#endregion
