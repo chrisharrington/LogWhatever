@@ -12,6 +12,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		#region Properties
 		public ILogRepository LogRepository { get; set; }
 		public IMeasurementRepository MeasurementRepository { get; set; }
+		public ITagRepository TagRepository { get; set; }
 		#endregion
 
 		#region Public Methods
@@ -21,22 +22,28 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			var log = GetLog(data);
 			var @event = CreateEvent(data, log);
 			SaveMeasurements(data.User, log, @event, data.Measurements);
-			SaveTags(data.User, log, @event, data.Tags);
+			SaveTags(log, data.User, @event, data.Tags);
 		}
 		#endregion
 
 		#region Private Methods
-		private void SaveTags(User user, Log log, Event @event, IEnumerable<Tag> tags)
+		private void SaveTags(Log log, User user, Event @event, IEnumerable<Tag> tags)
 		{
-			foreach (var tag in tags)
+			foreach (var retrieved in tags.Select(GetTag))
+				Dispatcher.Dispatch(AddTagEvent.CreateFrom(new TagEvent {LogId = log.Id, LogName = log.Name, EventId = @event.Id, Id = Guid.NewGuid(), Name = retrieved.Name, TagId = retrieved.Id, UserId = user.Id}));
+		}
+
+		private Tag GetTag(Tag tag)
+		{
+			var retrieved = TagRepository.Name(tag.Name);
+			if (retrieved == null)
 			{
-				tag.Id = Guid.NewGuid();
-				tag.LogId = log.Id;
-				tag.LogName = log.Name;
-				tag.EventId = @event.Id;
-				tag.UserId = user.Id;
-				Dispatcher.Dispatch(AddTag.CreateFrom(tag));
+				retrieved = new Tag();
+				retrieved.Id = Guid.NewGuid();
+				retrieved.Name = tag.Name;
+				Dispatcher.Dispatch(AddTag.CreateFrom(retrieved));
 			}
+			return retrieved;
 		}
 
 		private void SaveMeasurements(User user, Log log, Event @event, IEnumerable<MeasurementData> values)
@@ -44,7 +51,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			foreach (var value in values)
 			{
 				var measurement = GetMeasurement(value.Name, value.Unit, log, @event, user);
-				Dispatcher.Dispatch(AddMeasurementValue.CreateFrom(new MeasurementValue {Id = Guid.NewGuid(), MeasurementId = measurement.Id, Quantity = value.Quantity}));
+				Dispatcher.Dispatch(AddMeasurementValue.CreateFrom(new MeasurementValue {Id = Guid.NewGuid(), MeasurementId = measurement.Id, Quantity = value.Quantity, LogId = log.Id, UserId = user.Id}));
 			}
 		}
 
@@ -99,6 +106,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			public LogData()
 			{
 				Tags = new List<Tag>();
+				Measurements = new List<MeasurementData>();
 			}
 			#endregion
 		}

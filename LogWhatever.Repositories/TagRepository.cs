@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 
@@ -22,6 +23,14 @@ namespace LogWhatever.Repositories
 				throw new ArgumentNullException("userId");
 
 			return Query<Tag>("select * from Tags where UserId = @userId", new {userId});
+		}
+
+		public Tag Name(string name)
+		{
+			if (string.IsNullOrEmpty(name))
+				throw new ArgumentNullException("name");
+
+			return Query<Tag>("select * from Tags where Name = @name", new {name}).FirstOrDefault();
 		}
 		#endregion
 	}

@@ -4,12 +4,11 @@ using LogWhatever.Common.Models;
 
 namespace LogWhatever.Common.Repositories
 {
-	public interface ITagRepository
+	public interface IMeasurementValueRepository
 	{
 		#region Public Methods
-		IEnumerable<Tag> LogId(Guid logId);
-		IEnumerable<Tag> User(Guid userId);
-		Tag Name(string name);
+		IEnumerable<MeasurementValue> Log(Guid logId);
+		IEnumerable<MeasurementValue> User(Guid userId);
 		#endregion
 	}
 }

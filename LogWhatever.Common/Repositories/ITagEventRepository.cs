@@ -4,12 +4,11 @@ using LogWhatever.Common.Models;
 
 namespace LogWhatever.Common.Repositories
 {
-	public interface ITagRepository
+	public interface ITagEventRepository
 	{
 		#region Public Methods
-		IEnumerable<Tag> LogId(Guid logId);
-		IEnumerable<Tag> User(Guid userId);
-		Tag Name(string name);
+		IEnumerable<TagEvent> User(Guid userId);
+		IEnumerable<TagEvent> LatestForUserAndLog(Guid userId, string name);
 		#endregion
 	}
 }

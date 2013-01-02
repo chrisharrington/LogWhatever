@@ -6,6 +6,8 @@ namespace LogWhatever.Messages.Commands
 	public class AddMeasurementValue : BaseCommand
 	{
 		#region Properties
+		public Guid LogId { get; set; }
+		public Guid UserId { get; set; }
 		public Guid MeasurementId { get; set; }
 		public decimal Quantity { get; set; }
 		#endregion
@@ -15,6 +17,8 @@ namespace LogWhatever.Messages.Commands
 		{
 			return new AddMeasurementValue {
 				Id = value.Id,
+				LogId = value.LogId,
+				UserId = value.UserId,
 				MeasurementId = value.MeasurementId,
 				Quantity = value.Quantity,
 				UpdatedDate = value.UpdatedDate

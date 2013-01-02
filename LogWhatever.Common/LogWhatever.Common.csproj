@@ -91,10 +91,13 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\Measurement.cs" />
+    <Compile Include="Models\TagEvent.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ILogRepository.cs" />
     <Compile Include="Repositories\IMeasurementRepository.cs" />
+    <Compile Include="Repositories\IMeasurementValueRepository.cs" />
+    <Compile Include="Repositories\ITagEventRepository.cs" />
     <Compile Include="Repositories\ITagRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Service\Authentication\IMembershipProvider.cs" />

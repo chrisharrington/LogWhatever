@@ -46,7 +46,9 @@
     <Compile Include="BaseRepository.cs" />
     <Compile Include="LogRepository.cs" />
     <Compile Include="MeasurementRepository.cs" />
+    <Compile Include="MeasurementValueRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagEventRepository.cs" />
     <Compile Include="TagRepository.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>

@@ -3,17 +3,17 @@ using System.Linq;
 using System.Web.Mvc;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
-using LogWhatever.Common.Extensions;
 
 namespace LogWhatever.MvcApplication.Controllers.Templates
 {
 	[Authorize]
-	public class LogController : Controller
+	public class LogController : BaseController
 	{
 		#region Properties
 		public ILogRepository LogRepository { get; set; }
 		public IMeasurementRepository MeasurementRepository { get; set; }
 		public ITagRepository TagRepository { get; set; }
+		public ITagEventRepository TagEventRepository { get; set; }
 		#endregion
 
 		#region Public Methods
@@ -30,8 +30,7 @@ namespace LogWhatever.MvcApplication.Controllers.Templates
 		[ActionName("tags")]
 		public PartialViewResult Tags(string name)
 		{
-			var log = LogRepository.Name(name);
-			return PartialView("~/Views/Templates/Log/Tags.cshtml", (log == null ? new List<Tag>() : TagRepository.LogId(log.Id)).Distinct((x, y) => x.Name == y.Name).OrderBy(x => x.Name));
+			return PartialView("~/Views/Templates/Log/Tags.cshtml", TagEventRepository.LatestForUserAndLog(GetCurrentlySignedInUser().Id, name));
 		}
 		#endregion
 	}
