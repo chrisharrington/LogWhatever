@@ -11,7 +11,7 @@ LogWhatever.Routers.WelcomeRouter.create = function (params) {
 $.extend(LogWhatever.Routers.WelcomeRouter.prototype, LogWhatever.Routers.BaseRouter.prototype);
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
-/* Public Methods */
+/* Private Methods */
 
 LogWhatever.Routers.WelcomeRouter.prototype._onLoading = function () {
     var deferred = new $.Deferred();
@@ -26,7 +26,8 @@ LogWhatever.Routers.WelcomeRouter.prototype._onLoading = function () {
     return deferred.promise();
 };
 
-LogWhatever.Routers.WelcomeRouter.prototype._onLoaded = function() {
+LogWhatever.Routers.WelcomeRouter.prototype._onLoaded = function () {
+	this._register = new LogWhatever.Routers.Welcome.Register({ container: this._container.find("div.register") });
 	this._container.find("#email-address").focus();
 };
 

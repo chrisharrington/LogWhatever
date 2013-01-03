@@ -32,7 +32,6 @@ namespace LogWhatever.MvcApplication.Controllers.Templates
 			var user = GetSignedInUser();
 			var measurements = MeasurementRepository.User(user.Id).ToArray();
 			var measurementValues = MeasurementValueRepository.User(user.Id);
-			var tagEvents = TagEventRepository.User(user.Id).ToArray();
 			var logs = LogRepository.User(user.Id).ToArray();
 
 			return PartialView("~/Views/Templates/Pages/Dashboard.cshtml", logs.Select(log => new DashboardLogModel {

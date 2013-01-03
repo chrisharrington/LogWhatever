@@ -16,6 +16,7 @@ h6 { font-family:itc-franklin-gothic-standard; font-size:10px; text-transform:up
 
 button { font-family:itc-franklin-gothic-standard; text-transform:uppercase; background:-webkit-linear-gradient(top, #5F93CF, #2A67AD); color:#DDD; padding:3px 8px; margin:0px; border-radius:3px; border:none; cursor:pointer; }
 input[type='text'], input[type='password'] { border:solid 1px #CCC; padding:3px 5px; box-sizing:border-box; border-radius:3px; }
+input.error { border-color:red !important; }
 
 div.tile { display:table-cell; box-sizing:border-box; background-color:transparent; }
 div.tile>div { float:left; width:100%; background-color:#FFF; border-radius:4px; box-sizing:border-box; padding:15px; }
@@ -40,7 +41,7 @@ div.subheader>div>button:first-child { margin-left:1%; }
 div.subheader>div>img { float:right; margin-top:18px; margin-right:18px; cursor:pointer; }
 div.subheader>div>span { float:left; margin-top:18px; margin-left:10px; color:#000; }
 
-div.form>div { float:left; width:100%; margin-top:5px; }
+div.form>div { float:left; width:100%; margin-top:10px; }
 div.form>div:first-child { margin-top:0px; }
 div.form>div>span { float:left; width:100%; color:#777; text-transform:none; font-weight:normal; }
 div.form>div>input[type='text'], div.form>div>input[type='password'] { float:left; width:100%; border:solid 1px #AAA; padding:5px; border-radius:3px; box-sizing:border-box; }

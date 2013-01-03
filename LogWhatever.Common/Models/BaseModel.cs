@@ -12,6 +12,7 @@ namespace LogWhatever.Common.Models
 		#region Constructors
 		public BaseModel()
 		{
+			Id = Guid.NewGuid();
 			UpdatedDate = DateTime.Now;
 		}
 		#endregion
