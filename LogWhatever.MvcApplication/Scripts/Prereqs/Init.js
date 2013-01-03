@@ -11,7 +11,7 @@ LogWhatever.Init = function () {
         me._createAddLogEntryControl();
 
 	    $("button.logger").click(function() {
-		    me._logger.show();
+		    LogWhatever.Logger.show();
 	    });
 
         $("div.tile.selectable, div.tile.deletable").live("click", function () {
@@ -71,13 +71,14 @@ LogWhatever.Init.prototype._logOut = function () {
 };
 
 LogWhatever.Init.prototype._createAddLogEntryControl = function() {
-	this._logger = new LogWhatever.Controls.Logger({
+	LogWhatever.Logger = new LogWhatever.Controls.Logger({
 		container: $("div.container"),
 		onLoaded: function () {  }
 	});
 };
 
-LogWhatever.Init.prototype._signOut = function() {
+LogWhatever.Init.prototype._signOut = function () {
+	LogWhatever.Logger.hide();
 	$.post(LogWhatever.Configuration.VirtualDirectory + "api/users/sign-out").success(function() {
 		Finch.navigate("/welcome");
 		$("header>div.user").fadeOut(200);

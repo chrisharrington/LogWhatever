@@ -2,9 +2,11 @@
 using LogWhatever.Common.CQRS;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
+using LogWhatever.Service.Authentication;
 
 namespace LogWhatever.MvcApplication.Controllers.Api
 {
+	[CustomAuthorize]
 	public class BaseApiController : ApiController
 	{
 		#region Properties

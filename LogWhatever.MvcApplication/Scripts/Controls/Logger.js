@@ -30,6 +30,10 @@ LogWhatever.Controls.Logger.prototype.show = function () {
 	this._container.find("#name").focus();
 };
 
+LogWhatever.Controls.Logger.prototype.hide = function() {
+	this._container.fadeOut(200);
+};
+
 //--------------------------------------------------------------------------------------------------------------------------------------------
 /* Private Methods */
 

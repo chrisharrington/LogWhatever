@@ -7,8 +7,12 @@
 	div.logger>div>div.info { float:left; width:100%; border-left:0px; margin-bottom:10px; border-bottom:solid 0px #EEE; padding-bottom:10px; padding-right:0px; }
 	div.logger>div>div.info>button { float:right; margin-left:10px; width:100px; }
 	div.logger>div>div:last-child { padding-right:0px; }
-	div.logger>div>div>h4 { float:left; width:100%; }
+	div.logger>div>div>h5 { float:left; width:100%; }
 	div.logger>div>div>span { float:left; width:100%; color:#AAA; margin-top:5px; }
+	
+	div.header { float:left !important; width:100% !important; margin-bottom:15px; padding:0 !important;}
+	div.header>button { float:right; margin-left:10px; width:100px; }
+	div.header>h3 { float:left; color:#498FCC; }
 	
 	div.name { border-left:none !important; padding-left:0px !important; }
 	div.name>input[type='text'] { float:left; width:100%; margin-top:5px; }
@@ -43,17 +47,20 @@
 
 <div class="tile logger hidden ignore">
 	<div>
+		<div class="header">
+			<h3>Log Some Stuff</h3>
+			<button id="logger-cancel">Cancel</button>
+			<button id="logger-save">Save</button>
+		</div>
 		<div class="name">
-			<h4>Name</h4>
+			<h5>Name:</h5>
 			<span>The name of the log is its identifier. If you're logging something that you've logged before, make sure you enter the same name as before to keep a running record of your activity.</span>
 			<input type="text" id="name" value="Name?" />
 			<input type="text" id="date" />
 			<input type="text" id="time" value="12:00 AM" />
-			<button id="logger-cancel">Cancel</button>
-			<button id="logger-save">Save</button>
 		</div>
 		<div class="values measurements">
-			<h4>Measurements</h4>
+			<h5>Measurements:</h5>
 			<span>Add any measurements (and their optional units) here. A measurement would be the duration of your run, for example. You can have many measurements; another example would be how far you ran.</span>
 			<div class="new">
 				<input type="text" class="measurement-name" value="Name?" />
@@ -64,7 +71,7 @@
 			<div class="added"></div>
 		</div>
 		<div class="values tags">
-			<h4>Tags</h4>
+			<h5>Tags:</h5>
 			<span>Tags should indicate something to do with the event you're logging. For example, if you're tracking weight lifting, a tag could be the exercise you performed while the measurement would be the amount lifted.</span>
 			<div class="new">
 				<input type="text" class="tag-name" value="Name?" />

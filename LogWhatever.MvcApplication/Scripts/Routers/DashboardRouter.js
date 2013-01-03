@@ -11,12 +11,13 @@ LogWhatever.Routers.DashboardRouter.create = function (params) {
 $.extend(LogWhatever.Routers.DashboardRouter.prototype, LogWhatever.Routers.BaseRouter.prototype);
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
-/* Public Methods */
+/* Private Methods */
 
 LogWhatever.Routers.DashboardRouter.prototype._onLoading = function () {
     var deferred = new $.Deferred();
 
     this._clearSubheader();
+	this._showLoggerIfEmpty();
 
     $.when(this._container.find("img").load()).done(function () {
         deferred.resolve();
@@ -43,4 +44,9 @@ LogWhatever.Routers.DashboardRouter.prototype._setLogTileHeights = function () {
 	});
 
 	this._container.find("div.log.local-max").height(localMax).removeClass("local-max");
+};
+
+LogWhatever.Routers.DashboardRouter.prototype._showLoggerIfEmpty = function() {
+	if (this._container.find("div.log").length == 0)
+		LogWhatever.Logger.show();
 };
