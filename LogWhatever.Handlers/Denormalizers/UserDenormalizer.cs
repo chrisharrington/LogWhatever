@@ -11,7 +11,7 @@ namespace LogWhatever.Handlers.Denormalizers
 		{
 			using (var connection = OpenConnection())
 			{
-				connection.Insert("Users", message);
+				connection.Insert("LogUsers", message);
 			}
 		}
 		#endregion

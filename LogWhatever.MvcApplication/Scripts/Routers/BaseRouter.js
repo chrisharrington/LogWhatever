@@ -66,8 +66,8 @@ LogWhatever.Routers.BaseRouter.prototype._loadData = function (parameters) {
             Finch.navigate("/missing");
         else if (status == 401)
         	Finch.navigate("/welcome");
-    }).error(function () {
-	    LogWhatever.Feedback.error("An error has occurred while retrieving the view for the current page. Please contact technical support.");
+        else if (status != 200)
+        	LogWhatever.Feedback.error("An error has occurred while retrieving the view for the current page. Please contact technical support.");
     });
 };
 

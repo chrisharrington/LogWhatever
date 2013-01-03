@@ -34,7 +34,9 @@ LogWhatever.Init.prototype._createRouters = function () {
 };
 
 LogWhatever.Init.prototype._hookupMenuLinks = function () {
-	$("div.menu>a").click(function() { Finch.navigate("/" + $(this).attr("data-navigation")); });
+	var me = this;
+	$("div.menu>a").click(function () { Finch.navigate("/" + $(this).attr("data-navigation")); });
+	$("#sign-out").click(function() { me._signOut(); });
 };
 
 LogWhatever.Init.prototype._getConfigurationData = function () {
@@ -72,6 +74,15 @@ LogWhatever.Init.prototype._createAddLogEntryControl = function() {
 	this._logger = new LogWhatever.Controls.Logger({
 		container: $("div.container"),
 		onLoaded: function () {  }
+	});
+};
+
+LogWhatever.Init.prototype._signOut = function() {
+	$.post(LogWhatever.Configuration.VirtualDirectory + "api/users/sign-out").success(function() {
+		Finch.navigate("/welcome");
+		$("header>div.user").fadeOut(200);
+	}).error(function() {
+		LogWhatever.Feedback.error("An error has occurred while signing out out. Please contact technical support.");
 	});
 };
 

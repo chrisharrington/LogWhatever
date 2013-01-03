@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Web.Mvc;
+using System.Web.Http;
 using System.Web.Security;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Service.Authentication;
@@ -37,8 +37,15 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			return UserRepository.Email(emailAddress);
 		}
 
-		[ActionName("register")]
+		[ActionName("sign-out")]
 		[AcceptVerbs("POST")]
+		public void SignOut()
+		{
+			FormsAuthentication.SignOut();
+		}
+
+		[ActionName("registration")]
+		[AcceptVerbs("GET")]
 		public User Register(string name, string email, string password)
 		{
 			if (string.IsNullOrEmpty(name))
@@ -55,6 +62,9 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 
 			var user = new User {Name = name, EmailAddress = email};
 			Dispatcher.Dispatch(AddUser.CreateFrom(user));
+
+			FormsAuthentication.SetAuthCookie(email, false);
+
 			return user;
 		}
 		#endregion
