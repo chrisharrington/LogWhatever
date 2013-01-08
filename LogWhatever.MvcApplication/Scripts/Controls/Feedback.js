@@ -63,7 +63,7 @@ LogWhatever.Controls.Feedback.prototype._loadComponents = function () {
 	var components = {};
 	if ($("#feedback").length == 0)
 		$("body").append($("<div></div>").attr("id", "feedback").append($("<span></span>")));
-	components.panel = $("#feedback").click(function () { $(this).fadeOut(200); });
+	components.panel = $("#feedback").click(function () { $(this).slideUp(200); });
 	components.label = components.panel.find("span");
 	return components;
 };

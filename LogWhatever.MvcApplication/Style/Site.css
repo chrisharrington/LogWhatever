@@ -1,15 +1,15 @@
 ﻿html { background:#DCEDF2 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#A4DAEB), to(#DCEDF2)) no-repeat; height:100%; }
-body { background-color:#FFF; margin:0; padding:0; font-family:helvetica, 'Signika', helvetica; font-size:12px; }
+body { background-color:#FFF; margin:0; padding:0; font-family:'Segoe UI', helvetica; font-size:14px; }
 
 div.container { float:left; width:100%; height:500px; box-sizing:border-box; padding:1%; border-top:solid 3px #70C8EB; }
 div.content { float:left; width:100%; display:table; }
 
-h1 { font-family:itc-franklin-gothic-standard; font-size:28px; text-transform:uppercase; margin:0; padding:0; }
-h2 { font-family:itc-franklin-gothic-standard; font-size:24px; text-transform:uppercase; margin:0; padding:0; }
-h3 { font-family:itc-franklin-gothic-standard; font-size:20px; text-transform:uppercase; margin:0; padding:0; }
-h4 { font-family:itc-franklin-gothic-standard; font-size:16px; text-transform:uppercase; margin:0; padding:0; }
-h5 { font-family:itc-franklin-gothic-standard; font-size:12px; text-transform:uppercase; margin:0; padding:0; }
-h6 { font-family:itc-franklin-gothic-standard; font-size:10px; text-transform:uppercase; margin:0; padding:0; }
+h1 { font-family:itc-franklin-gothic-standard; font-size:2.3333em; text-transform:uppercase; margin:0; padding:0; }
+h2 { font-family:itc-franklin-gothic-standard; font-size:2em; text-transform:uppercase; margin:0; padding:0; }
+h3 { font-family:itc-franklin-gothic-standard; font-size:1.6667em; text-transform:uppercase; margin:0; padding:0; }
+h4 { font-family:itc-franklin-gothic-standard; font-size:1.3333em; text-transform:uppercase; margin:0; padding:0; }
+h5 { font-family:itc-franklin-gothic-standard; font-size:1em; text-transform:uppercase; margin:0; padding:0; }
+h6 { font-family:itc-franklin-gothic-standard; font-size:0.8333em; text-transform:uppercase; margin:0; padding:0; }
 
 .hidden { display:none; }
 .ellipsis { text-overflow:ellipsis; overflow:hidden; white-space:nowrap; }
@@ -19,7 +19,7 @@ input[type='text'], input[type='password'] { border:solid 1px #CCC; padding:3px 
 input.error { border-color:red !important; }
 
 div.tile { display:table-cell; box-sizing:border-box; background-color:transparent; }
-div.tile>div { float:left; width:100%; background-color:#FFF; border-radius:4px; box-sizing:border-box; padding:15px; }
+div.tile>div { float:left; width:100%; background-color:#FFF; border-radius:4px; box-sizing:border-box; padding:10px; }
 div.tile>div>h3 { float:left; width:100%; color:#498FCC; }
 div.tile>div>div { float:left; width:100%; margin-top:10px; }
 
@@ -27,11 +27,11 @@ header { float:left; width:100%; height:45px; background-color:#333; color:#DDD;
 header>div.user { float:right; display:none; }
 header>div.user>button { float:left; background:-webkit-linear-gradient(top, #356EB0, #0C4B94); border:solid 1px #666; margin-left:10px; }
 header>div.user>div { float:left; }
-header>div.user>div>span { float:left; width:100%; cursor:pointer; font-size:8px; text-transform:uppercase; text-align:right; margin-right:10px; margin-top:1px; }
+header>div.user>div>span { float:left; width:100%; cursor:pointer; font-size:0.6667em; text-transform:uppercase; text-align:right; margin-right:10px; margin-top:1px; }
 header>div.user>div>span:last-child { margin-right:0px; padding-right:0px; border-right:none; }
 header>div.user>div>span:hover { text-decoration:underline; }
 header>div.menu { float:left; }
-header>div.menu>a { float:left; cursor:pointer; text-align:center; width:100%; font-size:16px; margin-top:2px; font-family:itc-franklin-gothic-standard; text-transform:uppercase; }
+header>div.menu>a { float:left; cursor:pointer; text-align:center; width:100%; font-size:1.3333em; margin-top:2px; font-family:itc-franklin-gothic-standard; text-transform:uppercase; }
 header.div.menu>a.selected { color:#34AB2E; }
 
 div.subheader { float:left; width:100%; color:#FFF; background:#DDD; overflow:hidden; display:none; height:50px; border-bottom:solid 1px #BBB; }

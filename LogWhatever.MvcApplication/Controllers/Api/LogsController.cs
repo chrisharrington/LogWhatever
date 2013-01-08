@@ -51,7 +51,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			foreach (var value in values)
 			{
 				var measurement = GetMeasurement(value.Name, value.Unit, log, @event, user);
-				Dispatcher.Dispatch(AddMeasurementValue.CreateFrom(new MeasurementValue {Id = Guid.NewGuid(), MeasurementId = measurement.Id, Quantity = value.Quantity, LogId = log.Id, UserId = user.Id}));
+				Dispatcher.Dispatch(AddMeasurementValue.CreateFrom(new MeasurementValue {Id = Guid.NewGuid(), EventId = @event.Id, MeasurementId = measurement.Id, Quantity = value.Quantity, LogId = log.Id, UserId = user.Id}));
 			}
 		}
 

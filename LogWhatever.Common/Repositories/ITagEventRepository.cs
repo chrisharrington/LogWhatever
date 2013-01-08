@@ -9,6 +9,7 @@ namespace LogWhatever.Common.Repositories
 		#region Public Methods
 		IEnumerable<TagEvent> User(Guid userId);
 		IEnumerable<TagEvent> LatestForUserAndLog(Guid userId, string name);
+		IEnumerable<TagEvent> Log(Guid id);
 		#endregion
 	}
 }

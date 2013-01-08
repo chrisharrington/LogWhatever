@@ -58,6 +58,7 @@ namespace LogWhatever.MvcApplication
 			var routes = RouteTable.Routes;
 
 			routes.MapHttpRoute("ControllerAndAction", "api/{controller}/{action}", new { action = RouteParameter.Optional });
+			routes.MapRoute("Details", "pages/details/{name}", new { controller = "Pages", action = "Details" });
 			routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Shared", action = "Index", id = UrlParameter.Optional });
 
 			Logger.Info("Routes registered.");

@@ -1,0 +1,14 @@
+﻿@model IEnumerable<LogWhatever.MvcApplication.Controllers.Templates.PagesController.EventModel>
+
+<style type="text/css">
+	div.tile { float:left; display:block; width:24.25%; margin-right:1%;}
+</style>
+
+@foreach (var evt in Model)
+{
+	<div class="tile">
+		<div>
+			<h3>@evt.Date.ToShortDateString()</h3>
+		</div>
+	</div>
+}

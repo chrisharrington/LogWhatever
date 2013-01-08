@@ -26,12 +26,20 @@ LogWhatever.Controls.Logger.prototype.show = function () {
 		me._container.find("#email-address").focus();
 	});
 
-	this._container.find("#date").val(new Date().toShortDateString());
+	this._container.find("#date").val(new Date().toShortDateString()).attr("data-orig", new Date().toShortDateString());
 	this._container.find("#name").focus();
 };
 
-LogWhatever.Controls.Logger.prototype.hide = function() {
-	this._container.fadeOut(200);
+LogWhatever.Controls.Logger.prototype.hide = function () {
+	var me = this;
+	this._container.fadeOut(200, function () {
+		me._container.find(".error").removeClass("error");
+		me._container.find("#name").val("Name?").change();
+		me._container.find("#date").val(new Date().toShortDateString());
+		me._container.find("#time").val("12:00 AM");
+		me._container.find(".cb").clearbox("reset");
+		me._container.find("div.added").empty();
+	});
 };
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
@@ -60,9 +68,9 @@ LogWhatever.Controls.Logger.prototype._hookupEvents = function () {
 	this._container.find("#name").change(function () { me._loadMeasurements($(this).val()); me._loadTags($(this).val()); });
 	this._container.find("div.added img.remove-tag").live("click", function () { $(this).parent().fadeOut(200, function () { $(this).remove(); }); });
 	this._container.find("#add-measurement").click(function () { me._addMeasurement(); });
-	this._container.find("div.added img.remove-measurement").live("click", function () { $(this).parent().fadeOut(200, function () { $(this).remove(); }); });
+	this._container.find("div.added>div").live("click", function () { $(this).fadeOut(200, function () { $(this).remove(); }); });
 	this._container.find("#add-tag").click(function () { me._addTag(); });
-	this._container.find("#logger-cancel").click(function () { me._container.fadeOut(200); });
+	this._container.find("#logger-cancel").click(function () { me.hide(); });
 };
 
 LogWhatever.Controls.Logger.prototype._addMeasurement = function () {
@@ -103,8 +111,9 @@ LogWhatever.Controls.Logger.prototype._addTag = function () {
 		throw new Error("The tag name is required.");
 	}
 
-	this._container.find("div.tags>div.added").prepend($.tmpl("add-tag", { name: name.clearbox("value") }));
-	this._container.find("div.tags>div.added>div.new").slideDown(200);
+	var added = this._container.find("div.tags>div.added");
+	added.prepend($.tmpl("add-tag", { name: name.clearbox("value") }));
+	added.find(">div.new").slideDown(200).find(">h5");
 	name.clearbox("reset").focus();
 };
 

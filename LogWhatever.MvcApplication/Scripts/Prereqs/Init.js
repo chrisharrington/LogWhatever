@@ -30,6 +30,7 @@ LogWhatever.Init.create = function() {
 LogWhatever.Init.prototype._createRouters = function () {
 	LogWhatever.Routers.WelcomeRouter.create({ html: "pages/welcome", navigation: "welcome" });
 	LogWhatever.Routers.DashboardRouter.create({ html: "pages/dashboard", navigation: "dashboard" });
+	LogWhatever.Routers.DetailsRouter.create({ html: "pages/details/:name", navigation: "details/:name" });
     Finch.listen();
 };
 

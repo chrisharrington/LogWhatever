@@ -68,10 +68,10 @@ LogWhatever.Routers.Welcome.Register.prototype._sendRegisterCommand = function(p
 	var inputs = this._container.find("input, select, textarea").attr("disabled", true);
 
 	params = { name: params.name.val(), email: params.email.val(), password: params.password.val() };
-	$.get(LogWhatever.Configuration.VirtualDirectory + "api/users/registration", params).success(function () {
+	$.get(LogWhatever.Configuration.VirtualDirectory + "api/users/registration", params).success(function (user) {
 		Finch.navigate("/dashboard");
 		$("header>div.user").fadeIn(200);
-		$("#user-name").text(LogWhatever.User.Name);
+		$("#user-name").text((LogWhatever.User = user).Name);
 	}).error(function() {
 		LogWhatever.Feedback.error("An error has occurred while performing your registration. Please contact technical support.");
 	}).complete(function() {

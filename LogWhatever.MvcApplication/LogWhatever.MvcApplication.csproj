@@ -187,10 +187,12 @@
     <Content Include="Scripts\Prereqs\Global.js" />
     <Content Include="Scripts\Prereqs\Init.js" />
     <Content Include="Scripts\Routers\BaseRouter.js" />
+    <Content Include="Scripts\Routers\DetailsRouter.js" />
     <Content Include="Scripts\Routers\DashboardRouter.js" />
     <Content Include="Scripts\Routers\WelcomeRouter.js" />
     <Content Include="Scripts\Routers\Welcome\Register.js" />
     <Content Include="Scripts\ThirdParty\finch.js" />
+    <Content Include="Scripts\ThirdParty\jquery.tmpl.js" />
     <Content Include="Style\Feedback.css" />
     <Content Include="Style\Fonts.css" />
     <Content Include="Style\Site.css" />
@@ -239,6 +241,7 @@
     <Content Include="Views\Templates\Log\Measurements.cshtml" />
     <Content Include="Views\Templates\Log\Tags.cshtml" />
     <Content Include="Templates\Log\Measurement.html" />
+    <Content Include="Views\Templates\Pages\Details.cshtml" />
     <None Include="Views\Templates\Pages\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>

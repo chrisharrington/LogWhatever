@@ -23,6 +23,14 @@ namespace LogWhatever.Repositories
 
 			return Query<TagEvent>("select * from TagEvents where EventId = (select top 1 EventId from TagEvents where UserId = @userId and LogName = @name order by UpdatedDate desc)", new { userId, name });
 		}
+
+		public IEnumerable<TagEvent> Log(Guid logId)
+		{
+			if (logId == Guid.Empty)
+				throw new ArgumentNullException("logId");
+
+			return Query<TagEvent>("select * from TagEvents where LogId = @logId", new {logId});
+		}
 		#endregion
 	}
 }

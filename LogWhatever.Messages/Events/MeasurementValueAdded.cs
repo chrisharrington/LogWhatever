@@ -15,6 +15,9 @@ namespace LogWhatever.Messages.Events
 			 	
 			public System.Decimal Quantity {get;set;}
 		   
+			 	
+			public System.Guid EventId {get;set;}
+		   
 			  
 	 
 	}
