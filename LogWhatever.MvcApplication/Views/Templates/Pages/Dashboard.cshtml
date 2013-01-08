@@ -2,7 +2,7 @@
 
 <style type="text/css">
 	div.log { float:left; width:19.2%; padding-right:1%; cursor:pointer; }
-	div.log>div { padding:10px; }
+	div.log>div { padding:10px; height:100%; }
 	div.log>div>span { float:left; width:100%; color:#888; font-size:0.9167em; }
 	div.log>div>div { float:left; width:100%; font-size:0.92em; }
 	div.log>div>div.measurements>div { float:left; width:100%; }
@@ -28,10 +28,6 @@
 				}
 			</div>
 			<div class="tags">
-				@foreach (var tag in log.Tags)
-				{
-					<div>@tag.Name</div>
-				}
 				@foreach (var tag in log.Tags)
 				{
 					<div>@tag.Name</div>

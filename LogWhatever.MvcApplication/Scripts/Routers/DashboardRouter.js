@@ -4,8 +4,9 @@ LogWhatever.Routers.DashboardRouter = function (params) {
 	this._init(params);
 
 	var me = this;
-	$(window).on("resize", function() {
+	$(window).on("resize", function () {
 		me._setTagWidths();
+		me._setLogTileHeights();
 	});
 };
 
@@ -33,7 +34,6 @@ LogWhatever.Routers.DashboardRouter.prototype._onLoading = function () {
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._hookupEvents = function () {
-	var me = this;
 	this._container.find("div.log").live("click", function () { Finch.navigate("/details/" + $(this).find("h3").text().replace(/ /g, "_")); });
 };
 
@@ -43,19 +43,19 @@ LogWhatever.Routers.DashboardRouter.prototype._onLoaded = function () {
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._setLogTileHeights = function () {
-	var localMax;
+	var localMax = 0;
 	var me = this;
 	this._container.find("div.log").each(function (index) {
-		if (index % 4 == 0 && localMax > 0) {
-			me._container.find("div.log.local-max").height(localMax).removeClass("local-max");
+		if (index % 5 == 0 && localMax > 0) {
+			me._container.find("div.log.local-max").css("min-height", localMax + "px").removeClass("local-max");
 			localMax = 0;
 		}
 
 		$(this).addClass("local-max");
-		localMax = $(this).height();
+		localMax = Math.max($(this).height(), localMax);
 	});
 
-	this._container.find("div.log.local-max").height(localMax).removeClass("local-max");
+	this._container.find("div.log.local-max>div").css("min-height", localMax + "px").removeClass("local-max");
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._showLoggerIfEmpty = function() {
