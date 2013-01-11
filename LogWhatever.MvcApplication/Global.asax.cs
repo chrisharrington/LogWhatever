@@ -1,9 +1,11 @@
-﻿using System.Web;
+﻿using System.Linq;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 using Autofac;
 using Autofac.Integration.Mvc;
 using LogWhatever.Common.Adapters.Bundling;
@@ -43,6 +45,7 @@ namespace LogWhatever.MvcApplication
 			RegisterRoutes();
 			BundleJavascript();
 			BundleCss();
+			EnsureRolesExist();
 
 			GlobalFilters.Filters.Add(new HandleErrorAttribute());
 
@@ -107,6 +110,14 @@ namespace LogWhatever.MvcApplication
 		internal virtual TResolvedType ResolveFromContainer<TResolvedType>()
 		{
 			return _container.Resolve<TResolvedType>();
+		}
+
+		internal void EnsureRolesExist()
+		{
+			var existingRoles = Roles.GetAllRoles();
+			foreach (var role in new[] { "Administrator", "User", "Read Only" }.Where(role => existingRoles.All(x => x != role)))
+				Roles.CreateRole(role);
+			Logger.Info("Ensured user roles exist.");
 		}
 		#endregion
 	}
