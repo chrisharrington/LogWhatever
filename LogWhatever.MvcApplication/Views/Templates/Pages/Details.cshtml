@@ -1,14 +1,51 @@
 ﻿@model IEnumerable<LogWhatever.MvcApplication.Controllers.Templates.PagesController.EventModel>
 
 <style type="text/css">
-	div.tile { float:left; display:block; width:24.25%; margin-right:1%;}
+	div.events { float:left; width:450px; }
+	div.charts { position:relative; margin-left:465px; }
+
+	div.event { float:left; display:block; width:100%; margin-bottom:15px; }
+	div.event>div>h4 { float:left; width:auto; color:#498FCC; }
+	div.event>div>span { float:right; color:#AAA; margin-top:2px; }
+	div.event>div>div { float:left; width:100%; font-size:0.92em; }
+	div.event>div>div.measurements>div { float:left; width:100%; }
+	div.event>div>div.measurements>div>span.name { float:left; font-weight:bold; text-transform:uppercase; }
+	div.event>div>div.measurements>div>span.value { float:right; }
+	div.event>div>div.tags { margin-top:5px;  }
+	div.event>div>div.tags>div { float:left; width:auto; margin-top:3px; margin-right:3px; text-align:center; text-transform:lowercase; background:#528ABA -webkit-gradient(linear, 0% 0%, 0% 100%, from(#528ABA), to(#528ABA)) no-repeat; background:#3F82C4; color:#FFF; padding:3px 5px; border-radius:3px; }
+
+	div.charts>div>div { height:200px; }
 </style>
 
-@foreach (var evt in Model)
-{
-	<div class="tile">
-		<div>
-			<h3>@evt.Date.ToShortDateString()</h3>
+<div class="events">
+	@foreach (var evt in Model)
+	{
+		<div class="tile event">
+			<div>
+				<h4>@evt.Date.ToLongDateString()</h4>
+				<span>@evt.Date.ToShortTimeString()</span>
+				<div class="measurements">
+					@foreach (var measurement in evt.Measurements)
+					{
+						<div>
+							<span class="name ellipsis">@measurement.Name:</span>
+							<span class="value ellipsis">@measurement.Quantity.ToString("0.00") @measurement.Unit</span>
+						</div>
+					}
+				</div>
+				<div class="tags">
+					@foreach (var tag in evt.Tags)
+					{
+						<div>@tag.Name</div>
+					}
+				</div>
+			</div>
 		</div>
+	}
+</div>
+	
+<div class="charts">
+	<div class="tile">
+		<div></div>
 	</div>
-}
+</div>

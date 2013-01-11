@@ -18,7 +18,7 @@ button { font-family:itc-franklin-gothic-standard; text-transform:uppercase; bac
 input[type='text'], input[type='password'] { border:solid 1px #CCC; padding:3px 5px; box-sizing:border-box; border-radius:3px; }
 input.error { border-color:red !important; }
 
-div.tile { display:table-cell; box-sizing:border-box; background-color:transparent; }
+div.tile { box-sizing:border-box; background-color:transparent; }
 div.tile>div { float:left; width:100%; background-color:#FFF; border-radius:4px; box-sizing:border-box; padding:10px; }
 div.tile>div>h3 { float:left; width:100%; color:#498FCC; }
 div.tile>div>div { float:left; width:100%; margin-top:10px; }

@@ -2,11 +2,11 @@
 
 LogWhatever.Routers.DashboardRouter = function (params) {
 	this._init(params);
+	this._tagResizer = LogWhatever.Controls.TagResizer.create();
 
 	var me = this;
 	$(window).on("resize", function () {
 		me._setTagWidths();
-		me._setLogTileHeights();
 	});
 };
 
@@ -23,7 +23,7 @@ LogWhatever.Routers.DashboardRouter.prototype._onLoading = function () {
     var deferred = new $.Deferred();
 
     this._clearSubheader();
-    this._showLoggerIfEmpty();
+    //this._showLoggerIfEmpty();
 	this._hookupEvents();
 
     $.when(this._container.find("img").load()).done(function () {
@@ -39,7 +39,7 @@ LogWhatever.Routers.DashboardRouter.prototype._hookupEvents = function () {
 
 LogWhatever.Routers.DashboardRouter.prototype._onLoaded = function () {
 	this._setLogTileHeights();
-	this._setTagWidths();
+	this._tagResizer.resizeTags(this._container.find("div.tags"));
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._setLogTileHeights = function () {

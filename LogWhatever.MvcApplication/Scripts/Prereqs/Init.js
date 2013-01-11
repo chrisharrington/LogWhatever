@@ -10,13 +10,11 @@ LogWhatever.Init = function () {
         me._hookupMenuLinks();
         me._createAddLogEntryControl();
 
-	    $("button.logger").click(function() {
-		    LogWhatever.Logger.show();
-	    });
-
-        $("div.tile.selectable, div.tile.deletable").live("click", function () {
-            $(this).toggleClass("selected");
-        });
+	    $("button.logger").click(function() { LogWhatever.Logger.show(); });
+	    $("div.tile.selectable, div.tile.deletable").live("click", function () { $(this).toggleClass("selected"); });
+	    
+	    if (window.location.hash == "")
+		    Finch.navigate("/dashboard");
     });
 };
 

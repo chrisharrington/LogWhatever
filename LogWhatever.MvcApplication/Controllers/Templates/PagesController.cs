@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using LogWhatever.Common.Extensions;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 using LogWhatever.Service.Authentication;
@@ -58,8 +57,8 @@ namespace LogWhatever.MvcApplication.Controllers.Templates
 
 			return PartialView("~/Views/Templates/Pages/Details.cshtml", events.Select(x => new EventModel {
 				Date = x.Date,
-                Measurements = measurementValues.Where(y => y.EventId == x.Id).Select(y => new MeasurementModel { Name = measurements[y.Id].Name, Quantity = y.Quantity, Unit = measurements[y.Id].Unit }),
-				Tags = tags.Where(y => y.EventId == x.Id)
+                Measurements = measurementValues.Where(y => y.EventId == x.Id).Select(y => new MeasurementModel { Name = measurements[y.MeasurementId].Name, Quantity = y.Quantity, Unit = measurements[y.MeasurementId].Unit }).OrderBy(y => y.Name),
+				Tags = tags.Where(y => y.EventId == x.Id).OrderBy(y => y.Name)
 			}));
 		}
 		#endregion

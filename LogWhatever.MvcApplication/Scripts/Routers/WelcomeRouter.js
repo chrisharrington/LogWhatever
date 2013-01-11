@@ -53,6 +53,8 @@ LogWhatever.Routers.WelcomeRouter.prototype._signIn = function () {
 };
 
 LogWhatever.Routers.WelcomeRouter.prototype._sendSignInCommand = function (emailAddress, password, staySignedIn) {
+	var inputs = this._container.find("input, textarea, select").attr("disabled", true);
+
 	$.get(LogWhatever.Configuration.VirtualDirectory + "api/users/sign-in", { emailAddress: emailAddress, password: password, staySignedIn: staySignedIn }).success(function (user) {
 		if (!user)
 			LogWhatever.Feedback.error("The email address and password combination you provided is incorrect.");
@@ -65,5 +67,7 @@ LogWhatever.Routers.WelcomeRouter.prototype._sendSignInCommand = function (email
 		}
 	}).error(function() {
 		LogWhatever.Feedback.error("An error has occurred while signing you in. Please contact technical support.");
+	}).complete(function () {
+		inputs.attr("disabled", false);
 	});
 };

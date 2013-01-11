@@ -3,12 +3,9 @@
 LogWhatever.Controls.Logger = function (parameters) {
 	$.extendWithUnderscore(this, parameters, this._createDefaults());
 
-	var me = this;
-	this._loadTemplates().done(function () {
-		me._loadView();
-		me._onLoaded();
-		me._hookupEvents();
-	});
+	this._loadView();
+	this._onLoaded();
+	this._hookupEvents();
 };
 
 LogWhatever.Controls.Logger.create = function(parameters) {
@@ -52,7 +49,6 @@ LogWhatever.Controls.Logger.prototype._createDefaults = function() {
 };
 
 LogWhatever.Controls.Logger.prototype._loadView = function () {
-	$.tmpl("logger").prependTo(this._container).hide();
 	this._container = this._container.find("div.logger");
 	
 	this._container.find("#name").clearbox();
@@ -227,16 +223,4 @@ LogWhatever.Controls.Logger.prototype._loadTags = function (logName) {
 		container.prepend(html);
 		container.find("div.new").slideDown(200);
 	});
-};
-
-LogWhatever.Controls.Logger.prototype._loadTemplates = function () {
-	var deferred = new $.Deferred();
-	$.when(
-		this._loadTemplate("Templates/Log/Measurement.html", "add-measurement"),
-		this._loadTemplate("Templates/Log/Tag.html", "add-tag"),
-		this._loadTemplate("Templates/Log/Logger.html", "logger")
-	).done(function() {
-		deferred.resolve();
-	});
-	return deferred.promise();
 };

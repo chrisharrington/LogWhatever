@@ -21,7 +21,7 @@ LogWhatever.Routers.BaseRouter.prototype.load = function (parameters) {
 
     var me = this;
     $.when(this._loadData(parameters), this._container.fadeOut(200)).done(function (result) {
-	    me._container.empty().html(result[0]);
+		me._container.empty().html(result[0]);
 
         $.when(me._onLoading()).done(function () {
 	        setTimeout(function() {
@@ -60,7 +60,7 @@ LogWhatever.Routers.BaseRouter.prototype._createDefaults = function () {
 };
 
 LogWhatever.Routers.BaseRouter.prototype._loadData = function (parameters) {
-    return $.get(LogWhatever.Configuration.VirtualDirectory + this._replacePlaceHoldersWithParameters(this._html, parameters)).complete(function (request) {
+	return $.get(LogWhatever.Configuration.VirtualDirectory + this._replacePlaceHoldersWithParameters(this._html, parameters)).complete(function (request) {
     	var status = request.status;
         if (status == 404)
             Finch.navigate("/missing");

@@ -2,6 +2,7 @@
 
 LogWhatever.Routers.DetailsRouter = function (params) {
 	this._init(params);
+	this._tagResizer = LogWhatever.Controls.TagResizer.create();
 };
 
 LogWhatever.Routers.DetailsRouter.create = function (params) {
@@ -26,5 +27,5 @@ LogWhatever.Routers.DetailsRouter.prototype._onLoading = function () {
 };
 
 LogWhatever.Routers.DetailsRouter.prototype._onLoaded = function () {
-	
+	this._tagResizer.resizeTags(this._container.find("div.tags"));
 };
