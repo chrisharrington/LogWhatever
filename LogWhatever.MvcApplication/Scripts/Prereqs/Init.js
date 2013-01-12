@@ -13,7 +13,7 @@ LogWhatever.Init = function () {
 	    $("button.logger").click(function() { LogWhatever.Logger.show(); });
 	    $("div.tile.selectable, div.tile.deletable").live("click", function () { $(this).toggleClass("selected"); });
 	    $(document).keyup(function (e) {
-	    	if (String.fromCharCode(e.keyCode) == 'L') LogWhatever.Logger.show();
+	    	if (e.shiftKey && e.ctrlKey && String.fromCharCode(e.keyCode) == 'L') LogWhatever.Logger.show();
 	    	if (e.keyCode == 27) LogWhatever.Logger.hide();
 	    });
 	    

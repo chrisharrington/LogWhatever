@@ -28,4 +28,11 @@ LogWhatever.Routers.DetailsRouter.prototype._onLoading = function () {
 
 LogWhatever.Routers.DetailsRouter.prototype._onLoaded = function () {
 	this._tagResizer.resizeTags(this._container.find("div.tags"));
+	this._drawCharts();
+};
+
+LogWhatever.Routers.DetailsRouter.prototype._drawCharts = function () {
+	//var logName = window.location.hash()
+	var logName = "swimming";
+	LogWhatever.Controls.Chart.Measurements.create().measurements(this._container.find("#measurements-chart"), logName);
 };

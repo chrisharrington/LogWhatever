@@ -14,7 +14,8 @@
 	div.event>div>div.tags { margin-top:5px;  }
 	div.event>div>div.tags>div { float:left; width:auto; margin-top:3px; margin-right:3px; text-align:center; text-transform:lowercase; background:#528ABA -webkit-gradient(linear, 0% 0%, 0% 100%, from(#528ABA), to(#528ABA)) no-repeat; background:#3F82C4; color:#FFF; padding:3px 5px; border-radius:3px; }
 
-	div.charts>div>div { height:200px; }
+	div.charts>div { float:left; width:100%; }
+	div.charts #measurements-chart { height:300px; }
 </style>
 
 <div class="events">
@@ -46,6 +47,8 @@
 	
 <div class="charts">
 	<div class="tile">
-		<div></div>
+		<div>
+			<div id="measurements-chart"></div>
+		</div>
 	</div>
 </div>

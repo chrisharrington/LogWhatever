@@ -3,11 +3,6 @@
 LogWhatever.Routers.DashboardRouter = function (params) {
 	this._init(params);
 	this._tagResizer = LogWhatever.Controls.TagResizer.create();
-
-	var me = this;
-	$(window).on("resize", function () {
-		me._setTagWidths();
-	});
 };
 
 LogWhatever.Routers.DashboardRouter.create = function (params) {
@@ -23,7 +18,6 @@ LogWhatever.Routers.DashboardRouter.prototype._onLoading = function () {
     var deferred = new $.Deferred();
 
     this._clearSubheader();
-    //this._showLoggerIfEmpty();
 	this._hookupEvents();
 
     $.when(this._container.find("img").load()).done(function () {
