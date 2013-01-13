@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Web.Http;
@@ -13,6 +14,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		public ILogRepository LogRepository { get; set; }
 		public IMeasurementRepository MeasurementRepository { get; set; }
 		public IMeasurementValueRepository MeasurementValueRepository { get; set; }
+		public IEventRepository EventRepository { get; set; }
 		#endregion
 
 		#region Public Methods
@@ -22,13 +24,11 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		{
 			var log = GetLogFromName(logName);
 			var values = MeasurementValueRepository.Log(log.Id).ToArray();
+			var events = EventRepository.Log(log.Id).ToDictionary(x => x.Id);
 
-			dynamic result = new ExpandoObject();
+			var result = new List<object>();
 			foreach (var measurement in MeasurementRepository.Log(log.Id))
-			{
-				result.Name = measurement.Name;
-				result.Data = values.Where(x => x.MeasurementId == measurement.Id).Select(x => new {x.Quantity, x.UpdatedDate});
-			}
+				result.Add(new {measurement.Name, Data = values.Where(x => x.MeasurementId == measurement.Id).OrderByDescending(x => events[x.EventId].Date).Select(x => new {x.Quantity, events[x.EventId].Date}) });
 			return result;
 		}
 		#endregion

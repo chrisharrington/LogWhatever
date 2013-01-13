@@ -172,7 +172,7 @@
     <Content Include="Scripts\Controls\Autocomplete.js" />
     <Content Include="Scripts\Controls\Base.js" />
     <Content Include="Scripts\Controls\Chart\ChartDrawer.js" />
-    <Content Include="Scripts\Controls\Chart\Measurements.js" />
+    <Content Include="Scripts\Controls\Chart\MeasurementsChart.js" />
     <Content Include="Scripts\Controls\TagResizer.js" />
     <Content Include="Scripts\Controls\Dialog.js" />
     <Content Include="Scripts\Controls\Ellipsis.js" />
@@ -196,8 +196,10 @@
     <Content Include="Scripts\Routers\WelcomeRouter.js" />
     <Content Include="Scripts\Routers\Welcome\Register.js" />
     <Content Include="Scripts\ThirdParty\finch.js" />
+    <Content Include="Scripts\ThirdParty\highcharts.src.js" />
     <Content Include="Scripts\ThirdParty\jquery.tmpl.js" />
     <Content Include="Scripts\ThirdParty\jscharts.js" />
+    <Content Include="Scripts\ThirdParty\parsejson.js" />
     <Content Include="Style\Logger.css" />
     <Content Include="Style\Feedback.css" />
     <Content Include="Style\Fonts.css" />

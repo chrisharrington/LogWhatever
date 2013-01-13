@@ -34,5 +34,5 @@ LogWhatever.Routers.DetailsRouter.prototype._onLoaded = function () {
 LogWhatever.Routers.DetailsRouter.prototype._drawCharts = function () {
 	//var logName = window.location.hash()
 	var logName = "swimming";
-	LogWhatever.Controls.Chart.Measurements.create().measurements(this._container.find("#measurements-chart"), logName);
+	LogWhatever.Controls.Chart.MeasurementsChart.create().measurements(this._container.find("#measurements-chart"), logName);
 };

@@ -55,7 +55,7 @@ namespace LogWhatever.MvcApplication.Controllers.Templates
 			var tags = TagEventRepository.Log(log.Id).ToArray();
 			var events = EventRepository.Log(log.Id).ToArray();
 
-			return PartialView("~/Views/Templates/Pages/Details.cshtml", events.Select(x => new EventModel {
+			return PartialView("~/Views/Templates/Pages/Details.cshtml", events.OrderByDescending(x => x.Date).Select(x => new EventModel {
 				Date = x.Date,
                 Measurements = measurementValues.Where(y => y.EventId == x.Id).Select(y => new MeasurementModel { Name = measurements[y.MeasurementId].Name, Quantity = y.Quantity, Unit = measurements[y.MeasurementId].Unit }).OrderBy(y => y.Name),
 				Tags = tags.Where(y => y.EventId == x.Id).OrderBy(y => y.Name)

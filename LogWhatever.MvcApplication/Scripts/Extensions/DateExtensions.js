@@ -79,6 +79,10 @@ Date.parseUTC = function (string) {
 	return date;
 };
 
+Date.parseSerialized = function(string) {
+	return $.parseJSON(string, true);
+};
+
 Date.prototype.addDays = function (count) {
 	var date = this.clone();
 	date.setDate(date.getDate() + count);
