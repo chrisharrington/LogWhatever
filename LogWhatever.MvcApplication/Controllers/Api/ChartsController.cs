@@ -14,6 +14,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		public ILogRepository LogRepository { get; set; }
 		public IMeasurementRepository MeasurementRepository { get; set; }
 		public IMeasurementValueRepository MeasurementValueRepository { get; set; }
+		public ITagEventRepository TagEventRepository { get; set; }
 		public IEventRepository EventRepository { get; set; }
 		#endregion
 
@@ -30,6 +31,13 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			foreach (var measurement in MeasurementRepository.Log(log.Id))
 				result.Add(new {measurement.Name, Data = values.Where(x => x.MeasurementId == measurement.Id).OrderByDescending(x => events[x.EventId].Date).Select(x => new {x.Quantity, events[x.EventId].Date}) });
 			return result;
+		}
+
+		[ActionName("tag-ratios")]
+		[AcceptVerbs("GET")]
+		public dynamic GetTagRatios([FromUri] string logName)
+		{
+			return TagEventRepository.Log(GetLogFromName(logName).Id).GroupBy(x => x.Name).Select(x => new {x.First().Name, Count = x.Count()});
 		}
 		#endregion
 

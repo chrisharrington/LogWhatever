@@ -18,7 +18,7 @@ LogWhatever.Init = function () {
 	    });
 	    
 	    if (window.location.hash == "")
-		    Finch.navigate("/dashboard");
+	    	Finch.navigate("/dashboard");
     });
 };
 

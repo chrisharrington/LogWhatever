@@ -46,3 +46,5 @@ div.form>div:first-child { margin-top:0px; }
 div.form>div>span { float:left; width:100%; color:#777; text-transform:none; font-weight:normal; }
 div.form>div>input[type='text'], div.form>div>input[type='password'] { float:left; width:100%; border:solid 1px #AAA; padding:5px; border-radius:3px; box-sizing:border-box; }
 div.form>div>button { float:right; margin-left:5px; }
+
+svg>text:not(.highcharts-title), div.highcharts-container>div>span { display:none; }

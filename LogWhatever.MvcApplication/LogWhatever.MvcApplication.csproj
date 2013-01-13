@@ -172,6 +172,7 @@
     <Content Include="Scripts\Controls\Autocomplete.js" />
     <Content Include="Scripts\Controls\Base.js" />
     <Content Include="Scripts\Controls\Chart\ChartDrawer.js" />
+    <Content Include="Scripts\Controls\Chart\TagRatiosChart.js" />
     <Content Include="Scripts\Controls\Chart\MeasurementsChart.js" />
     <Content Include="Scripts\Controls\TagResizer.js" />
     <Content Include="Scripts\Controls\Dialog.js" />

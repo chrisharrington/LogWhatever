@@ -14,7 +14,7 @@ $.extend(LogWhatever.Controls.Chart.MeasurementsChart.prototype, LogWhatever.Con
 //--------------------------------------------------------------------------------------------------------------------------------------------
 /* Public Methods */
 
-LogWhatever.Controls.Chart.MeasurementsChart.prototype.measurements = function (container, logName) {
+LogWhatever.Controls.Chart.MeasurementsChart.prototype.draw = function (container, logName) {
 	this._getData(logName).done(function (data) {
 		var seriesCollection = new Array();
 		$(data).each(function (	i, value) {
