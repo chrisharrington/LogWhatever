@@ -14,10 +14,11 @@
 	div.event>div>div.tags { margin-top:5px;  }
 	div.event>div>div.tags>div { float:left; width:auto; margin-top:3px; margin-right:3px; text-align:center; text-transform:lowercase; background:#528ABA -webkit-gradient(linear, 0% 0%, 0% 100%, from(#528ABA), to(#528ABA)) no-repeat; background:#3F82C4; color:#FFF; padding:3px 5px; border-radius:3px; }
 
-	div.charts>div { float:left; width:100%; }
-	div.charts #measurements-chart { height:300px; }
-	div.charts>div.tag-ratios-chart { float:left; width:32.6667%; margin-right:1%; height:300px; margin-top:1%; }
-	div.charts>div.tag-ratios-chart>div { height:100%; }
+	div.charts>div>div>h4 { float:left; width:100%; color:#498FCC; }
+	div.charts>div>div { height:100%; }
+
+	div.charts div.measurements-chart { float:left; width:69%; margin-left:1%; height:300px; }
+	div.charts div.tag-ratios-chart { float:left; width:30%; height:300px; }
 </style>
 
 <div class="events">
@@ -48,14 +49,16 @@
 </div>
 	
 <div class="charts">
-	<div class="tile">
-		<div>
-			<div id="measurements-chart"></div>
-		</div>
-	</div>
 	<div class="tile tag-ratios-chart">
 		<div>
+			<h4>Tag Ratios</h4>
 			<div id="tag-ratios-chart"></div>
+		</div>
+	</div>
+	<div class="tile measurements-chart">
+		<div>
+			<h4>Measurements</h4>
+			<div id="measurements-chart"></div>
 		</div>
 	</div>
 </div>

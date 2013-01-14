@@ -17,8 +17,10 @@ $.extend(LogWhatever.Controls.Chart.MeasurementsChart.prototype, LogWhatever.Con
 LogWhatever.Controls.Chart.MeasurementsChart.prototype.draw = function (container, logName) {
 	this._getData(logName).done(function (data) {
 		var seriesCollection = new Array();
-		$(data).each(function (	i, value) {
-			var series = { name: value.Name, data: new Array(), marker: { symbol: "circle" } };
+		var axisCollection = new Array();
+		$(data).each(function (i, value) {
+			axisCollection.push({ min: 0, labels: { enabled: false, style: { fontFamily: "arial", fontSize: "0.8em", color: "#888" }, y: 4 }, title: null, gridLineColor: "#DDD" });
+			var series = { name: value.Name, data: new Array(), marker: { symbol: "circle" }, yAxis: i };
 			$(value.Data).each(function () {
 				series.data.push([new Date(this.Date).getTime(), this.Quantity]);
 			});
@@ -28,16 +30,10 @@ LogWhatever.Controls.Chart.MeasurementsChart.prototype.draw = function (containe
 		var chart = new Highcharts.Chart({
 			chart: {
 				renderTo: container.attr("id"),
-				margin: [40, 20, 20, 20]
+				margin: [20, 20, 20, 20],
+				height: container.parent().height() - container.parent().find("h4").outerHeight(true) - 10,
 			},
-			title: {
-				text: logName.toLowerCase().capitalize() + " Measurements",
-				style: {
-					fontFamily: "arial",
-					fontSize: "1em",
-					color: "#888"
-				}
-			},
+			title: { text: null },
 			xAxis: {
 				labels: {
 					style: {
@@ -49,20 +45,7 @@ LogWhatever.Controls.Chart.MeasurementsChart.prototype.draw = function (containe
 				type: "datetime",
 				tickPixelInterval: 65
 			},
-			yAxis: {
-				min: 0,
-				labels: {
-					enabled: false,
-					style: {
-						fontFamily: "arial",
-						fontSize: "0.8em",
-						color: "#888"
-					},
-					y: 4
-				},
-				title: null,
-				gridLineColor: "#DDD"
-			},
+			yAxis: axisCollection,
 			plotOptions: {
 				series: {
 					pointInterval: 24 * 3600 * 1000

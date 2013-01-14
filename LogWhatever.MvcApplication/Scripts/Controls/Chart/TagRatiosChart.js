@@ -15,7 +15,15 @@ $.extend(LogWhatever.Controls.Chart.TagRatiosChart.prototype, LogWhatever.Contro
 /* Public Methods */
 
 LogWhatever.Controls.Chart.TagRatiosChart.prototype.draw = function (container, logName) {
-	container.parent().height(container.parent().width());
+	Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+		return {
+			radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+			stops: [
+				[0, color],
+				[1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+			]
+		};
+	});
 
 	this._getData(logName).done(function (data) {
 		var series = new Array();
@@ -25,33 +33,20 @@ LogWhatever.Controls.Chart.TagRatiosChart.prototype.draw = function (container, 
 
 		var chart = new Highcharts.Chart({
 			chart: {
-				animation: false,
 				renderTo: container.attr("id"),
+				height: container.parent().height() - container.parent().find("h4").outerHeight(true) - 10,
 				backgroundColor: "transparent",
 				plotBackgroundColor: "transparent",
-				margin: [-25, 0, 0, 0],
-				height: container.height(),
-				plotBorderWidth: null,
-				plotShadow: false
+				margin: [20, 40, 20, 40],
 			},
-			title: {
-				text: "Tag Ratios",
-				style: {
-					color: "#888",
-					fontSize: "1em",
-					fontFamily: "arial"
-				}
-			},
+			title: { text: null },
 			plotOptions: {
 				pie: {
-					allowPointSelect: false,
-					dataLabels: { enabled: false },
-					borderWidth: 0
+					borderWidth: 1
 				}
 			},
 			series: [{
-				type: 'pie',
-				name: 'Browser share',
+				type: "pie",
 				data: series
 			}]
 		});

@@ -253,6 +253,12 @@
   <ItemGroup>
     <Content Include="Style\Fonts\ITC-Franklin-Gothic-Standard.woff" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Templates\Log\AddMeasurement.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Templates\Log\AddTag.html" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -3,9 +3,12 @@
 LogWhatever.Controls.Logger = function (parameters) {
 	$.extendWithUnderscore(this, parameters, this._createDefaults());
 
-	this._loadView();
-	this._onLoaded();
-	this._hookupEvents();
+	var me = this;
+	this._loadTemplates().done(function () {
+		me._loadView();
+		me._onLoaded();
+		me._hookupEvents();
+	});
 };
 
 LogWhatever.Controls.Logger.create = function(parameters) {
@@ -84,7 +87,7 @@ LogWhatever.Controls.Logger.prototype._addMeasurement = function () {
 
 	if (quantity.clearbox("value") == "") {
 		quantity.addClass("error").focus();
-		throw new Error("The ")
+		throw new Error("The quantity is required.");
 	}
 
 	if (isNaN(parseFloat(quantity.clearbox("value")))) {
@@ -223,4 +226,15 @@ LogWhatever.Controls.Logger.prototype._loadTags = function (logName) {
 		container.prepend(html);
 		container.find("div.new").slideDown(200);
 	});
+};
+
+LogWhatever.Controls.Logger.prototype._loadTemplates = function () {
+	var deferred = new $.Deferred();
+	$.when(
+		this._loadTemplate("Scripts/Templates/Log/AddMeasurement.html", "add-measurement"),
+		this._loadTemplate("Scripts/Templates/Log/AddTag.html", "add-tag")
+	).done(function () {
+		deferred.resolve();
+	});
+	return deferred.promise();
 };
