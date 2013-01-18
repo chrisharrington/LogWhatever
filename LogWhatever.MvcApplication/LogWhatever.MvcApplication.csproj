@@ -159,6 +159,7 @@
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\Templates\LogController.cs" />
     <Compile Include="Controllers\Templates\PagesController.cs" />
+    <Compile Include="Controllers\ViewBuilder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -258,6 +259,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Templates\Log\AddTag.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Style\Fonts\trade-gothic-next.woff" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

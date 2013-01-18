@@ -40,7 +40,7 @@ namespace LogWhatever.MvcApplication.Controllers.Templates
 				Date = log.UpdatedDate,
 				Measurements = GetMeasurementValues(measurements, log, measurementValues),
 				Tags = TagEventRepository.LatestForUserAndLog(user.Id, log.Name)
-			}).ToArray());
+			}).OrderByDescending(x => x.Date).ToArray());
 		}
 
 		[ActionName("details")]

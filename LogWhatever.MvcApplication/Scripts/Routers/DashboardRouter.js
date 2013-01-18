@@ -32,24 +32,31 @@ LogWhatever.Routers.DashboardRouter.prototype._hookupEvents = function () {
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._onLoaded = function () {
-	this._setLogTileHeights();
+	//this._setLogTileHeights();
 	this._tagResizer.resizeTags(this._container.find("div.tags"));
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._setLogTileHeights = function () {
-	var localMax = 0;
+	var tileLocalMax = 0;
+	var measurementsLocalMax = 0;
 	var me = this;
 	this._container.find("div.log").each(function (index) {
-		if (index % 5 == 0 && localMax > 0) {
-			me._container.find("div.log.local-max").css("min-height", localMax + "px").removeClass("local-max");
-			localMax = 0;
+		if (index % 5 == 0 && index > 0) {
+			me._container.find("div.log.tile-local-max").css("min-height", tileLocalMax + "px").removeClass("tile-local-max");
+			me._container.find("div.measurements.measurements-local-max").css("min-height", measurementsLocalMax + "px").removeClass("measurements-local-max");
+			alert(me._container.find("div.measurements.measurements-local-max").length);
+			tileLocalMax = 0;
+			measurementsLocalMax = 0;
 		}
 
 		$(this).addClass("local-max");
-		localMax = Math.max($(this).height(), localMax);
+		$(this).find("div.measurements").addClass("measurements-local-max");
+		tileLocalMax = Math.max($(this).height(), tileLocalMax);
+		measurementsLocalMax = Math.max($(this).find("div.measurements").height(), measurementsLocalMax);
 	});
 
-	this._container.find("div.log.local-max>div").css("min-height", localMax + "px").removeClass("local-max");
+	this._container.find("div.log.tile-local-max>div").css("min-height", tileLocalMax + "px").removeClass("tile-local-max");
+	this._container.find("div.log>div").css("height", tileLocalMax + "px");
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._showLoggerIfEmpty = function() {

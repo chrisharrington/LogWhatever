@@ -1,7 +1,11 @@
-﻿@model IEnumerable<LogWhatever.MvcApplication.Controllers.Templates.PagesController.LogModel>
+﻿@using LogWhatever.Common.Extensions
+@using LogWhatever.MvcApplication.Controllers
+@model IEnumerable<LogWhatever.MvcApplication.Controllers.Templates.PagesController.LogModel>
 
 <style type="text/css">
-	div.log { float:left; width:19.2%; padding-right:1%; cursor:pointer; }
+	div.log-column { float:left; width:19.2%; margin-right:1%; height:500px; }
+	div.log-column:nth-child(5n+1) { margin-right:0; }
+	div.log { float:left; width:100%; margin-bottom:15px; cursor:pointer; }
 	div.log>div { padding:10px; height:100%; }
 	div.log>div>span { float:left; width:100%; color:#888; font-size:0.9167em; }
 	div.log>div>div { float:left; width:100%; font-size:0.92em; }
@@ -9,9 +13,40 @@
 	div.log>div>div.measurements>div>span.name { float:left; font-weight:bold; text-transform:uppercase; }
 	div.log>div>div.measurements>div>span.value { float:right; }
 	div.log>div>div.tags { margin-top:5px;  }
-	div.log>div>div.tags>div { float:left; width:auto; margin-top:3px; margin-right:3px; text-align:center; text-transform:lowercase; background:#528ABA -webkit-gradient(linear, 0% 0%, 0% 100%, from(#528ABA), to(#528ABA)) no-repeat; background:#3F82C4; color:#FFF; padding:3px 5px; border-radius:3px; }
+	div.log>div>div.tags>div { float:left; width:auto; margin-top:3px; margin-right:3px; }
 </style>
 
+<div class="log-column">
+	@foreach (var log in Model.TakeEvery(5))
+	{
+		@ViewBuilder.BuildForLog(log);
+	}
+</div>
+<div class="log-column">
+	@foreach (var log in Model.Skip(1).TakeEvery(5))
+	{
+		@ViewBuilder.BuildForLog(log);
+	}
+</div>
+<div class="log-column">
+	@foreach (var log in Model.Skip(2).TakeEvery(5))
+	{
+		@ViewBuilder.BuildForLog(log);
+	}
+</div>
+<div class="log-column">
+	@foreach (var log in Model.Skip(3).TakeEvery(5))
+	{
+		@ViewBuilder.BuildForLog(log);
+	}
+</div>
+<div class="log-column">
+	@foreach (var log in Model.Skip(4).TakeEvery(5))
+	{
+		@ViewBuilder.BuildForLog(log);
+	}
+</div>
+@*
 @foreach (var log in Model)
 {
 	<div class="tile log">
@@ -30,9 +65,9 @@
 			<div class="tags">
 				@foreach (var tag in log.Tags)
 				{
-					<div>@tag.Name</div>
+					<div class="floating-tag">@tag.Name</div>
 				}
 			</div>
 		</div>
 	</div>
-}
+}*@

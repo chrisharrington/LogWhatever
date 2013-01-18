@@ -67,7 +67,17 @@ namespace LogWhatever.Common.Extensions
 			foreach (var item in list.Where(item => !results.Aggregate(false, (current, result) => current || equalityComparer(item, result))))
 				results.Add(item);
 			return results;
-		}  
+		}
+
+		public static IEnumerable<T> TakeEvery<T>(this IEnumerable<T> list, int count)
+		{
+			var result = new List<T>();
+			for (var i = 0; i < list.Count(); i++)
+				if (i % count == 0)
+					result.Add(list.ElementAt(i));
+			return result;
+		} //1, 6, 11
+		// 1, 5, 10, 15
         #endregion
     }
 }
