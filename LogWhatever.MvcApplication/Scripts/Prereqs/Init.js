@@ -10,7 +10,7 @@ LogWhatever.Init = function () {
         me._hookupMenuLinks();
         me._createAddLogEntryControl();
 
-	    $("button.logger").click(function() { LogWhatever.Logger.show(); });
+	    $("#logger").click(function() { LogWhatever.Logger.show(); });
 	    $("div.tile.selectable, div.tile.deletable").live("click", function () { $(this).toggleClass("selected"); });
 	    $(document).keyup(function (e) {
 	    	if (e.shiftKey && e.ctrlKey && String.fromCharCode(e.keyCode) == 'L') LogWhatever.Logger.show();
@@ -60,7 +60,7 @@ LogWhatever.Init.prototype._getLoggedInUser = function () {
             return;
 
         var userPanel = $("header>div.user");
-        userPanel.find("span:first").text(user.Name);
+        userPanel.find("#user-account>span").text(user.Name);
         userPanel.fadeIn(200);
     });
 };

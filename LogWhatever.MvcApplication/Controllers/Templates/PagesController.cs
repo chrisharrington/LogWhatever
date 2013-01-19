@@ -34,10 +34,11 @@ namespace LogWhatever.MvcApplication.Controllers.Templates
 			var measurements = MeasurementRepository.User(user.Id).ToArray();
 			var measurementValues = MeasurementValueRepository.User(user.Id);
 			var logs = LogRepository.User(user.Id).ToArray();
+			var events = EventRepository.Latest(user.Id).ToDictionary(x => x.LogId);
 
 			return PartialView("~/Views/Templates/Pages/Dashboard.cshtml", logs.Select(log => new LogModel {
 				Name = log.Name,
-				Date = log.UpdatedDate,
+				Date = events[log.Id].Date,
 				Measurements = GetMeasurementValues(measurements, log, measurementValues),
 				Tags = TagEventRepository.LatestForUserAndLog(user.Id, log.Name)
 			}).OrderByDescending(x => x.Date).ToArray());

@@ -8,6 +8,7 @@ namespace LogWhatever.Common.Repositories
 	{
 		#region Public Methods
 		IEnumerable<Event> Log(Guid logId);
+		IEnumerable<Event> Latest(Guid userId);
 		#endregion
 	}
 }

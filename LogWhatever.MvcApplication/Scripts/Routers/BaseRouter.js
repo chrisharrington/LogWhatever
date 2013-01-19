@@ -26,7 +26,7 @@ LogWhatever.Routers.BaseRouter.prototype.load = function (parameters) {
         $.when(me._onLoading()).done(function () {
 	        setTimeout(function() {
 		        me._onLoaded();
-	        }, 50);
+	        }, 150);
             me._container.fadeIn(200, function () {
                 LogWhatever.Controls.Ellipsis.addTitleToShortenedElements();
             });

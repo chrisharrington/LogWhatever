@@ -13,6 +13,11 @@ LogWhatever.Controls.TagResizer.create = function() {
 
 LogWhatever.Controls.TagResizer.prototype.resizeTags = function (elements) {
 	this._setTagWidths(elements);
+
+	var me = this;
+	$(window).on("resize", function() {
+		me._setTagWidths(elements);
+	});
 };
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
