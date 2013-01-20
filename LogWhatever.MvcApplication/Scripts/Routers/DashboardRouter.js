@@ -14,58 +14,19 @@ $.extend(LogWhatever.Routers.DashboardRouter.prototype, LogWhatever.Routers.Base
 //--------------------------------------------------------------------------------------------------------------------------------------------
 /* Private Methods */
 
-LogWhatever.Routers.DashboardRouter.prototype._onLoading = function () {
-    var deferred = new $.Deferred();
-
-    this._clearSubheader();
-	this._hookupEvents();
-
-    $.when(this._container.find("img").load()).done(function () {
-        deferred.resolve();
-    });
-
-    return deferred.promise();
-};
-
 LogWhatever.Routers.DashboardRouter.prototype._hookupEvents = function () {
-	this._container.find("div.log").live("click", function () { Finch.navigate("/details/" + $(this).find("h3").text().replace(/ /g, "_")); });
+	this._container.find("div.log").live("click", function () { Finch.navigate("/details/" + $(this).find("h3").text().replace(/ /g, "-")); });
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._onLoaded = function () {
-	//this._setLogTileHeights();
 	this._tagResizer.resizeTags(this._container.find("div.tags"));
-};
-
-LogWhatever.Routers.DashboardRouter.prototype._setLogTileHeights = function () {
-	var tileLocalMax = 0;
-	var measurementsLocalMax = 0;
-	var me = this;
-	this._container.find("div.log").each(function (index) {
-		if (index % 5 == 0 && index > 0) {
-			me._container.find("div.log.tile-local-max").css("min-height", tileLocalMax + "px").removeClass("tile-local-max");
-			me._container.find("div.measurements.measurements-local-max").css("min-height", measurementsLocalMax + "px").removeClass("measurements-local-max");
-			alert(me._container.find("div.measurements.measurements-local-max").length);
-			tileLocalMax = 0;
-			measurementsLocalMax = 0;
-		}
-
-		$(this).addClass("local-max");
-		$(this).find("div.measurements").addClass("measurements-local-max");
-		tileLocalMax = Math.max($(this).height(), tileLocalMax);
-		measurementsLocalMax = Math.max($(this).find("div.measurements").height(), measurementsLocalMax);
-	});
-
-	this._container.find("div.log.tile-local-max>div").css("min-height", tileLocalMax + "px").removeClass("tile-local-max");
-	this._container.find("div.log>div").css("height", tileLocalMax + "px");
-};
-
-LogWhatever.Routers.DashboardRouter.prototype._showLoggerIfEmpty = function() {
-	if (this._container.find("div.log").length == 0)
-		LogWhatever.Logger.show();
+	this._clearSubheader();
+	this._hookupEvents();
 };
 
 LogWhatever.Routers.DashboardRouter.prototype._setTagWidths = function () {
 	this._container.find("div.tags>div").css("width", "auto").css("margin-right", "3px");
+	this._contianer.find("div.tags").css({ opacity: 0.01 });
 
 	var me = this;
 	this._container.find("div.tags").each(function () {

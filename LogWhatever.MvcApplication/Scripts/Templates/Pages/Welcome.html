@@ -1,0 +1,55 @@
+﻿<style type="text/css">
+	div.sign-in { float:left; margin-right:10px; width:300px; display:block; }
+	div.sign-in>div { float:left; width:100%; }
+	div.sign-in>div>div.button>input { float:left; margin:0; margin-top:7px; }
+	div.sign-in>div>div.button>label { float:left; color:#777; margin-left:5px; margin-top:4px; }
+	div.sign-in>div>div.button>button { float:right; margin-top:3px; }
+	div.register { float:left; width:600px; margin-left:1%; }
+	div.register>div { float:left; width:49%; margin-left:2%; }
+	div.register>div:nth-of-type(1) { margin-left:0px; }
+	div.register #register { float:right; margin-top:10px; }
+</style>
+
+<div class="tile sign-in">
+	<h3>Sign In</h3>
+	<div class="form">
+		<div>
+			<span>Email address:</span>
+			<input type="text" id="email-address" />
+		</div>
+		<div>
+			<span>Password:</span>
+			<input type="text" id="password" />
+		</div>
+		<div class="button">
+			<input type="checkbox" id="stay-signed-in" />
+			<label for="stay-signed-in">Stay signed in</label>
+			<button id="sign-in">Sign In</button>
+		</div>
+	</div>
+</div>
+
+<div class="tile register">
+	<h3>Register</h3>
+	<div class="form">
+		<div>
+			<span>Name:</span>
+			<input type="text" id="register-name" />
+		</div>
+		<div>
+			<span>Email address:</span>
+			<input type="text" id="register-email-address" />
+		</div>
+	</div>
+	<div class="form">
+		<div>
+			<span>Password:</span>
+			<input type="text" id="register-password" />
+		</div>
+		<div>
+			<span>Confirm Password:</span>
+			<input type="text" id="register-confirm-password" />
+		</div>
+	</div>
+	<button id="register">Register</button>
+</div>

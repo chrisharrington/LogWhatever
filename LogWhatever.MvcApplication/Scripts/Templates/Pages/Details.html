@@ -1,0 +1,48 @@
+﻿<style type="text/css">
+	div.events { float:left; width:450px; }
+	div.charts { position:relative; margin-left:465px; }
+
+	div.event { float:left; display:block; width:100%; margin-bottom:15px; }
+	div.event>h4 { float:left; width:auto; color:#498FCC; }
+	div.event>span { float:right; color:#AAA; margin-top:2px; }
+	div.event>div { float:left; width:100%; font-size:0.92em; }
+	div.event>div.measurements>div { float:left; width:100%; }
+	div.event>div.measurements>div>span.name { float:left; font-weight:bold; text-transform:uppercase; }
+	div.event>div.measurements>div>span.value { float:right; }
+	div.event>div.tags { margin-top:5px;  }
+	div.event>div.tags>div { float:left; width:auto; margin-top:3px; margin-right:3px; }
+
+	div.charts>div>h4 { float:left; width:100%; color:#498FCC; }
+	div.charts>div { height:100%; }
+
+	div.charts div.measurements-chart { float:left; width:69%; margin-left:1%; height:300px; }
+	div.charts div.tag-ratios-chart { float:left; width:30%; height:300px; }
+</style>
+
+<div class="events">
+	{{each(i, event) data}}
+		<div class="tile event">
+			<h4>{{html formatDateToShortDateString(event.Date)}}</h4>
+			<span>{{html formatDateToShortTimeString(event.Date)}}</span>
+			<div class="tags">
+				{{each(k, measurement) event.Measurements}}
+					<div class="floating-tag">${measurement.Name} / ${measurement.Quantity.toFixed(2)}</div>
+				{{/each}}
+				{{each(k, tag) event.Tags}}
+					<div class="floating-tag">${tag.Name}</div>
+				{{/each}}
+			</div>
+		</div>
+	{{/each}}
+</div>
+	
+<div class="charts">
+	<div class="tile tag-ratios-chart">
+		<h4>Tag Ratios</h4>
+		<div id="tag-ratios-chart"></div>
+	</div>
+	<div class="tile measurements-chart">
+		<h4>Measurements</h4>
+		<div id="measurements-chart"></div>
+	</div>
+</div>

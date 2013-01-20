@@ -13,20 +13,9 @@ $.extend(LogWhatever.Routers.WelcomeRouter.prototype, LogWhatever.Routers.BaseRo
 //--------------------------------------------------------------------------------------------------------------------------------------------
 /* Private Methods */
 
-LogWhatever.Routers.WelcomeRouter.prototype._onLoading = function () {
-    var deferred = new $.Deferred();
-
-    this._clearSubheader();
-    this._hookupEvents();
-
-	$.when(this._container.find("img").load()).done(function () {	    
-        deferred.resolve();
-    });
-
-    return deferred.promise();
-};
-
 LogWhatever.Routers.WelcomeRouter.prototype._onLoaded = function () {
+	this._clearSubheader();
+	this._hookupEvents();
 	this._register = new LogWhatever.Routers.Welcome.Register({ container: this._container.find("div.register") });
 	this._container.find("#email-address").focus();
 };

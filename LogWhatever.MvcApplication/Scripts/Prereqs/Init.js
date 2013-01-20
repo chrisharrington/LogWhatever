@@ -5,17 +5,11 @@
 
 LogWhatever.Init = function () {
     var me = this;
-    $.when(this._getConfigurationData(), this._getLoggedInUser()).done(function () {
+    $.when(this._loadTemplates(), this._getConfigurationData(), this._getLoggedInUser()).done(function () {
         me._createRouters();
         me._hookupMenuLinks();
-        me._createAddLogEntryControl();
 
-	    $("#logger").click(function() { LogWhatever.Logger.show(); });
 	    $("div.tile.selectable, div.tile.deletable").live("click", function () { $(this).toggleClass("selected"); });
-	    $(document).keyup(function (e) {
-	    	if (e.shiftKey && e.ctrlKey && String.fromCharCode(e.keyCode) == 'L') LogWhatever.Logger.show();
-	    	if (e.keyCode == 27) LogWhatever.Logger.hide();
-	    });
 	    
 	    if (window.location.hash == "")
 	    	Finch.navigate("/dashboard");
@@ -30,15 +24,16 @@ LogWhatever.Init.create = function() {
 /* Private Methods */
 
 LogWhatever.Init.prototype._createRouters = function () {
-	LogWhatever.Routers.WelcomeRouter.create({ html: "pages/welcome", navigation: "welcome" });
-	LogWhatever.Routers.DashboardRouter.create({ html: "pages/dashboard", navigation: "dashboard" });
-	LogWhatever.Routers.DetailsRouter.create({ html: "pages/details/:name", navigation: "details/:name" });
+	LogWhatever.Routers.WelcomeRouter.create({ template: "pages-welcome", navigation: "welcome" });
+	LogWhatever.Routers.DashboardRouter.create({ template: "pages-dashboard", data: "api/dashboard", navigation: "dashboard" });
+	LogWhatever.Routers.DetailsRouter.create({ template: "pages-details", data: "api/details?name=:name", navigation: "details/:name" });
+	LogWhatever.Routers.LogRouter.create({ template: "pages-log", navigation: "log-some-stuff" });
     Finch.listen();
 };
 
 LogWhatever.Init.prototype._hookupMenuLinks = function () {
 	var me = this;
-	$("div.menu>a").click(function () { Finch.navigate("/" + $(this).attr("data-navigation")); });
+	$("header [data-navigation]").click(function () { Finch.navigate("/" + $(this).attr("data-navigation")); });
 	$("#sign-out").click(function() { me._signOut(); });
 };
 
@@ -73,20 +68,22 @@ LogWhatever.Init.prototype._logOut = function () {
     });
 };
 
-LogWhatever.Init.prototype._createAddLogEntryControl = function() {
-	LogWhatever.Logger = new LogWhatever.Controls.Logger({
-		container: $("div.container"),
-		onLoaded: function () {  }
-	});
-};
-
 LogWhatever.Init.prototype._signOut = function () {
-	LogWhatever.Logger.hide();
 	$.post(LogWhatever.Configuration.VirtualDirectory + "api/users/sign-out").success(function() {
 		Finch.navigate("/welcome");
 		$("header>div.user").fadeOut(200);
 	}).error(function() {
 		LogWhatever.Feedback.error("An error has occurred while signing out out. Please contact technical support.");
+	});
+};
+
+LogWhatever.Init.prototype._loadTemplates = function() {
+	return $.get(LogWhatever.Configuration.VirtualDirectory + "api/templates").success(function (templates) {
+		$(templates).each(function () {
+			$.template(this.Name, this.Html);
+		});
+	}).error(function() {
+		LogWhatever.Feedback.error("An error has occurred while retrieving the template list. Please contact technical support.");
 	});
 };
 
@@ -101,3 +98,7 @@ window.onerror = function (e) {
 	var error = e.replace("Uncaught Error: ", "");
 	LogWhatever.Feedback.error(error);
 };
+
+function blah(date) {
+	return new Date(date).toShortDateString();
+}

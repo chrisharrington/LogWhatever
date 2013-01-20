@@ -153,10 +153,13 @@
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\ChartsController.cs" />
     <Compile Include="Controllers\Api\ConfigurationController.cs" />
+    <Compile Include="Controllers\Api\DashboardController.cs" />
     <Compile Include="Controllers\Api\LogsController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\Pages\DetailsController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
+    <Compile Include="Controllers\Api\TemplatesController.cs" />
     <Compile Include="Controllers\Templates\LogController.cs" />
     <Compile Include="Controllers\Templates\PagesController.cs" />
     <Compile Include="Controllers\ViewBuilder.cs" />
@@ -189,6 +192,7 @@
     <Content Include="Scripts\Extensions\ObjectExtensions.js" />
     <Content Include="Scripts\Extensions\StringExtensions.js" />
     <Content Include="Scripts\Plugins\Clearbox.js" />
+    <Content Include="Scripts\Plugins\DeferredAnimation.js" />
     <Content Include="Scripts\Plugins\EnterKeypress.js" />
     <Content Include="Scripts\Plugins\ExtendWithUnderscore.js" />
     <Content Include="Scripts\Plugins\NumbersOnly.js" />
@@ -196,6 +200,7 @@
     <Content Include="Scripts\Prereqs\Global.js" />
     <Content Include="Scripts\Prereqs\Init.js" />
     <Content Include="Scripts\Routers\BaseRouter.js" />
+    <Content Include="Scripts\Routers\LogRouter.js" />
     <Content Include="Scripts\Routers\DetailsRouter.js" />
     <Content Include="Scripts\Routers\DashboardRouter.js" />
     <Content Include="Scripts\Routers\WelcomeRouter.js" />
@@ -265,6 +270,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Style\Fonts\trade-gothic-next.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Templates\Pages\Log.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Templates\Pages\Dashboard.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Templates\Pages\Welcome.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Templates\Pages\Details.html" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

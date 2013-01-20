@@ -1,0 +1,31 @@
+﻿<style type="text/css">
+	div.log-column { float:left; width:19.2%; margin-right:1%; height:500px; }
+	div.log-column:nth-child(5n+1) { margin-right:0; }
+	div.log { float:left; width:100%; margin-bottom:15px; cursor:pointer; }
+	div.log>span { float:left; width:100%; color:#888; font-size:0.9167em; }
+	div.log>div { float:left; width:100%; font-size:0.92em; }
+	div.log>div.measurements>div { float:left; width:100%; }
+	div.log>div.measurements>div>span.name { float:left; font-weight:bold; text-transform:uppercase; }
+	div.log>div.measurements>div>span.value { float:right; }
+	div.log>div.tags { margin-top:5px;  }
+	div.log>div.tags>div { float:left; width:auto; margin-top:3px; margin-right:3px; }
+</style>
+
+{{each(i, logColumn) data}}
+	<div class="log-column">
+		{{each(j, log) logColumn}}
+			<div class="tile log">
+				<h3>${log.Name}</h3>
+				<span>{{html formatDateToShortDateString(log.Date) + " " + formatDateToShortTimeString(log.Date) }}</span>
+				<div class="tags">
+					{{each(k, measurement) log.Measurements}}
+						<div class="floating-tag">${measurement.Name} / ${measurement.Quantity.toFixed(2)}</div>
+					{{/each}}
+					{{each(k, tag) log.Tags}}
+						<div class="floating-tag">${tag.Name}</div>
+					{{/each}}
+				</div>
+			</div>
+		{{/each}}
+	</div>
+{{/each}}

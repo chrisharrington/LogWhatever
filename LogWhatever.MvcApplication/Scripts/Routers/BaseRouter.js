@@ -20,17 +20,17 @@ LogWhatever.Routers.BaseRouter.prototype.load = function (parameters) {
         this._menu.addClass("selected");
 
     var me = this;
-    $.when(this._loadData(parameters), this._container.fadeOut(200)).done(function (result) {
-		me._container.empty().html(result[0]);
+    $.when(this._loadData(parameters), this._container.fadeOutDeferred(200)).done(function (data) {
+    	me._container.empty();
+    	$.tmpl(me._template, { data: data }).appendTo(me._container);
 
-        $.when(me._onLoading()).done(function () {
-	        setTimeout(function() {
-		        me._onLoaded();
-	        }, 150);
-            me._container.fadeIn(200, function () {
-                LogWhatever.Controls.Ellipsis.addTitleToShortenedElements();
-            });
-        });
+		me._container.css("opacity", "0.01").show();
+		LogWhatever.Controls.Ellipsis.addTitleToShortenedElements();
+	    me._onLoaded();
+	    me._container.hide().css("opacity", "1");
+	    me._container.hide().css("opacity", "1").fadeInDeferred(200, function () {
+	    	LogWhatever.Controls.Ellipsis.addTitleToShortenedElements();
+	    });
     });
 };
 
@@ -38,7 +38,6 @@ LogWhatever.Routers.BaseRouter.prototype.load = function (parameters) {
 /* Private Methods */
 
 LogWhatever.Routers.BaseRouter.prototype._init = function (params) {
-	assertExists(params, "html", "BaseRouter.constructor");
 	assertExists(params, "navigation", "BaseRouter.constructor");
 
 	$.extendWithUnderscore(this, params, this._createDefaults());
@@ -54,13 +53,18 @@ LogWhatever.Routers.BaseRouter.prototype._init = function (params) {
 
 LogWhatever.Routers.BaseRouter.prototype._createDefaults = function () {
 	return {
-		onLoading: function () { },
-		onLoaded: function () {}
+		onLoaded: function () { }
 	};
 };
 
 LogWhatever.Routers.BaseRouter.prototype._loadData = function (parameters) {
-	return $.get(LogWhatever.Configuration.VirtualDirectory + this._replacePlaceHoldersWithParameters(this._html, parameters)).complete(function (request) {
+	var deferred = new $.Deferred();
+	if (!this._data) {
+		deferred.resolve();
+		return deferred.promise();
+	}
+
+	$.get(LogWhatever.Configuration.VirtualDirectory + this._replacePlaceHoldersWithParameters(this._data, parameters)).complete(function (request) {
     	var status = request.status;
         if (status == 404)
             Finch.navigate("/missing");
@@ -68,7 +72,10 @@ LogWhatever.Routers.BaseRouter.prototype._loadData = function (parameters) {
         	Finch.navigate("/welcome");
         else if (status != 200)
         	LogWhatever.Feedback.error("An error has occurred while retrieving the view for the current page. Please contact technical support.");
-    });
+		deferred.resolve($.parseJSON(request.responseText));
+	});
+
+	return deferred.promise();
 };
 
 LogWhatever.Routers.BaseRouter.prototype._clearSubheader = function () {

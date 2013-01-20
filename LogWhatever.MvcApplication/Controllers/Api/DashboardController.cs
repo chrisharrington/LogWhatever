@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
+using LogWhatever.Common.Extensions;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
-using LogWhatever.Service.Authentication;
 
-namespace LogWhatever.MvcApplication.Controllers.Templates
+namespace LogWhatever.MvcApplication.Controllers.Api
 {
-	[CustomAuthorize]
-	public class PagesController : BaseController
+	public class DashboardController : BaseApiController
 	{
 		#region Properties
 		public IMeasurementRepository MeasurementRepository { get; set; }
@@ -20,65 +18,33 @@ namespace LogWhatever.MvcApplication.Controllers.Templates
 		#endregion
 
 		#region Public Methods
-		[Service.Authentication.AllowAnonymous]
-		[ActionName("welcome")]
-		public PartialViewResult Welcome()
+		public IEnumerable<IEnumerable<LogModel>> Get()
 		{
-			return PartialView("~/Views/Templates/Pages/Welcome.cshtml");
-		}
-
-		[ActionName("dashboard")]
-		public PartialViewResult Dashboard()
-		{
-			var user = GetSignedInUser();
+			const int columns = 5;
+			var user = GetCurrentlySignedInUser();
 			var measurements = MeasurementRepository.User(user.Id).ToArray();
 			var measurementValues = MeasurementValueRepository.User(user.Id);
 			var logs = LogRepository.User(user.Id).ToArray();
 			var events = EventRepository.Latest(user.Id).ToDictionary(x => x.LogId);
 
-			return PartialView("~/Views/Templates/Pages/Dashboard.cshtml", logs.Select(log => new LogModel {
+			var models = logs.Select(log => new LogModel {
 				Name = log.Name,
 				Date = events[log.Id].Date,
 				Measurements = GetMeasurementValues(measurements, log, measurementValues),
 				Tags = TagEventRepository.LatestForUserAndLog(user.Id, log.Name)
-			}).OrderByDescending(x => x.Date).ToArray());
-		}
+			}).OrderByDescending(x => x.Date).ToArray();
 
-		[ActionName("details")]
-		public ActionResult Details(string name)
-		{
-			Log log;
-			if (string.IsNullOrEmpty(name) || (log = LogRepository.Name(name)) == null)
-				return HttpNotFound();
-
-			var measurements = MeasurementRepository.Log(log.Id).ToDictionary(x => x.Id);
-			var measurementValues = MeasurementValueRepository.Log(log.Id).ToArray();
-			var tags = TagEventRepository.Log(log.Id).ToArray();
-			var events = EventRepository.Log(log.Id).ToArray();
-
-			return PartialView("~/Views/Templates/Pages/Details.cshtml", events.OrderByDescending(x => x.Date).Select(x => new EventModel {
-				Date = x.Date,
-                Measurements = measurementValues.Where(y => y.EventId == x.Id).Select(y => new MeasurementModel { Name = measurements[y.MeasurementId].Name, Quantity = y.Quantity, Unit = measurements[y.MeasurementId].Unit }).OrderBy(y => y.Name),
-				Tags = tags.Where(y => y.EventId == x.Id).OrderBy(y => y.Name)
-			}));
-		}
-
-		[ActionName("log")]
-		public PartialViewResult Log()
-		{
-			return PartialView("~/Views/Templates/Pages/Log.cshtml");
+			var list = new List<IEnumerable<LogModel>>();
+			for (var i = 0; i < columns; i++)
+				list.Add(models.Skip(i).TakeEvery(columns));
+			return list;
 		}
 		#endregion
-		
+
 		#region Private Methods
 		private IEnumerable<MeasurementModel> GetMeasurementValues(IEnumerable<Measurement> measurements, Log log, IEnumerable<MeasurementValue> measurementValues)
 		{
 			return measurements.Where(x => x.LogId == log.Id).Select(x => new MeasurementModel { Name = x.Name, Quantity = GetLatestMeasurementValueQuantity(x, measurementValues), Unit = x.Unit });
-		}
-
-		private User GetSignedInUser()
-		{
-			return UserRepository.Email(User.Identity.Name);
 		}
 
 		private decimal GetLatestMeasurementValueQuantity(Measurement measurement, IEnumerable<MeasurementValue> values)
@@ -90,23 +56,14 @@ namespace LogWhatever.MvcApplication.Controllers.Templates
 		}
 		#endregion
 
-		#region DashboardModel Class
+		#region Model Classes
 		public class LogModel
 		{
 			#region Properties
 			public DateTime Date { get; set; }
 			public string Name { get; set; }
 			public IEnumerable<MeasurementModel> Measurements { get; set; }
-			public IEnumerable<TagEvent> Tags { get; set; } 
-			#endregion
-		}
-
-		public class EventModel
-		{
-			#region Properties
-			public DateTime Date { get; set; }
-			public IEnumerable<MeasurementModel> Measurements { get; set; }
-			public IEnumerable<TagEvent> Tags { get; set; } 
+			public IEnumerable<TagEvent> Tags { get; set; }
 			#endregion
 		}
 

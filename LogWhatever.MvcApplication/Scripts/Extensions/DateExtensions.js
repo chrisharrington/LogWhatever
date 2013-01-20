@@ -11,7 +11,7 @@ Date.prototype.toLongDateString = function () {
 };
 
 Date.prototype.toShortDateString = function () {
-	return this.getFullYear() + "-" + (this.getMonth() + 1) + "-" + this.getDate();
+	return (this.getMonth() + 1) + "/" + this.getDate() + "/" + this.getFullYear();
 };
 
 Date.prototype.toDateTimeString = function () {
@@ -20,6 +20,14 @@ Date.prototype.toDateTimeString = function () {
 
 Date.prototype.toServerReadableString = function () {
 	return this.getFullYear() + "-" + (this.getMonth() + 1).toString().padLeft(2, "0") + "-" + this.getDate().toString().padLeft(2, "0") + " " + this.getHours().toString().padLeft(2, "0") + ":" + this.getMinutes().toString().padLeft(2, "0") + ":" + this.getSeconds().toString().padLeft(2, "0");
+};
+
+Date.prototype.toShortTimeString = function() {
+	var hours = this.getHours();
+	var isAfternoon = hours > 11;
+	if (hours == 0)
+		hours = 12;
+	return hours + ":" + this.getMinutes().toString().padLeft(2, "0") + " " + (isAfternoon ? "PM" : "AM");
 };
 
 Date.prototype.clone = function () {
@@ -88,3 +96,15 @@ Date.prototype.addDays = function (count) {
 	date.setDate(date.getDate() + count);
 	return date;
 };
+
+function formatDateToShortDateString(date) {
+	if (typeof (date) != typeof (Date))
+		date = new Date(date);
+	return new Date(date).toShortDateString();
+}
+
+function formatDateToShortTimeString(date) {
+	if (typeof (date) != typeof (Date))
+		date = new Date(date);
+	return new Date(date).toShortTimeString();
+}

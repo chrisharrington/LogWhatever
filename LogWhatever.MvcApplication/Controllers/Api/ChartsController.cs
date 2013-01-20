@@ -44,7 +44,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		#region Private Methods
 		private Log GetLogFromName(string logName)
 		{
-			var log = LogRepository.Name(logName);
+			var log = LogRepository.Name(logName.Replace("-", " "));
 			if (log == null)
 				throw new ArgumentException("The log with name \"" + logName + "\" does not exist.");
 			return log;
