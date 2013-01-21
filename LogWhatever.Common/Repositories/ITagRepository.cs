@@ -7,7 +7,7 @@ namespace LogWhatever.Common.Repositories
 	public interface ITagRepository
 	{
 		#region Public Methods
-		IEnumerable<Tag> LogId(Guid logId);
+		IEnumerable<Tag> Log(Guid logId);
 		IEnumerable<Tag> User(Guid userId);
 		Tag Name(string name);
 		#endregion

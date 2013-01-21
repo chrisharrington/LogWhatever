@@ -41,7 +41,6 @@ LogWhatever.Controls.TagResizer.prototype._setTagWidths = function (elements) {
 			}
 			labels.push($(this));
 		});
-
 		me._setStoredTagWidths(labels, width);
 	});
 };

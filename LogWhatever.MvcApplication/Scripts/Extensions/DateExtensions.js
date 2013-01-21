@@ -25,6 +25,8 @@ Date.prototype.toServerReadableString = function () {
 Date.prototype.toShortTimeString = function() {
 	var hours = this.getHours();
 	var isAfternoon = hours > 11;
+	if (hours > 12)
+		hours -= 12;
 	if (hours == 0)
 		hours = 12;
 	return hours + ":" + this.getMinutes().toString().padLeft(2, "0") + " " + (isAfternoon ? "PM" : "AM");

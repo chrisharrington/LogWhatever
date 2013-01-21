@@ -87,6 +87,9 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\MeasurementValue.cs" />
+    <Compile Include="Models\Page\Event.cs" />
+    <Compile Include="Models\Page\Log.cs" />
+    <Compile Include="Models\Page\Measurement.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Log.cs" />

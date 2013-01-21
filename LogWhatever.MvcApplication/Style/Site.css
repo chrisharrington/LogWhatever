@@ -49,3 +49,13 @@ div.form>div.btn>div>button { float:left; margin-left:10px; }
 svg>text:not(.highcharts-title), div.highcharts-container>div>span { display:none; }
 
 div.floating-tag { text-align:center; text-transform:lowercase; background-color:#F9EDBE; border:solid 1px #F0DE97; color:#916406; padding:3px 5px; border-radius:3px; }
+
+div.event { float:left; display:block; width:100%; margin-bottom:15px; }
+div.event>h4 { float:left; width:auto; color:#498FCC; }
+div.event>span { float:right; color:#AAA; margin-top:2px; }
+div.event>div { float:left; width:100%; font-size:0.92em; }
+div.event>div.measurements>div { float:left; width:100%; }
+div.event>div.measurements>div>span.name { float:left; font-weight:bold; text-transform:uppercase; }
+div.event>div.measurements>div>span.value { float:right; }
+div.event>div.tags { margin-top:5px;  }
+div.event>div.tags>div { float:left; width:auto; margin-top:3px; margin-right:3px; }

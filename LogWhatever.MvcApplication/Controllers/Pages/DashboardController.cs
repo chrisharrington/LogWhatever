@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using LogWhatever.Common.Extensions;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
+using LogWhatever.MvcApplication.Controllers.Api;
 
-namespace LogWhatever.MvcApplication.Controllers.Api
+namespace LogWhatever.MvcApplication.Controllers.Pages
 {
 	public class DashboardController : BaseApiController
 	{
@@ -18,7 +18,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		#endregion
 
 		#region Public Methods
-		public IEnumerable<IEnumerable<LogModel>> Get()
+		public IEnumerable<IEnumerable<Common.Models.Page.Log>> Get()
 		{
 			const int columns = 5;
 			var user = GetCurrentlySignedInUser();
@@ -27,14 +27,14 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			var logs = LogRepository.User(user.Id).ToArray();
 			var events = EventRepository.Latest(user.Id).ToDictionary(x => x.LogId);
 
-			var models = logs.Select(log => new LogModel {
+			var models = logs.Select(log => new Common.Models.Page.Log {
 				Name = log.Name,
 				Date = events[log.Id].Date,
 				Measurements = GetMeasurementValues(measurements, log, measurementValues),
 				Tags = TagEventRepository.LatestForUserAndLog(user.Id, log.Name)
 			}).OrderByDescending(x => x.Date).ToArray();
 
-			var list = new List<IEnumerable<LogModel>>();
+			var list = new List<IEnumerable<Common.Models.Page.Log>>();
 			for (var i = 0; i < columns; i++)
 				list.Add(models.Skip(i).TakeEvery(columns));
 			return list;
@@ -42,9 +42,9 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		#endregion
 
 		#region Private Methods
-		private IEnumerable<MeasurementModel> GetMeasurementValues(IEnumerable<Measurement> measurements, Log log, IEnumerable<MeasurementValue> measurementValues)
+		private IEnumerable<Common.Models.Page.Measurement> GetMeasurementValues(IEnumerable<Measurement> measurements, Log log, IEnumerable<MeasurementValue> measurementValues)
 		{
-			return measurements.Where(x => x.LogId == log.Id).Select(x => new MeasurementModel { Name = x.Name, Quantity = GetLatestMeasurementValueQuantity(x, measurementValues), Unit = x.Unit });
+			return measurements.Where(x => x.LogId == log.Id).Select(x => new Common.Models.Page.Measurement { Name = x.Name, Quantity = GetLatestMeasurementValueQuantity(x, measurementValues), Unit = x.Unit });
 		}
 
 		private decimal GetLatestMeasurementValueQuantity(Measurement measurement, IEnumerable<MeasurementValue> values)
@@ -53,27 +53,6 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 				return 0;
 
 			return values.Where(x => x.MeasurementId == measurement.Id).OrderByDescending(x => x.UpdatedDate).First().Quantity;
-		}
-		#endregion
-
-		#region Model Classes
-		public class LogModel
-		{
-			#region Properties
-			public DateTime Date { get; set; }
-			public string Name { get; set; }
-			public IEnumerable<MeasurementModel> Measurements { get; set; }
-			public IEnumerable<TagEvent> Tags { get; set; }
-			#endregion
-		}
-
-		public class MeasurementModel
-		{
-			#region Properties
-			public string Name { get; set; }
-			public decimal Quantity { get; set; }
-			public string Unit { get; set; }
-			#endregion
 		}
 		#endregion
 	}

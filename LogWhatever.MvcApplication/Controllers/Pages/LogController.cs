@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Web.Mvc;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
+using LogWhatever.MvcApplication.Controllers.Api;
 
-namespace LogWhatever.MvcApplication.Controllers.Templates
+namespace LogWhatever.MvcApplication.Controllers.Pages
 {
 	[Authorize]
-	public class LogController : BaseController
+	public class LogController : BaseApiController
 	{
 		#region Properties
 		public ILogRepository LogRepository { get; set; }

@@ -153,16 +153,16 @@
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\ChartsController.cs" />
     <Compile Include="Controllers\Api\ConfigurationController.cs" />
-    <Compile Include="Controllers\Api\DashboardController.cs" />
+    <Compile Include="Controllers\Api\EventsController.cs" />
+    <Compile Include="Controllers\Api\MeasurementsController.cs" />
+    <Compile Include="Controllers\Pages\DashboardController.cs" />
     <Compile Include="Controllers\Api\LogsController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Pages\DetailsController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\Api\TemplatesController.cs" />
-    <Compile Include="Controllers\Templates\LogController.cs" />
-    <Compile Include="Controllers\Templates\PagesController.cs" />
-    <Compile Include="Controllers\ViewBuilder.cs" />
+    <Compile Include="Controllers\Api\TagsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -205,6 +205,7 @@
     <Content Include="Scripts\Routers\DashboardRouter.js" />
     <Content Include="Scripts\Routers\WelcomeRouter.js" />
     <Content Include="Scripts\Routers\Welcome\Register.js" />
+    <Content Include="Scripts\Templates\Log\Events.html" />
     <Content Include="Scripts\ThirdParty\finch.js" />
     <Content Include="Scripts\ThirdParty\highcharts.src.js" />
     <Content Include="Scripts\ThirdParty\jquery.tmpl.js" />
@@ -226,7 +227,9 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controllers\Templates\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Templates\Pages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -253,11 +256,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Templates\Pages\Dashboard.cshtml" />
     <Content Include="Views\Templates\Log\Measurements.cshtml" />
     <Content Include="Views\Templates\Log\Tags.cshtml" />
-    <Content Include="Views\Templates\Pages\Details.cshtml" />
-    <Content Include="Views\Templates\Pages\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Style\Fonts\ITC-Franklin-Gothic-Standard.woff" />
@@ -272,7 +272,7 @@
     <Content Include="Style\Fonts\trade-gothic-next.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Templates\Pages\Log.cshtml" />
+    <Content Include="Scripts\Templates\Pages\Log.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Templates\Pages\Dashboard.html" />

@@ -9,7 +9,7 @@ namespace LogWhatever.Repositories
 	public class TagRepository : BaseRepository, ITagRepository
 	{
 		#region Public Methods
-		public IEnumerable<Tag> LogId(Guid logId)
+		public IEnumerable<Tag> Log(Guid logId)
 		{
 			if (logId == Guid.Empty)
 				throw new ArgumentNullException("logId");
