@@ -11,7 +11,9 @@ namespace LogWhatever.Messages.Commands
 		public Guid LogId { get; set; }
 		public string LogName { get; set; }
 		public Guid EventId { get; set; }
+		public decimal Quantity { get; set; }
 		public string Unit { get; set; }
+		public DateTime Date { get; set; }
 		#endregion
 
 		#region Public Methods
@@ -23,9 +25,11 @@ namespace LogWhatever.Messages.Commands
 				LogId = measurement.LogId,
 				LogName = measurement.LogName,
 				Name = measurement.Name,
+				Quantity = measurement.Quantity,
 				Unit = measurement.Unit,
 				UpdatedDate = measurement.UpdatedDate,
-				UserId = measurement.UserId
+				UserId = measurement.UserId,
+				Date = measurement.Date
 			};
 		}
 		#endregion

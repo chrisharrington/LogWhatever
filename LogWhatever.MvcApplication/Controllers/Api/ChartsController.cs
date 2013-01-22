@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Web.Http;
 using LogWhatever.Common.Models;
@@ -13,9 +12,8 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		#region Properties
 		public ILogRepository LogRepository { get; set; }
 		public IMeasurementRepository MeasurementRepository { get; set; }
-		public IMeasurementValueRepository MeasurementValueRepository { get; set; }
-		public ITagEventRepository TagEventRepository { get; set; }
 		public IEventRepository EventRepository { get; set; }
+		public ITagRepository TagRepository { get; set; }
 		#endregion
 
 		#region Public Methods
@@ -24,12 +22,12 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		public dynamic GetMeasurements([FromUri] string logName)
 		{
 			var log = GetLogFromName(logName);
-			var values = MeasurementValueRepository.Log(log.Id).ToArray();
+			var measurements = MeasurementRepository.Log(log.Id).ToArray();
 			var events = EventRepository.Log(log.Id).ToDictionary(x => x.Id);
 
 			var result = new List<object>();
 			foreach (var measurement in MeasurementRepository.Log(log.Id))
-				result.Add(new {measurement.Name, Data = values.Where(x => x.MeasurementId == measurement.Id).OrderByDescending(x => events[x.EventId].Date).Select(x => new {x.Quantity, events[x.EventId].Date}) });
+				result.Add(new {measurement.Name, Data = measurements.OrderByDescending(x => events[x.EventId].Date).Select(x => new {x.Quantity, events[x.EventId].Date}) });
 			return result;
 		}
 
@@ -37,7 +35,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		[AcceptVerbs("GET")]
 		public dynamic GetTagRatios([FromUri] string logName)
 		{
-			return TagEventRepository.Log(GetLogFromName(logName).Id).GroupBy(x => x.Name).Select(x => new {x.First().Name, Count = x.Count()});
+			return TagRepository.Log(GetLogFromName(logName).Id).GroupBy(x => x.Name).Select(x => new {x.First().Name, Count = x.Count()});
 		}
 		#endregion
 

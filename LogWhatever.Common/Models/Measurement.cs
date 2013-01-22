@@ -10,7 +10,9 @@ namespace LogWhatever.Common.Models
 		public string LogName { get; set; }
 		public Guid EventId { get; set; }
 		public string Name { get; set; }
+		public decimal Quantity { get; set; }
 		public string Unit { get; set; }
+		public DateTime Date { get; set; }
 		#endregion
 	}
 }

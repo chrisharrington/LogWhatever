@@ -64,8 +64,6 @@
     <Build Include="Tables\Tags.table.sql" />
     <Build Include="Tables\Measurements.table.sql" />
     <Build Include="Tables\LogUsers.table.sql" />
-    <Build Include="Tables\MeasurementValues.table.sql" />
-    <Build Include="Tables\TagEvents.table.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Local.publish.xml" />

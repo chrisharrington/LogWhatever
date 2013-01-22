@@ -5,6 +5,8 @@
 	LogId uniqueidentifier not null,
 	LogName nvarchar(255) not null,
 	EventId uniqueidentifier not null,
-	Name nvarchar(255) not null,
-	Unit nvarchar(255) not null
+	Name nvarchar(255) null,
+	Quantity decimal(18,4) not null,
+	Unit nvarchar(255) null,
+	Date datetime not null
 )

@@ -8,8 +8,8 @@ namespace LogWhatever.Common.Models.Page
 		#region Properties
 		public DateTime Date { get; set; }
 		public string Name { get; set; }
-		public IEnumerable<Measurement> Measurements { get; set; }
-		public IEnumerable<TagEvent> Tags { get; set; }
+		public IEnumerable<Models.Measurement> Measurements { get; set; }
+		public IEnumerable<Tag> Tags { get; set; }
 		#endregion
 	}
 }

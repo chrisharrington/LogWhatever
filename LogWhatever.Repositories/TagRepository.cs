@@ -25,6 +25,17 @@ namespace LogWhatever.Repositories
 			return Query<Tag>("select * from Tags where UserId = @userId", new {userId});
 		}
 
+		public IEnumerable<Tag> LatestForUserAndLog(Guid userId, string name)
+		{
+			if (userId == Guid.Empty)
+				throw new ArgumentNullException("userId");
+			if (string.IsNullOrEmpty(name))
+				throw new ArgumentNullException("name");
+
+			var tags = User(userId).Where(x => x.LogName == name);
+			return !tags.Any() ? (IEnumerable<Tag>) new List<Tag>() : tags.GroupBy(x => x.Date).OrderByDescending(x => x.Key).First();
+		}
+
 		public Tag Name(string name)
 		{
 			if (string.IsNullOrEmpty(name))

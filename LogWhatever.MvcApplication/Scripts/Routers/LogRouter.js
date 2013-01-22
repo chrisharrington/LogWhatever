@@ -38,30 +38,31 @@ LogWhatever.Routers.LogRouter.prototype._setClearboxes = function() {
 	this._container.find("#new-tag-name").clearbox();
 };
 
-LogWhatever.Routers.LogRouter.prototype._addMeasurement = function () {
+LogWhatever.Routers.LogRouter.prototype._addMeasurement = function (beforeSave) {
 	this._container.find("input.error").removeClass("error");
 
 	var container = this._container.find("div.measurements>div.add");
 	var name = container.find("#new-measurement-name");
 	var quantity = container.find("#new-measurement-quantity");
 	var unit = container.find("#new-measurement-units");
-	this._validateMeasurement(name, quantity, unit);
+	this._validateMeasurement(name, quantity);
 
-	this._container.find("div.measurements>div.list").prepend($.tmpl("log-add-measurement", { Name: name.clearbox("value"), Quantity: parseFloat(quantity.clearbox("value")).toFixed(2), Unit: unit.clearbox("value") }));
+	this._container.find("div.measurements>div.list").prepend($.tmpl("log-add-measurement", { Name: name.clearbox("value"), Quantity: parseFloat(quantity.clearbox("value")).toFixed(2), Unit: unit.clearbox("value") }).hide());
 	name.clearbox("reset");
 	quantity.clearbox("reset");
 	unit.clearbox("reset");
 
-	this._container.find("div.measurements>div.list>div.measurement:first").slideDown(200);
+	var added = this._container.find("div.measurements>div.list>div.measurement:first");
+	if (beforeSave)
+		container.slideUp(200, function () {
+			added.slideDown(200);
+		});
+	else
+		added.slideDown(200);
 	name.focus();
 };
 
 LogWhatever.Routers.LogRouter.prototype._validateMeasurement = function(name, quantity) {
-	if (name.clearbox("value") == "") {
-		name.addClass("error").focus();
-		throw new Error("The measurement name is required.");
-	}
-
 	this._container.find("div.measurements div.list input.measurement-name").each(function () {
 		if ($(this).val().toString().toLowerCase() == name.val().toString().toLowerCase())
 			throw new Error("The measurement name already exists.");
@@ -100,7 +101,18 @@ LogWhatever.Routers.LogRouter.prototype._addTag = function () {
 
 LogWhatever.Routers.LogRouter.prototype._save = function () {
 	this._validate();
+	this._addMeasurementAndTagIfNecessary();
 	this._sendLogCommand(this._getLogParameters());
+};
+
+LogWhatever.Routers.LogRouter.prototype._addMeasurementAndTagIfNecessary = function () {
+	var measurementQuantity = this._container.find("#new-measurement-quantity");
+	if (measurementQuantity.clearbox("value") != "")
+		this._addMeasurement(true);
+	
+	var tagName = this._container.find("#new-tag-name");
+	if (tagName.clearbox("value") != "")
+		this._addTag();
 };
 
 LogWhatever.Routers.LogRouter.prototype._validate = function () {
@@ -115,12 +127,6 @@ LogWhatever.Routers.LogRouter.prototype._validateName = function () {
 		name.addClass("error").focus();
 		throw new Error("The name is required.");
 	}
-};
-
-LogWhatever.Routers.LogRouter.prototype._validateTag = function () {
-	var panel = this._container.find("div.tags>div");
-	if (panel.find("input.tag-name").clearbox("value") == "")
-		throw new Error("The name for tags is required.");
 };
 
 LogWhatever.Routers.LogRouter.prototype._validateTime = function () {
@@ -143,47 +149,43 @@ LogWhatever.Routers.LogRouter.prototype._getLogParameters = function () {
 
 LogWhatever.Routers.LogRouter.prototype._getLogMeasurementParameters = function () {
 	var measurements = new Array();
-	this._container.find("div.measurements>div.added>div").each(function () {
+	this._container.find("div.measurements>div.list>div").each(function () {
 		var panel = $(this);
-		measurements.push({ Name: panel.find("h5").text(), Quantity: panel.find("input").val(), Unit: panel.find("span").text() });
+		measurements.push({ Name: panel.find("input.measurement-name").val(), Quantity: panel.find("input.measurement-quantity").val(), Unit: panel.find("input.measurement-units").val() });
 	});
 	return measurements;
 };
 
 LogWhatever.Routers.LogRouter.prototype._getLogTagParameters = function () {
 	var tags = new Array();
-	this._container.find("div.tags>div.added>div").each(function () {
-		tags.push({ Name: $(this).find("h5").text() });
+	this._container.find("div.tags>div.list>div").each(function () {
+		tags.push({ Name: $(this).text() });
 	});
 	return tags;
 };
 
 LogWhatever.Routers.LogRouter.prototype._sendLogCommand = function (parameters) {
+	var me = this;
 	var inputs = this._container.find("input, textarea, select").attr("disabled", true);
 	$.post(LogWhatever.Configuration.VirtualDirectory + "api/logs", parameters).success(function () {
-		LogWhatever.Feedback.success("Your data has been logged.");
+		//LogWhatever.Feedback.success("Your data has been logged.");
+		me._loadMeasurements(parameters.Name, true);
+		me._loadEvents(parameters.Name);
 	}).error(function () {
 		LogWhatever.Feedback.error("An error has occurred while logging your data. No data was saved. Please contact technical support.");
 	}).complete(function () {
-		inputs.attr("disabled", false);
+		inputs.attr("disabled", false);	
 	});
 };
 
-LogWhatever.Routers.LogRouter.prototype._loadMeasurements = function (logName) {
-	var me = this;
+LogWhatever.Routers.LogRouter.prototype._loadMeasurements = function (logName, afterSave) {
 	var container = this._container.find("div.measurements>div.list");
 	var add = this._container.find("div.measurements>div.add");
 	$.when(this._getMeasurements(logName)).done(function (measurements) {
-		//if (measurements.length > 0) {
-		//	add.slideUpDeferred(200, function () {
-		//		container.empty();
-		//		$.tmpl("log-add-measurement", measurements).hide().appendTo(container);
-		//		container.find("input:first, input:last").attr("readonly", true);
-		//		container.find(">div").addClass("existing").slideDown(200);
-		//	});
-		//}
 		//alert(container.find(">*").length + "\n" + measurements.length);
-		if (container.find(">*").length > 0 && measurements.length == 0) {
+		if (afterSave) {
+			add.slideUpDeferred(200);
+		} else if (container.find(">*").length > 0 && measurements.length == 0) {
 			container.slideUpDeferred(200, function() {
 				container.empty();
 				add.slideDownDeferred(200);
@@ -194,12 +196,14 @@ LogWhatever.Routers.LogRouter.prototype._loadMeasurements = function (logName) {
 			container.slideUpDeferred(200, function() {
 				container.hide().empty();
 				$.tmpl("log-add-measurement", measurements).appendTo(container);
+				container.find("input.measurement-name, input.measurement-units").attr("readonly", true).css("color", "#AAA");
 				container.slideDownDeferred(200);
 			});
 		} else if (container.find(">*").length == 0 && measurements.length > 0) {
 			add.slideUpDeferred(200, function () {
 				container.hide().empty();
 				$.tmpl("log-add-measurement", measurements).appendTo(container);
+				container.find("input.measurement-name, input.measurement-units").attr("readonly", true).css("color", "#AAA");
 				container.slideDownDeferred(200);
 			});
 		}
@@ -217,17 +221,6 @@ LogWhatever.Routers.LogRouter.prototype._getMeasurements = function (logName) {
 			LogWhatever.Feedback.error("An error has occurred while retrieving the previous measurements for the log. Please contact technical support.");
 		});
 
-	return deferred.promise();
-};
-
-LogWhatever.Routers.LogRouter.prototype._loadTemplates = function () {
-	var deferred = new $.Deferred();
-	$.when(
-		this._loadTemplate("Scripts/Templates/Log/AddMeasurement.html", "add-measurement"),
-		this._loadTemplate("Scripts/Templates/Log/AddTag.html", "add-tag")
-	).done(function () {
-		deferred.resolve();
-	});
 	return deferred.promise();
 };
 

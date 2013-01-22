@@ -42,11 +42,9 @@
     <Compile Include="Commands\AddEvent.cs" />
     <Compile Include="Commands\AddLog.cs" />
     <Compile Include="Commands\AddMeasurement.cs" />
-    <Compile Include="Commands\AddMeasurementValue.cs" />
-    <Compile Include="Commands\AddTagEvent.cs" />
+    <Compile Include="Commands\AddTag.cs" />
     <Compile Include="Commands\AddUser.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
-    <Compile Include="Commands\AddTag.cs" />
     <Compile Include="Events\BaseEvent.cs" />
     <Compile Include="Events\EventAdded.cs">
       <DependentUpon>Events.tt</DependentUpon>
@@ -62,13 +60,7 @@
     <Compile Include="Events\MeasurementAdded.cs">
       <DependentUpon>Events.tt</DependentUpon>
     </Compile>
-    <Compile Include="Events\MeasurementValueAdded.cs">
-      <DependentUpon>Events.tt</DependentUpon>
-    </Compile>
     <Compile Include="Events\TagAdded.cs">
-      <DependentUpon>Events.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Events\TagEventAdded.cs">
       <DependentUpon>Events.tt</DependentUpon>
     </Compile>
     <Compile Include="Events\UserAdded.cs">

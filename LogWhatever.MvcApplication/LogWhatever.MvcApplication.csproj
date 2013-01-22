@@ -185,7 +185,6 @@
     <Content Include="Scripts\Controls\Dialog.js" />
     <Content Include="Scripts\Controls\Ellipsis.js" />
     <Content Include="Scripts\Controls\Feedback.js" />
-    <Content Include="Scripts\Controls\Logger.js" />
     <Content Include="Scripts\Controls\Table.js" />
     <Content Include="Scripts\Extensions\ArrayExtensions.js" />
     <Content Include="Scripts\Extensions\DateExtensions.js" />
@@ -211,7 +210,6 @@
     <Content Include="Scripts\ThirdParty\jquery.tmpl.js" />
     <Content Include="Scripts\ThirdParty\jscharts.js" />
     <Content Include="Scripts\ThirdParty\parsejson.js" />
-    <Content Include="Style\Logger.css" />
     <Content Include="Style\Feedback.css" />
     <Content Include="Style\Fonts.css" />
     <Content Include="Style\Site.css" />

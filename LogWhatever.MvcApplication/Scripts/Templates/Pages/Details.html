@@ -16,7 +16,7 @@
 			<span>{{html formatDateToShortTimeString(event.Date)}}</span>
 			<div class="tags">
 				{{each(k, measurement) event.Measurements}}
-					<div class="floating-tag">${measurement.Name} / ${measurement.Quantity.toFixed(2)}</div>
+					<div class="floating-tag">${measurement.Name ? measurement.Name + '/ ' : ''}${measurement.Quantity.toFixed(2)}${measurement.Unit ? ' ' + measurement.Unit : ''}</div>
 				{{/each}}
 				{{each(k, tag) event.Tags}}
 					<div class="floating-tag">${tag.Name}</div>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 using LogWhatever.Messages.Commands;
@@ -29,41 +28,14 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		#region Private Methods
 		private void SaveTags(Log log, User user, Event @event, IEnumerable<Tag> tags)
 		{
-			foreach (var retrieved in tags.Select(GetTag))
-				Dispatcher.Dispatch(AddTagEvent.CreateFrom(new TagEvent {LogId = log.Id, LogName = log.Name, EventId = @event.Id, Id = Guid.NewGuid(), Name = retrieved.Name, TagId = retrieved.Id, UserId = user.Id}));
-		}
-
-		private Tag GetTag(Tag tag)
-		{
-			var retrieved = TagRepository.Name(tag.Name);
-			if (retrieved == null)
-			{
-				retrieved = new Tag();
-				retrieved.Id = Guid.NewGuid();
-				retrieved.Name = tag.Name;
-				Dispatcher.Dispatch(AddTag.CreateFrom(retrieved));
-			}
-			return retrieved;
+			foreach (var tag in tags)
+				Dispatcher.Dispatch(AddTag.CreateFrom(new Tag {LogId = log.Id, LogName = log.Name, EventId = @event.Id, Date = @event.Date, Id = Guid.NewGuid(), Name = tag.Name, UserId = user.Id}));
 		}
 
 		private void SaveMeasurements(User user, Log log, Event @event, IEnumerable<MeasurementData> values)
 		{
 			foreach (var value in values)
-			{
-				var measurement = GetMeasurement(value.Name, value.Unit, log, @event, user);
-				Dispatcher.Dispatch(AddMeasurementValue.CreateFrom(new MeasurementValue {Id = Guid.NewGuid(), EventId = @event.Id, MeasurementId = measurement.Id, Quantity = value.Quantity, LogId = log.Id, UserId = user.Id}));
-			}
-		}
-
-		private Measurement GetMeasurement(string name, string unit, Log log, Event @event, User user)
-		{
-			var measurement = MeasurementRepository.Log(log.Id).FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
-			if (measurement == null)
-			{
-				measurement = new Measurement {Id = Guid.NewGuid(), LogId = log.Id, LogName = log.Name, EventId = @event.Id, UserId = user.Id, Name = name, Unit = unit};
-				Dispatcher.Dispatch(AddMeasurement.CreateFrom(measurement));
-			}
-			return measurement;
+				Dispatcher.Dispatch(AddMeasurement.CreateFrom(new Measurement {Id = Guid.NewGuid(), EventId = @event.Id, Date = @event.Date, Name = value.Name, Quantity = value.Quantity, Unit = value.Unit, LogId = log.Id, LogName = log.Name, UserId = user.Id}));
 		}
 
 		private Event CreateEvent(LogData data, Log log)

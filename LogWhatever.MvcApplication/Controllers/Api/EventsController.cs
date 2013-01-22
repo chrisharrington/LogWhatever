@@ -11,8 +11,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 	{
 		#region Properties
 		public IMeasurementRepository MeasurementRepository { get; set; }
-		public IMeasurementValueRepository MeasurementValueRepository { get; set; }
-		public ITagEventRepository TagEventRepository { get; set; }
+		public ITagRepository TagRepository { get; set; }
 		public ILogRepository LogRepository { get; set; }
 		public IEventRepository EventRepository { get; set; }
 		#endregion
@@ -28,14 +27,13 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			if (log == null)
 				return new List<Event>();
 
-			var measurements = MeasurementRepository.Log(log.Id).ToDictionary(x => x.Id);
-			var measurementValues = MeasurementValueRepository.Log(log.Id).ToArray();
-			var tags = TagEventRepository.Log(log.Id).ToArray();
+			var measurements = MeasurementRepository.Log(log.Id).ToArray();
+			var tags = TagRepository.Log(log.Id).ToArray();
 			var events = EventRepository.Log(log.Id).ToArray();
 
 			return events.OrderByDescending(x => x.Date).Select(x => new Event {
 				Date = x.Date,
-				Measurements = measurementValues.Where(y => y.EventId == x.Id).Select(y => new Common.Models.Page.Measurement { Name = measurements[y.MeasurementId].Name, Quantity = y.Quantity, Unit = measurements[y.MeasurementId].Unit }).OrderBy(y => y.Name),
+				Measurements = measurements.Where(y => y.EventId == x.Id),
 				Tags = tags.Where(y => y.EventId == x.Id).OrderBy(y => y.Name)
 			});
 		}
