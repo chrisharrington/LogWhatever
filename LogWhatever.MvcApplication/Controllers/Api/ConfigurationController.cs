@@ -1,5 +1,6 @@
 ﻿using System.Dynamic;
 using LogWhatever.Common.Configuration;
+using LogWhatever.Service.Authentication;
 
 namespace LogWhatever.MvcApplication.Controllers.Api
 {
@@ -10,6 +11,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		#endregion
 
 		#region Public Methods
+		[AllowAnonymous]
 		public dynamic Get()
 		{
 			dynamic result = new ExpandoObject();

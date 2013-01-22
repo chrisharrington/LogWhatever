@@ -15,6 +15,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 
 		#region Public Methods
 		[ActionName("signed-in")]
+		[AllowAnonymous]
 		public User GetSignedInUser()
 		{
 			return GetCurrentlySignedInUser();
@@ -22,6 +23,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 
 		[ActionName("sign-in")]
 		[AcceptVerbs("GET")]
+		[AllowAnonymous]
 		public User SignIn(string emailAddress, string password, bool staySignedIn)
 		{
 			if (string.IsNullOrEmpty(emailAddress))

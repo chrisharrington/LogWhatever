@@ -58,7 +58,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 
 		private DateTime MergeDateAndTime(DateTime date, DateTime time)
 		{
-			return date.AddHours(time.Hour).AddMinutes(time.Minute).AddSeconds(time.Second).AddMilliseconds(time.Millisecond);
+			return date.ToUniversalTime().AddHours(time.Hour).AddMinutes(time.Minute).AddSeconds(time.Second).AddMilliseconds(time.Millisecond);
 		}
 		#endregion
 

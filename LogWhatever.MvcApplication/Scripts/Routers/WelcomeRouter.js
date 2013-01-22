@@ -53,7 +53,7 @@ LogWhatever.Routers.WelcomeRouter.prototype._sendSignInCommand = function (email
 			LogWhatever.User = user;
 			Finch.navigate("/dashboard");
 			$("header>div.user").fadeIn(200);
-			$("#user-name").text(LogWhatever.User.Name);
+			$("#user-account>span").text(LogWhatever.User.Name);
 		}
 	}).error(function() {
 		LogWhatever.Feedback.error("An error has occurred while signing you in. Please contact technical support.");
