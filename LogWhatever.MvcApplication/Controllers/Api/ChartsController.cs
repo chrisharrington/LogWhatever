@@ -21,7 +21,8 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		[AcceptVerbs("GET")]
 		public dynamic GetMeasurements([FromUri] string logName)
 		{
-			return new List<Measurement>();
+			var log = GetLogFromName(logName);
+			return MeasurementRepository.Log(log.Id).GroupBy(x => x.GroupId);
 		}
 
 		[ActionName("tag-ratios")]
