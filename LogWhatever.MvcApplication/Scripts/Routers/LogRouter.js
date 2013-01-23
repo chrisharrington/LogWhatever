@@ -45,9 +45,10 @@ LogWhatever.Routers.LogRouter.prototype._addMeasurement = function (beforeSave) 
 	var name = container.find("#new-measurement-name");
 	var quantity = container.find("#new-measurement-quantity");
 	var unit = container.find("#new-measurement-units");
+	var groupId = UUIDjs.create();
 	this._validateMeasurement(name, quantity);
 
-	this._container.find("div.measurements>div.list").prepend($.tmpl("log-add-measurement", { Name: name.clearbox("value"), Quantity: parseFloat(quantity.clearbox("value")).toFixed(2), Unit: unit.clearbox("value") }).hide());
+	this._container.find("div.measurements>div.list").prepend($.tmpl("log-add-measurement", { GroupId: groupId, Name: name.clearbox("value"), Quantity: parseFloat(quantity.clearbox("value")).toFixed(2), Unit: unit.clearbox("value") }).hide());
 	name.clearbox("reset");
 	quantity.clearbox("reset");
 	unit.clearbox("reset");
@@ -151,7 +152,7 @@ LogWhatever.Routers.LogRouter.prototype._getLogMeasurementParameters = function 
 	var measurements = new Array();
 	this._container.find("div.measurements>div.list>div").each(function () {
 		var panel = $(this);
-		measurements.push({ Name: panel.find("input.measurement-name").val(), Quantity: panel.find("input.measurement-quantity").val(), Unit: panel.find("input.measurement-units").val() });
+		measurements.push({ GroupId: panel.find("input[type='hidden']").val(), Name: panel.find("input.measurement-name").val(), Quantity: panel.find("input.measurement-quantity").val(), Unit: panel.find("input.measurement-units").val() });
 	});
 	return measurements;
 };
@@ -182,7 +183,6 @@ LogWhatever.Routers.LogRouter.prototype._loadMeasurements = function (logName, a
 	var container = this._container.find("div.measurements>div.list");
 	var add = this._container.find("div.measurements>div.add");
 	$.when(this._getMeasurements(logName)).done(function (measurements) {
-		//alert(container.find(">*").length + "\n" + measurements.length);
 		if (afterSave) {
 			add.slideUpDeferred(200);
 		} else if (container.find(">*").length > 0 && measurements.length == 0) {

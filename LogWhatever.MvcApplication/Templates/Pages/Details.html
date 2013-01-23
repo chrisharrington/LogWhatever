@@ -2,7 +2,8 @@
 	div.events { float:left; width:450px; }
 	div.charts { position:relative; margin-left:465px; }
 
-	div.charts>div>h4 { float:left; width:100%; color:#498FCC; }
+	div.charts>div>div { margin-top:0px; }
+	div.charts>div>h4 { float:left; width:100%; color:#498FCC; margin-bottom:10px; }
 	div.charts>div { height:100%; }
 
 	div.charts div.measurements-chart { float:left; width:69%; margin-left:1%; height:300px; }
@@ -29,10 +30,10 @@
 <div class="charts">
 	<div class="tile tag-ratios-chart">
 		<h4>Tag Ratios</h4>
-		<div id="tag-ratios-chart"></div>
+		<div class="chart" id="tag-ratios-chart"></div>
 	</div>
 	<div class="tile measurements-chart">
 		<h4>Measurements</h4>
-		<div id="measurements-chart"></div>
+		<div class="chart" id="measurements-chart"></div>
 	</div>
 </div>

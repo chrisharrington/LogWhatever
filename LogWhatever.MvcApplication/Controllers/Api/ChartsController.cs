@@ -21,14 +21,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		[AcceptVerbs("GET")]
 		public dynamic GetMeasurements([FromUri] string logName)
 		{
-			var log = GetLogFromName(logName);
-			var measurements = MeasurementRepository.Log(log.Id).ToArray();
-			var events = EventRepository.Log(log.Id).ToDictionary(x => x.Id);
-
-			var result = new List<object>();
-			foreach (var measurement in MeasurementRepository.Log(log.Id))
-				result.Add(new {measurement.Name, Data = measurements.OrderByDescending(x => events[x.EventId].Date).Select(x => new {x.Quantity, events[x.EventId].Date}) });
-			return result;
+			return new List<Measurement>();
 		}
 
 		[ActionName("tag-ratios")]

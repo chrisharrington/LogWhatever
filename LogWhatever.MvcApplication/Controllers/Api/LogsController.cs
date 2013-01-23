@@ -35,7 +35,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		private void SaveMeasurements(User user, Log log, Event @event, IEnumerable<MeasurementData> values)
 		{
 			foreach (var value in values)
-				Dispatcher.Dispatch(AddMeasurement.CreateFrom(new Measurement {Id = Guid.NewGuid(), EventId = @event.Id, Date = @event.Date, Name = value.Name, Quantity = value.Quantity, Unit = value.Unit, LogId = log.Id, LogName = log.Name, UserId = user.Id}));
+				Dispatcher.Dispatch(AddMeasurement.CreateFrom(new Measurement {Id = Guid.NewGuid(), GroupId = value.GroupId == Guid.Empty ? Guid.NewGuid() : value.GroupId, EventId = @event.Id, Date = @event.Date, Name = value.Name, Quantity = value.Quantity, Unit = value.Unit, LogId = log.Id, LogName = log.Name, UserId = user.Id}));
 		}
 
 		private Event CreateEvent(LogData data, Log log)
@@ -89,6 +89,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			public string Name { get; set; }
 			public decimal Quantity { get; set; }
 			public string Unit { get; set; }
+			public Guid GroupId { get; set; }
 			#endregion
 		}
 		#endregion

@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Images\ajax-loader.gif" />
     <Content Include="Images\log-icon.png" />
     <Content Include="Images\menu-selected-icon.png" />
     <Content Include="Images\remove-icon.png" />
@@ -204,7 +205,10 @@
     <Content Include="Scripts\Routers\DashboardRouter.js" />
     <Content Include="Scripts\Routers\WelcomeRouter.js" />
     <Content Include="Scripts\Routers\Welcome\Register.js" />
-    <Content Include="Scripts\Templates\Log\Events.html" />
+    <Content Include="Scripts\ThirdParty\uuid.js" />
+    <Content Include="Templates\Chart\Loading.html" />
+    <Content Include="Templates\Chart\Empty.html" />
+    <Content Include="Templates\Log\Events.html" />
     <Content Include="Scripts\ThirdParty\finch.js" />
     <Content Include="Scripts\ThirdParty\highcharts.src.js" />
     <Content Include="Scripts\ThirdParty\jquery.tmpl.js" />
@@ -227,7 +231,6 @@
   <ItemGroup>
     <Folder Include="Controllers\Templates\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Templates\Pages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -254,32 +257,28 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Templates\Log\Measurements.cshtml" />
-    <Content Include="Views\Templates\Log\Tags.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Style\Fonts\ITC-Franklin-Gothic-Standard.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Templates\Log\AddMeasurement.html" />
+    <Content Include="Templates\Log\AddMeasurement.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Templates\Log\AddTag.html" />
+    <Content Include="Templates\Log\AddTag.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Style\Fonts\trade-gothic-next.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Templates\Pages\Log.html" />
+    <Content Include="Templates\Pages\Log.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Templates\Pages\Dashboard.html" />
+    <Content Include="Templates\Pages\Dashboard.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Templates\Pages\Welcome.html" />
+    <Content Include="Templates\Pages\Welcome.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Templates\Pages\Details.html" />
+    <Content Include="Templates\Pages\Details.html" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -15,6 +15,7 @@ $.extend(LogWhatever.Controls.Chart.MeasurementsChart.prototype, LogWhatever.Con
 /* Public Methods */
 
 LogWhatever.Controls.Chart.MeasurementsChart.prototype.draw = function (container, logName) {
+	this._loading(container);
 	this._getData(logName).done(function (data) {
 		var seriesCollection = new Array();
 		var axisCollection = new Array();

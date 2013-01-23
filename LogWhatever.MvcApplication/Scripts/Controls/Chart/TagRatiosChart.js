@@ -25,7 +25,15 @@ LogWhatever.Controls.Chart.TagRatiosChart.prototype.draw = function (container, 
 		};
 	});
 
+	this._loading(container);
+
+	var me = this;
 	this._getData(logName).done(function (data) {
+		if (data.length == 0) {
+			me._empty(container);
+			return;
+		}
+
 		var series = new Array();
 		$(data).each(function() {
 			series.push([this.Name, this.Count]);

@@ -10,6 +10,9 @@ namespace LogWhatever.Messages.Events
 			public System.Guid UserId {get;set;}
 		   
 			 	
+			public System.Guid GroupId {get;set;}
+		   
+			 	
 			public System.Guid LogId {get;set;}
 		   
 			 	

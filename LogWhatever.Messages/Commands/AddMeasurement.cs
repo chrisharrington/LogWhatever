@@ -8,6 +8,7 @@ namespace LogWhatever.Messages.Commands
 		#region Properties
 		public string Name { get; set; }
 		public Guid UserId { get; set; }
+		public Guid GroupId { get; set; }
 		public Guid LogId { get; set; }
 		public string LogName { get; set; }
 		public Guid EventId { get; set; }
@@ -22,6 +23,7 @@ namespace LogWhatever.Messages.Commands
 			return new AddMeasurement {
 				EventId = measurement.EventId,
 				Id = measurement.Id,
+				GroupId = measurement.GroupId,
 				LogId = measurement.LogId,
 				LogName = measurement.LogName,
 				Name = measurement.Name,

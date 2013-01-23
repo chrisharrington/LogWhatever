@@ -11,7 +11,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		#region Properties
 		internal virtual string Location
 		{
-			get { return Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase.Replace("file://", "").Substring(1)) + "\\..\\Scripts\\Templates"; }
+			get { return Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase.Replace("file://", "").Substring(1)) + "\\..\\Templates"; }
 		}
 		#endregion
 
