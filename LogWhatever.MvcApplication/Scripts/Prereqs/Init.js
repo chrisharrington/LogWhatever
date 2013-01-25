@@ -8,6 +8,7 @@ LogWhatever.Init = function () {
     $.when(this._loadTemplates(), this._getConfigurationData(), this._getLoggedInUser()).done(function () {
         me._createRouters();
         me._hookupMenuLinks();
+	    me._setChartColours();
 
 	    $("div.tile.selectable, div.tile.deletable").live("click", function () { $(this).toggleClass("selected"); });
 	    
@@ -84,6 +85,18 @@ LogWhatever.Init.prototype._loadTemplates = function() {
 		});
 	}).error(function() {
 		LogWhatever.Feedback.error("An error has occurred while retrieving the template list. Please contact technical support.");
+	});
+};
+
+LogWhatever.Init.prototype._setChartColours = function () {
+	Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function(color) {
+		return {
+			radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+			stops: [
+				[0, color],
+				[1, Highcharts.Color(color).brighten(-0.3).get('rgb')]
+			]
+		};
 	});
 };
 

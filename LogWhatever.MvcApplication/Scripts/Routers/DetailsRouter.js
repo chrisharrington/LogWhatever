@@ -24,4 +24,5 @@ LogWhatever.Routers.DetailsRouter.prototype._drawCharts = function () {
 	var logName = window.location.hash.replace("#/details/", "");
 	LogWhatever.Controls.Chart.MeasurementsChart.create().draw(this._container.find("#measurements-chart"), logName);
 	LogWhatever.Controls.Chart.TagRatiosChart.create().draw(this._container.find("#tag-ratios-chart"), logName);
+	LogWhatever.Controls.Chart.EventsPerWeekChart.create().draw(this._container.find("#events-per-week-chart"), logName);
 };

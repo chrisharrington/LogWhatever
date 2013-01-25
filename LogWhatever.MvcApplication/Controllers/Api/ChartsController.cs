@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using LogWhatever.Common.Extensions;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 
@@ -28,6 +30,22 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		public dynamic GetTagRatios([FromUri] string logName)
 		{
 			return TagRepository.Log(GetLogFromName(logName).Id).GroupBy(x => x.Name).Select(x => new {x.First().Name, Count = x.Count()});
+		}
+
+		[ActionName("events-per-week")]
+		[AcceptVerbs("GET")]
+		public dynamic GetEventsPerWeek([FromUri] string logName)
+		{
+			var events = EventRepository.Log(GetLogFromName(logName).Id).OrderBy(x => x.Date);
+			if (!events.Any())
+				return null;
+
+			var start = events.First().Date.BeginningOfTheWeek();
+			var end = events.Last().Date.BeginningOfTheWeek();
+			var results = new List<object>();
+			for (var date = start; date <= end; date = date.AddDays(7))
+				results.Add(new { Date = date.ToShortDateString(), Count = events.Count(x => x.Date.BeginningOfTheWeek() == date) });
+			return results;
 		}
 		#endregion
 
