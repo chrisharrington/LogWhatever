@@ -97,9 +97,11 @@
     <Compile Include="Repositories\IEventRepository.cs" />
     <Compile Include="Repositories\ILogRepository.cs" />
     <Compile Include="Repositories\IMeasurementRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ITagRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Service\Authentication\IMembershipProvider.cs" />
+    <Compile Include="Service\Caching\ICollectionCache.cs" />
     <Compile Include="Service\Email\IEmailer.cs" />
     <Compile Include="Service\Logging\ILogger.cs" />
   </ItemGroup>

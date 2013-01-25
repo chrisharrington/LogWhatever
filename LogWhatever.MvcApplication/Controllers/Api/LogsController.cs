@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
-using LogWhatever.Messages.Commands;
 
 namespace LogWhatever.MvcApplication.Controllers.Api
 {
@@ -12,6 +11,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		public ILogRepository LogRepository { get; set; }
 		public IMeasurementRepository MeasurementRepository { get; set; }
 		public ITagRepository TagRepository { get; set; }
+		public IEventRepository EventRepository { get; set; }
 		#endregion
 
 		#region Public Methods
@@ -29,19 +29,19 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		private void SaveTags(Log log, User user, Event @event, IEnumerable<Tag> tags)
 		{
 			foreach (var tag in tags)
-				Dispatcher.Dispatch(AddTag.CreateFrom(new Tag {LogId = log.Id, LogName = log.Name, EventId = @event.Id, Date = @event.Date, Id = Guid.NewGuid(), Name = tag.Name, UserId = user.Id}));
+				TagRepository.Create(new Tag { LogId = log.Id, LogName = log.Name, EventId = @event.Id, Date = @event.Date, Id = Guid.NewGuid(), Name = tag.Name, UserId = user.Id });
 		}
 
 		private void SaveMeasurements(User user, Log log, Event @event, IEnumerable<MeasurementData> values)
 		{
 			foreach (var value in values)
-				Dispatcher.Dispatch(AddMeasurement.CreateFrom(new Measurement {Id = Guid.NewGuid(), GroupId = value.GroupId == Guid.Empty ? Guid.NewGuid() : value.GroupId, EventId = @event.Id, Date = @event.Date, Name = value.Name, Quantity = value.Quantity, Unit = value.Unit, LogId = log.Id, LogName = log.Name, UserId = user.Id}));
+				MeasurementRepository.Create(new Measurement { Id = Guid.NewGuid(), GroupId = value.GroupId == Guid.Empty ? Guid.NewGuid() : value.GroupId, EventId = @event.Id, Date = @event.Date, Name = value.Name, Quantity = value.Quantity, Unit = value.Unit, LogId = log.Id, LogName = log.Name, UserId = user.Id });
 		}
 
 		private Event CreateEvent(LogData data, Log log)
 		{
 			var @event = new Event {Date = MergeDateAndTime(data.Date, data.Time), Id = Guid.NewGuid(), LogId = log.Id, LogName = log.Name, UserId = data.User.Id};
-			Dispatcher.Dispatch(AddEvent.CreateFrom(@event));
+			EventRepository.Create(@event);
 			return @event;
 		}
 
@@ -51,7 +51,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 			if (log == null)
 			{
 				log = new Log {Id = Guid.NewGuid(), Name = data.Name, UserId = data.User.Id};
-				Dispatcher.Dispatch(AddLog.CreateFrom(log));
+				LogRepository.Create(log);
 			}
 			return log;
 		}

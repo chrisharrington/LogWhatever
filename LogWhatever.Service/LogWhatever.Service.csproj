@@ -72,6 +72,7 @@
     <Compile Include="Authentication\AllowAnonymousAttribute.cs" />
     <Compile Include="Authentication\AspMembership.cs" />
     <Compile Include="Authentication\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Caching\MemoryCollectionCache.cs" />
     <Compile Include="Email\SendGridEmailer.cs" />
     <Compile Include="Logging\BlobStorageAppender.cs" />
     <Compile Include="Logging\EmailAppender.cs" />
@@ -87,6 +88,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

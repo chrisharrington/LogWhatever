@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
+using LogWhatever.Messages.Commands;
 
 namespace LogWhatever.Repositories
 {
 	public class TagRepository : BaseRepository, ITagRepository
 	{
 		#region Public Methods
+		public IEnumerable<Tag> All()
+		{
+			return Retrieve<Tag>("select * from Tags");
+		}
+
 		public IEnumerable<Tag> Log(Guid logId)
 		{
 			if (logId == Guid.Empty)
 				throw new ArgumentNullException("logId");
 
-			return Query<Tag>("select * from Tags where LogId = @logId", new {logId});
+			return All().Where(x => x.LogId == logId);
 		}
 
 		public IEnumerable<Tag> User(Guid userId)
@@ -22,7 +28,7 @@ namespace LogWhatever.Repositories
 			if (userId == Guid.Empty)
 				throw new ArgumentNullException("userId");
 
-			return Query<Tag>("select * from Tags where UserId = @userId", new {userId});
+			return All().Where(x => x.UserId == userId);
 		}
 
 		public IEnumerable<Tag> LatestForUserAndLog(Guid userId, string name)
@@ -41,7 +47,16 @@ namespace LogWhatever.Repositories
 			if (string.IsNullOrEmpty(name))
 				throw new ArgumentNullException("name");
 
-			return Query<Tag>("select * from Tags where Name = @name", new {name}).FirstOrDefault();
+			return All().FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
+		}
+
+		public void Create(Tag tag)
+		{
+			if (tag == null)
+				throw new ArgumentNullException("tag");
+
+			Dispatcher.Dispatch(AddTag.CreateFrom(tag));
+			Cache.AddToList(tag);
 		}
 		#endregion
 	}

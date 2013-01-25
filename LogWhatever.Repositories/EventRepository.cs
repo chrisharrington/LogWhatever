@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
+using LogWhatever.Messages.Commands;
 
 namespace LogWhatever.Repositories
 {
 	public class EventRepository : BaseRepository, IEventRepository
 	{
 		#region Public Methods
+		public IEnumerable<Event> All()
+		{
+			return Retrieve<Event>("select * from Events");
+		}
+
 		public IEnumerable<Event> Log(Guid logId)
 		{
 			if (logId == Guid.Empty)
 				throw new ArgumentNullException("logId");
 
-			return Query<Event>("select * from Events where LogId = @logId", new {logId});
+			return All().Where(x => x.LogId == logId);
 		}
 
 		public IEnumerable<Event> Latest(Guid userId)
@@ -22,9 +28,16 @@ namespace LogWhatever.Repositories
 			if (userId == Guid.Empty)
 				throw new ArgumentNullException("userId");
 
-			return Query<Event>("select * from Events where UserId = @userId", new {userId})
-				.GroupBy(x => x.LogId)
-				.Select(y => y.OrderByDescending(z => z.Date).First());
+			return All().Where(x => x.UserId == userId).GroupBy(x => x.LogId).Select(x => x.OrderByDescending(y => y.Date).First());
+		}
+
+		public void Create(Event @event)
+		{
+			if (@event == null)
+				throw new ArgumentNullException("@event");
+
+			Dispatcher.Dispatch(AddEvent.CreateFrom(@event));
+			Cache.AddToList(@event);
 		}
 		#endregion
 	}

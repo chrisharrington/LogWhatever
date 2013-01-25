@@ -1,19 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
+using LogWhatever.Messages.Commands;
 
 namespace LogWhatever.Repositories
 {
 	public class MeasurementRepository : BaseRepository, IMeasurementRepository
 	{
 		#region Public Methods
+		public IEnumerable<Measurement> All()
+		{
+			return Retrieve<Measurement>("select * from Measurements");
+		}
+
 		public IEnumerable<Measurement> Log(Guid logId)
 		{
 			if (logId == Guid.Empty)
 				throw new ArgumentNullException("logId");
 
-			return Query<Measurement>("select * from Measurements where LogId = @logId", new {logId});
+			return All().Where(x => x.LogId == logId);
 		}
 
 		public IEnumerable<Measurement> User(Guid userId)
@@ -21,7 +28,16 @@ namespace LogWhatever.Repositories
 			if (userId == Guid.Empty)
 				throw new ArgumentNullException("userId");
 
-			return Query<Measurement>("select * from Measurements where UserId = @userId", new {userId});
+			return All().Where(x => x.UserId == userId);
+		}
+
+		public void Create(Measurement measurement)
+		{
+			if (measurement == null)
+				throw new ArgumentNullException("measurement");
+
+			Dispatcher.Dispatch(AddMeasurement.CreateFrom(measurement));
+			Cache.AddToList(measurement);
 		}
 		#endregion
 	}

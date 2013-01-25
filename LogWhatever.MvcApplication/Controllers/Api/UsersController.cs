@@ -63,7 +63,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 				throw new MembershipCreateUserException(status);
 
 			var user = new User {Name = name, EmailAddress = email};
-			Dispatcher.Dispatch(AddUser.CreateFrom(user));
+			UserRepository.Create(user);
 
 			FormsAuthentication.SetAuthCookie(email, false);
 
