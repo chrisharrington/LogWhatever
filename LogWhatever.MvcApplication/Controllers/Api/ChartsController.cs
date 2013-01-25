@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using LogWhatever.Common.Models;
@@ -21,8 +20,7 @@ namespace LogWhatever.MvcApplication.Controllers.Api
 		[AcceptVerbs("GET")]
 		public dynamic GetMeasurements([FromUri] string logName)
 		{
-			var log = GetLogFromName(logName);
-			return MeasurementRepository.Log(log.Id).GroupBy(x => x.GroupId);
+			return MeasurementRepository.Log(GetLogFromName(logName).Id).GroupBy(x => x.GroupId).Select(x => x.OrderBy(y => y.Date));
 		}
 
 		[ActionName("tag-ratios")]

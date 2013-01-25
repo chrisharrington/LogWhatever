@@ -86,7 +86,7 @@ LogWhatever.Controls.Autocomplete.prototype._loadResults = function(results) {
 };
 
 LogWhatever.Controls.Autocomplete.prototype._createAutocompletePanel = function() {
-	$("body").append(this._panel = $("<div></div>").addClass("autocomplete").attr("id", "autocomplete_" + UUID.generate()));
+	$("body").append(this._panel = $("<div></div>").addClass("autocomplete").attr("id", "autocomplete_" + $.uuid()));
 
 	var offset = this._control.offset();
 	offset.top += this._control.outerHeight();

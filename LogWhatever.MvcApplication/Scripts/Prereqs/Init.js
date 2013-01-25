@@ -96,7 +96,10 @@ window.onerror = function (e) {
 		return;
 
 	var error = e.replace("Uncaught Error: ", "");
-	LogWhatever.Feedback.error(error);
+	if (!LogWhatever.Feedback)
+		alert(error);
+	else
+		LogWhatever.Feedback.error(error);
 };
 
 function blah(date) {

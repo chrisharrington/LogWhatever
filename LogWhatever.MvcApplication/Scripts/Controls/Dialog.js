@@ -78,7 +78,7 @@ LogWhatever.Controls.Dialog.prototype._createDefaults = function() {
 		vbuffer: 80,
 		closeable: true,
 		dialogTemplate: "Dialog/Dialog.html",
-		contentTemplateName: "contentTemplate_" + UUID.generate(),
+		contentTemplateName: "contentTemplate_" + $.uuid(),
 		top: true,
 		onLoadCompleted: function () {},
 		width: 400

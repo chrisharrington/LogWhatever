@@ -45,7 +45,7 @@ LogWhatever.Routers.LogRouter.prototype._addMeasurement = function (beforeSave) 
 	var name = container.find("#new-measurement-name");
 	var quantity = container.find("#new-measurement-quantity");
 	var unit = container.find("#new-measurement-units");
-	var groupId = UUIDjs.create();
+	var groupId = $.uuid();
 	this._validateMeasurement(name, quantity);
 
 	this._container.find("div.measurements>div.list").prepend($.tmpl("log-add-measurement", { GroupId: groupId, Name: name.clearbox("value"), Quantity: parseFloat(quantity.clearbox("value")).toFixed(2), Unit: unit.clearbox("value") }).hide());

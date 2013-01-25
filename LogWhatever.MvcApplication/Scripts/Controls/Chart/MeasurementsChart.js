@@ -19,19 +19,27 @@ LogWhatever.Controls.Chart.MeasurementsChart.prototype.draw = function (containe
 	this._getData(logName).done(function (data) {
 		var seriesCollection = new Array();
 		var axisCollection = new Array();
+		
+		if (data.length == 0) {
+			this._empty(container);
+			return;
+		}
+
+		var colors = ['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
+
 		$(data).each(function (i, value) {
-			axisCollection.push({ min: 0, labels: { enabled: false, style: { fontFamily: "arial", fontSize: "0.8em", color: "#888" }, y: 4 }, title: null, gridLineColor: "#DDD" });
-			var series = { name: value.Name, data: new Array(), marker: { symbol: "circle" }, yAxis: i };
-			$(value.Data).each(function () {
+			axisCollection.push({ labels: { style: { fontFamily: "arial", fontSize: "0.8em", color: colors[i] }, y: 4 }, title: null, gridLineColor: "#DDD" });
+			var series = { name: value[0].Name, data: new Array(), marker: { symbol: "circle" }, yAxis: i };
+			$(value).each(function () {
 				series.data.push([new Date(this.Date).getTime(), this.Quantity]);
 			});
 			seriesCollection.push(series);
 		});
-
+		
 		var chart = new Highcharts.Chart({
 			chart: {
 				renderTo: container.attr("id"),
-				margin: [20, 20, 20, 20],
+				margin: [20, 20, 20, data.length*22],
 				height: container.parent().height() - container.parent().find("h4").outerHeight(true) - 10,
 			},
 			title: { text: null },

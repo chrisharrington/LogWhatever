@@ -25,9 +25,10 @@ namespace LogWhatever.Service.Caching
 		{
 			lock (_dictionary)
 			{
-				if (!_dictionary.ContainsKey(typeof(TCachedType)))
-					_dictionary[typeof (TCachedType)] = new List<BaseModel>();
-				_dictionary[typeof (TCachedType)].Add(value);
+				var type = typeof (TCachedType);
+				if (!_dictionary.ContainsKey(type))
+					_dictionary[type] = new List<BaseModel>();
+				_dictionary[type].Add(value);
 			}
 		}
 
@@ -35,9 +36,10 @@ namespace LogWhatever.Service.Caching
 		{
 			lock (_dictionary)
 			{
-				if (!_dictionary.ContainsKey(typeof(TCachedType)))
-					_dictionary[typeof(TCachedType)] = new List<BaseModel>();
-				_dictionary[typeof(TCachedType)].AddRange(values);
+				var type = typeof (TCachedType);
+				if (!_dictionary.ContainsKey(type))
+					_dictionary[type] = new List<BaseModel>();
+				_dictionary[type].AddRange(values);
 			}
 		}
 
@@ -80,6 +82,8 @@ namespace LogWhatever.Service.Caching
 			lock (_dictionary)
 			{
 				var type = typeof (TCachedType);
+				if (!_dictionary.ContainsKey(type))
+					return;
 				for (var i = 0; i < _dictionary[type].Count; i++)
 					if (_dictionary[type][i].Id == id)
 					{
@@ -96,7 +100,10 @@ namespace LogWhatever.Service.Caching
 
 			lock (_dictionary)
 			{
-				_dictionary[typeof (TCachedType)].Add(obj);
+				var type = typeof (TCachedType);
+				if (!_dictionary.ContainsKey(type))
+					_dictionary[type] = new List<BaseModel>();
+				_dictionary[type].Add(obj);
 			}
 		}
 
@@ -108,6 +115,8 @@ namespace LogWhatever.Service.Caching
 			lock (_dictionary)
 			{
 				var type = typeof (TCachedType);
+				if (!_dictionary.ContainsKey(type))
+					return;
 				for (var i = 0; i < _dictionary[type].Count; i++)
 					if (_dictionary[type][i].Equals(obj))
 					{

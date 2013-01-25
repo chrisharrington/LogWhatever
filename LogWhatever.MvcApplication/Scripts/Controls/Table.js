@@ -102,7 +102,7 @@ LogWhatever.Controls.Table.prototype._init = function (params) {
 
 	this._name = params.name;
 	if (!this._name)
-		this._name = UUID.generate();
+		this._name = $.uuid();
 	this._options = params.options;
 	this._mapping = params.mapping;
 	this._template = params.template;
