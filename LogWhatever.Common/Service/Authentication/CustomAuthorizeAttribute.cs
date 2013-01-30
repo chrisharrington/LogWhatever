@@ -1,0 +1,38 @@
+﻿using System;
+using System.Linq;
+using System.Web;
+using System.Web.Http.Controllers;
+using System.Web.Mvc;
+using LogWhatever.Common.Models;
+using LogWhatever.Common.Service.Caching;
+using AllowAnonymousAttribute = System.Web.Http.AllowAnonymousAttribute;
+using AuthorizeAttribute = System.Web.Http.AuthorizeAttribute;
+
+namespace LogWhatever.Common.Service.Authentication
+{
+	public class CustomAuthorizeAttribute : AuthorizeAttribute
+	{
+		#region Properties
+		private ICollectionCache Cache
+		{
+			get { return DependencyResolver.Current.GetService<ICollectionCache>(); }
+		}
+		#endregion
+
+		#region Public Methods
+		protected override bool IsAuthorized(HttpActionContext context)
+		{
+			if (context.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any())
+				return true;
+
+			var token = HttpContext.Current.Request.Cookies["log-auth"];
+			if (token == null)
+				return false;
+
+			var tokenId = new Guid(token.Value);
+			var session = Cache.Retrieve<Session>().FirstOrDefault(x => x.Id == tokenId);
+			return session != null;
+		}
+		#endregion
+	}
+}

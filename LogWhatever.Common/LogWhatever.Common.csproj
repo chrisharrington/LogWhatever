@@ -53,6 +53,8 @@
     <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
@@ -85,9 +87,11 @@
     <Compile Include="Extensions\MappingExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Http\IHttpRequestor.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Page\Event.cs" />
     <Compile Include="Models\Page\Log.cs" />
+    <Compile Include="Models\Session.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Log.cs" />
@@ -100,6 +104,7 @@
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ITagRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Service\Authentication\CustomAuthorizeAttribute.cs" />
     <Compile Include="Service\Authentication\IMembershipProvider.cs" />
     <Compile Include="Service\Caching\ICollectionCache.cs" />
     <Compile Include="Service\Email\IEmailer.cs" />
@@ -107,6 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Web\Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

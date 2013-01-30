@@ -74,7 +74,7 @@ namespace LogWhatever.Service.Caching
 		{
 			List<BaseModel> result;
 			_dictionary.TryGetValue(typeof (TCachedType), out result);
-			return result.Cast<TCachedType>();
+			return result == null ? new List<TCachedType>() : result.Cast<TCachedType>();
 		}
 
 		public void RemoveFromList<TCachedType>(Guid id)

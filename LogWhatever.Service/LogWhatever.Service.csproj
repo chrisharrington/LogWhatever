@@ -47,6 +47,9 @@
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAzure.Storage.2.0.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SendGridMail">
       <HintPath>..\packages\Sendgrid.1.0.1\lib\net40\SendGridMail.dll</HintPath>
     </Reference>
@@ -69,11 +72,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication\AllowAnonymousAttribute.cs" />
     <Compile Include="Authentication\AspMembership.cs" />
-    <Compile Include="Authentication\CustomAuthorizeAttribute.cs" />
     <Compile Include="Caching\MemoryCollectionCache.cs" />
     <Compile Include="Email\SendGridEmailer.cs" />
+    <Compile Include="Http\HttpRequestor.cs" />
     <Compile Include="Logging\BlobStorageAppender.cs" />
     <Compile Include="Logging\EmailAppender.cs" />
     <Compile Include="Logging\LogAdapter.cs" />

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace LogWhatever.Common.Configuration
 {
@@ -11,44 +10,14 @@ namespace LogWhatever.Common.Configuration
 			get { return ConfigurationManager.ConnectionStrings["BlobStorage"]; }
 		}
 
-		public string FogbugzUserName
-		{
-			get { return ConfigurationManager.AppSettings["FogbugzUserName"]; }
-		}
-
-		public string FogbugzPassword
-		{
-			get { return ConfigurationManager.AppSettings["FogbugzPassword"]; }
-		}
-
-		public string FogbugzAPILocation
-		{
-			get { return ConfigurationManager.AppSettings["FogbugzAPILocation"]; }
-		}
-
-		public string SmtpAddress
-		{
-			get { return ConfigurationManager.AppSettings["SmtpAddress"]; }
-		}
-
 		public ConnectionStringSettings ReadModelDatabase
 		{
 			get { return ConfigurationManager.ConnectionStrings["ReadModelDatabase"]; }
 		}
 
-		public string AddUserFromAddress
+		public string DataServiceLocation
 		{
-			get { return ConfigurationManager.AppSettings["AddUserFromAddress"]; }
-		}
-
-		public string AddUserToAddress
-		{
-			get { return ConfigurationManager.AppSettings["AddUserToAddress"]; }
-		}
-
-		public string AddUserToGroup
-		{
-			get { return ConfigurationManager.AppSettings["AddUserToGroup"]; }
+			get { return ConfigurationManager.AppSettings["DataServiceLocation"]; }
 		}
 
 		public string FromEmailAddress
@@ -62,24 +31,10 @@ namespace LogWhatever.Common.Configuration
 		}
 
 		public string SendGridPassword
-		{ 
+		{
 			get { return ConfigurationManager.AppSettings["SendGridPassword"]; }
 		}
-
-		public bool IsInternalDataAccessible
-		{
-			get { return Convert.ToBoolean(ConfigurationManager.AppSettings["InternalDataAccessible"]); }
-		}
-
-		public string OverheadTimeProjectCode
-		{
-			get { return ConfigurationManager.AppSettings["OverheadTimeProjectCode"]; }
-		}
-
-		public string InvoiceTemplateLocation
-		{
-			get { return ConfigurationManager.AppSettings["InvoiceTemplateLocation"]; }
-		}
 		#endregion
+		
 	}
 }

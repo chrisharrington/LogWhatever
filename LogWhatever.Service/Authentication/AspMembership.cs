@@ -75,8 +75,8 @@ namespace LogWhatever.Service.Authentication
 		public void ResetPassword(MembershipUser membershipUser)
 		{
 			var newPassword = membershipUser.ResetPassword();
-			var body = string.Format(@"This is a password reset notification from ModuleTracker.com. Your password has been reset to <b>{0}</b>. You will need to use this new password when you next log on.", newPassword);
-			MailSender.Send(ConfigurationProvider.FromEmailAddress, membershipUser.UserName, "ModuleTracker Password Reset", body);
+			var body = string.Format(@"This is a password reset notification from LogWhatever.com. Your password has been reset to <b>{0}</b>. You will need to use this new password when you next log on.", newPassword);
+			MailSender.Send(ConfigurationProvider.FromEmailAddress, membershipUser.UserName, "LogWhatever Password Reset", body);
 		}
 
 		public void DeleteUser(string username)

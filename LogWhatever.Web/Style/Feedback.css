@@ -1,0 +1,4 @@
+﻿div.feedback { float:left; width:100%; box-sizing:border-box; padding:8px; display:none; }
+div.feedback.error { background:#DCEDF2 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#9C0E0E), to(#C43B3B)) no-repeat; border-color:#D14949; }
+div.feedback.success { border-color:#249E19; background:#31A827 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0F7806), to(#31A827)) no-repeat; }
+div.feedback>span { float:left; width:100%; color:#FFF; }
