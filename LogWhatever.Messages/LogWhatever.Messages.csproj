@@ -42,9 +42,11 @@
     <Compile Include="Commands\AddEvent.cs" />
     <Compile Include="Commands\AddLog.cs" />
     <Compile Include="Commands\AddMeasurement.cs" />
+    <Compile Include="Commands\AddSession.cs" />
     <Compile Include="Commands\AddTag.cs" />
     <Compile Include="Commands\AddUser.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\DeleteSession.cs" />
     <Compile Include="Events\BaseEvent.cs" />
     <Compile Include="Events\EventAdded.cs">
       <DependentUpon>Events.tt</DependentUpon>
@@ -58,6 +60,12 @@
       <DependentUpon>Events.tt</DependentUpon>
     </Compile>
     <Compile Include="Events\MeasurementAdded.cs">
+      <DependentUpon>Events.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Events\SessionAdded.cs">
+      <DependentUpon>Events.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Events\SessionDeleted.cs">
       <DependentUpon>Events.tt</DependentUpon>
     </Compile>
     <Compile Include="Events\TagAdded.cs">

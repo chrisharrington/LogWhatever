@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Dapper.1.12.1\lib\net40\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -44,12 +48,14 @@
     <Compile Include="Commands\LogHandler.cs" />
     <Compile Include="Commands\BaseCommandHandler.cs" />
     <Compile Include="Commands\MeasurementHandler.cs" />
+    <Compile Include="Commands\SessionHandler.cs" />
     <Compile Include="Commands\TagHandler.cs" />
     <Compile Include="Commands\UserHandler.cs" />
     <Compile Include="Denormalizers\BaseDenormalizer.cs" />
     <Compile Include="Denormalizers\EventDenormalizer.cs" />
     <Compile Include="Denormalizers\LogDenormalizer.cs" />
     <Compile Include="Denormalizers\MeasurementDenormalizer.cs" />
+    <Compile Include="Denormalizers\SessionDenormalizer.cs" />
     <Compile Include="Denormalizers\TagDenormalizer.cs" />
     <Compile Include="Denormalizers\UserDenormalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +69,9 @@
       <Project>{8BFB80EB-8372-4236-8967-300A1CD8E921}</Project>
       <Name>LogWhatever.Messages</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

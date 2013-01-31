@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Security;
 using LogWhatever.Common.Models;
+using LogWhatever.Common.Repositories;
 using LogWhatever.Common.Service.Authentication;
 
 namespace LogWhatever.DataService.Controllers
@@ -12,6 +12,7 @@ namespace LogWhatever.DataService.Controllers
 	{
 		#region Properties
 		public IMembershipProvider MembershipProvider { get; set; }
+		public ISessionRepository SessionRepository { get; set; }
 		#endregion
 
 		#region Public Methods
@@ -30,7 +31,7 @@ namespace LogWhatever.DataService.Controllers
 			if (token == Guid.Empty)
 				throw new ArgumentNullException("token");
 
-			return Cache.Retrieve<Session>().FirstOrDefault(x => x.Id == token);
+			return SessionRepository.Id(token);
 		}
 
 		[ActionName("sign-in")]
@@ -49,9 +50,10 @@ namespace LogWhatever.DataService.Controllers
 
 			var token = Guid.NewGuid();
 			var user = UserRepository.Email(emailAddress);
-			Cache.AddToList(new Session {Id = token, User = user});
+			var session = new Session { Id = token, UserId = user.Id, EmailAddress = user.EmailAddress, Name = user.Name };
+			SessionRepository.Create(session);
 			HttpContext.Current.Response.Cookies.Add(new HttpCookie("log-auth", token.ToString()));
-			return new Session {Id = token, User = user};
+			return session;
 		}
 
 		[ActionName("sign-out")]
@@ -62,7 +64,7 @@ namespace LogWhatever.DataService.Controllers
 			if (token == null)
 				return;
 
-			Cache.RemoveFromList<Session>(new Guid(token.Value));
+			SessionRepository.Delete(new Guid(token.Value));
 		}
 
 		[ActionName("registration")]
@@ -85,7 +87,7 @@ namespace LogWhatever.DataService.Controllers
 			UserRepository.Create(user);
 
 			var token = Guid.NewGuid();
-			Cache.AddToList(new Session {Id = token, User = user});
+			Cache.AddToList(new Session {Id = token, UserId = user.Id, EmailAddress = user.EmailAddress, Name = user.Name});
 			HttpContext.Current.Response.Cookies.Add(new HttpCookie("log-auth", token.ToString()));
 
 			return user;

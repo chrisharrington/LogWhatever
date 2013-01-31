@@ -89,6 +89,7 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Models\Data\Log.cs" />
+    <Compile Include="Repositories\ISessionRepository.cs" />
     <Compile Include="Service\Authentication\WebAuthorize.cs" />
     <Compile Include="Service\Http\IChartsDataService.cs" />
     <Compile Include="Service\Http\IDataService.cs" />

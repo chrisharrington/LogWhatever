@@ -74,7 +74,7 @@ LogWhatever.Init.prototype._signOut = function () {
 		Finch.navigate("/welcome");
 		$("header>div.user").fadeOut(200);
 	}).error(function() {
-		LogWhatever.Feedback.error("An error has occurred while signing out out. Please contact technical support.");
+		LogWhatever.Feedback.error("An error has occurred while signing you out. Please contact technical support.");
 	});
 };
 
