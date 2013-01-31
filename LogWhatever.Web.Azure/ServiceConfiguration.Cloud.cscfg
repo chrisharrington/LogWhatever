@@ -3,7 +3,7 @@
   <Role name="LogWhatever.Web">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=logwhatever;AccountKey=Dxo4y7Hruhs8gk6eg9dhdfIZzc2X3tLiqerIuoAvtLi7r0n3SoLmSincawkiPgNCReE/dY7zmCSWL0yrKSlH8Q==" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

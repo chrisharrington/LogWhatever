@@ -22,8 +22,33 @@ LogWhatever.Routers.DetailsRouter.prototype._onLoaded = function () {
 
 LogWhatever.Routers.DetailsRouter.prototype._drawCharts = function () {
 	var logName = window.location.hash.replace("#/details/", "");
-	LogWhatever.Controls.Chart.MeasurementsChart.create().draw(this._container.find("#measurements-chart"), logName);
-	LogWhatever.Controls.Chart.TagRatiosChart.create().draw(this._container.find("#tag-ratios-chart"), logName);
-	LogWhatever.Controls.Chart.EventsPerWeekChart.create().draw(this._container.find("#events-per-week-chart"), logName);
-	LogWhatever.Controls.Chart.PopularDaysChart.create().draw(this._container.find("#popular-days-chart"), logName);
+
+	this._setChartsLoading();
+
+	var me = this;
+	$.when(this._getChartData(logName)).done(function (data) {
+		LogWhatever.Controls.Chart.MeasurementsChart.create().draw(me._container.find("#measurements-chart"), data.measurements);
+		LogWhatever.Controls.Chart.TagRatiosChart.create().draw(me._container.find("#tag-ratios-chart"), data.tagRatios);
+		LogWhatever.Controls.Chart.EventsPerWeekChart.create().draw(me._container.find("#events-per-week-chart"), data.eventsOverTime);
+		LogWhatever.Controls.Chart.PopularDaysChart.create().draw(me._container.find("#popular-days-chart"), data.popularDays);
+	});
+};
+
+LogWhatever.Routers.DetailsRouter.prototype._getChartData = function(logName) {
+	return $.get(LogWhatever.Configuration.VirtualDirectory + "api/charts", { logName: logName }).error(function() {
+		LogWhatever.Feedback.error("An error has occurred while retrieving the chart data. Please contact technical support.");
+	});
+};
+
+LogWhatever.Routers.DetailsRouter.prototype._setChartsLoading = function() {
+	this._container.find("div.chart").each(function() {
+		var container = $(this).empty().append($.tmpl("chart-loading"));
+		var parent = container.parent();
+		var totalHeight = parent.height();
+		var headerHeight = parent.find("h4").outerHeight(true);
+		container.height(totalHeight - headerHeight);
+
+		var imageContainer = container.find(">div>div");
+		imageContainer.css("margin-top", ((totalHeight - headerHeight) / 2 - imageContainer.height() / 2) + "px");
+	});
 };

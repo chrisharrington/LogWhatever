@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LogWhatever.Common.Models.Page
 {
-	public class Event
+	public class Event : BaseModel
 	{
 		#region Properties
 		public DateTime Date { get; set; }

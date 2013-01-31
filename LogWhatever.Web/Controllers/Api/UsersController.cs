@@ -17,7 +17,8 @@ namespace LogWhatever.Web.Controllers.Api
 		[AllowAnonymous]
 		public User GetSignedInUser()
 		{
-			return GetCurrentlySignedInUser();
+			var session = GetCurrentSession();
+			return session == null ? null : session.User;
 		}
 
 		[ActionName("sign-in")]
@@ -30,18 +31,22 @@ namespace LogWhatever.Web.Controllers.Api
 			if (string.IsNullOrEmpty(password))
 				throw new ArgumentNullException("password");
 
-			var isUserValidated = MembershipProvider.ValidateUser(emailAddress, password);
-			if (!isUserValidated)
+			var session = HttpRequestor.Get<Session>(ConfigurationProvider.DataServiceLocation + "sessions/sign-in", new { emailAddress, password });
+			if (session == null)
 				return null;
 
-			FormsAuthentication.SetAuthCookie(emailAddress, staySignedIn);
-			return UserRepository.Email(emailAddress);
+			Cache.AddToList(session);
+
+			FormsAuthentication.SetAuthCookie(session.Id.ToString(), staySignedIn);
+			return session.User;
 		}
 
 		[ActionName("sign-out")]
 		[AcceptVerbs("POST")]
 		public void SignOut()
 		{
+			Cache.RemoveFromList<Session>(GetCurrentSession().Id);
+			HttpRequestor.Post(ConfigurationProvider.DataServiceLocation + "sign-out");
 			FormsAuthentication.SignOut();
 		}
 
@@ -56,17 +61,18 @@ namespace LogWhatever.Web.Controllers.Api
 			if (string.IsNullOrEmpty(password))
 				throw new ArgumentNullException("password");
 
-			MembershipCreateStatus status;
-			MembershipProvider.CreateUser(email, password, email, "User", null, null, true, null, out status);
-			if (status != MembershipCreateStatus.Success)
-				throw new MembershipCreateUserException(status);
+			//MembershipCreateStatus status;
+			//MembershipProvider.CreateUser(email, password, email, "User", null, null, true, null, out status);
+			//if (status != MembershipCreateStatus.Success)
+			//	throw new MembershipCreateUserException(status);
 
-			var user = new User {Name = name, EmailAddress = email};
-			UserRepository.Create(user);
+			//var user = new User {Name = name, EmailAddress = email};
+			//UserRepository.Create(user);
 
-			FormsAuthentication.SetAuthCookie(email, false);
+			//FormsAuthentication.SetAuthCookie(email, false);
 
-			return user;
+			//return user;
+			throw new NotImplementedException();
 		}
 		#endregion
 	}

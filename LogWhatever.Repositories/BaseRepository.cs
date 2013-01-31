@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using Dapper;
 using LogWhatever.Common.CQRS;
 using LogWhatever.Common.Configuration;
@@ -19,9 +20,11 @@ namespace LogWhatever.Repositories
 		#endregion
 
 		#region Protected Methods
-		protected internal virtual IEnumerable<TModelType> Retrieve<TModelType>(string query) where TModelType : BaseModel
+		protected internal virtual IEnumerable<TModelType> Retrieve<TModelType>(string query, Func<TModelType, bool> filter = null) where TModelType : BaseModel
 		{
-			return Cache.StoreOrRetrieve<TModelType>(Query<TModelType>(query));
+			var results = Query<TModelType>(query);
+			Cache.StoreOrRetrieve<TModelType>(results);
+			return filter == null ? results : results.Where(filter);
 		}
 		#endregion
 

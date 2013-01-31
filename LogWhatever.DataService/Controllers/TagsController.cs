@@ -13,14 +13,9 @@ namespace LogWhatever.DataService.Controllers
 		#endregion
 
 		#region Public Methods
-		[ActionName("log")]
-		public IEnumerable<Tag> GetForLog(string logName)
+		public IEnumerable<Tag> Get()
 		{
-			var log = LogRepository.Name(logName);
-			if (log == null)
-				return new List<Tag>();
-
-			return TagRepository.Log(log.Id);
+			return TagRepository.All();
 		}
 		#endregion
 	}

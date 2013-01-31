@@ -131,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AspAutofacDependencyResolver.cs" />
-    <Compile Include="Controllers\AuthorizedController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\ChartsController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
@@ -139,7 +138,7 @@
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\MeasurementsController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\SessionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -170,6 +169,10 @@
       <Project>{C9AA8519-8835-4BA0-BE79-C189C4F3D27F}</Project>
       <Name>LogWhatever.Container</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogWhatever.Repositories\LogWhatever.Repositories.csproj">
+      <Project>{6EE27778-15E3-448C-9C71-07AE94C8DDC9}</Project>
+      <Name>LogWhatever.Repositories</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -187,7 +190,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>50415</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:60227/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

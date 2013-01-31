@@ -33,9 +33,6 @@
     <Reference Include="Dapper">
       <HintPath>..\packages\Dapper.1.12.1\lib\net40\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="LogWhatever.Messages">
-      <HintPath>..\LogWhatever.MvcApplication\bin\LogWhatever.Messages.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -58,6 +55,10 @@
     <ProjectReference Include="..\LogWhatever.Common\LogWhatever.Common.csproj">
       <Project>{14927D91-A4BB-471F-8F39-D0207C06A6F8}</Project>
       <Name>LogWhatever.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogWhatever.Messages\LogWhatever.Messages.csproj">
+      <Project>{8bfb80eb-8372-4236-8967-300a1cd8e921}</Project>
+      <Name>LogWhatever.Messages</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 
 namespace LogWhatever.DataService.Controllers
 {
-	public class LogsController : AuthorizedController
+	public class LogsController : BaseApiController
 	{
 		#region Properties
 		public ILogRepository LogRepository { get; set; }
@@ -15,6 +16,11 @@ namespace LogWhatever.DataService.Controllers
 		#endregion
 
 		#region Public Methods
+		public IEnumerable<Log> Get()
+		{
+			return LogRepository.All().OrderBy(x => x.Name);
+		} 
+
 		public void Post(LogData data)
 		{
 			data.User = GetCurrentlySignedInUser();

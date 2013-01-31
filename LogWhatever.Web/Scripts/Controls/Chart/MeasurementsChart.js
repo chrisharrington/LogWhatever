@@ -14,69 +14,57 @@ $.extend(LogWhatever.Controls.Chart.MeasurementsChart.prototype, LogWhatever.Con
 //--------------------------------------------------------------------------------------------------------------------------------------------
 /* Public Methods */
 
-LogWhatever.Controls.Chart.MeasurementsChart.prototype.draw = function (container, logName) {
-	this._loading(container);
-	this._getData(logName).done(function (data) {
-		var seriesCollection = new Array();
-		var axisCollection = new Array();
+LogWhatever.Controls.Chart.MeasurementsChart.prototype.draw = function (container, measurements) {
+	var seriesCollection = new Array();
+	var axisCollection = new Array();
 		
-		if (data.length == 0) {
-			this._empty(container);
-			return;
-		}
+	if (measurements.length == 0) {
+		this._empty(container);
+		return;
+	}
 
-		var colors = ['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
+	var colors = ['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
 
-		$(data).each(function (i, value) {
-			axisCollection.push({ labels: { style: { fontFamily: "arial", fontSize: "0.8em", color: colors[i] }, y: 4 }, title: null, gridLineColor: "#DDD" });
-			var series = { name: value[0].Name, data: new Array(), marker: { symbol: "circle" }, yAxis: i };
-			$(value).each(function () {
-				series.data.push([new Date(this.Date).getTime(), this.Quantity]);
-			});
-			seriesCollection.push(series);
+	$(measurements).each(function (i, value) {
+		axisCollection.push({ labels: { style: { fontFamily: "arial", fontSize: "0.8em", color: colors[i] }, y: 4 }, title: null, gridLineColor: "#DDD" });
+		var series = { name: value[0].Name, data: new Array(), marker: { symbol: "circle" }, yAxis: i };
+		$(value).each(function () {
+			series.data.push([new Date(this.Date).getTime(), this.Quantity]);
 		});
+		seriesCollection.push(series);
+	});
 		
-		var chart = new Highcharts.Chart({
-			chart: {
-				renderTo: container.attr("id"),
-				margin: [20, 20, 20, data.length*40],
-				height: container.parent().height() - container.parent().find("h4").outerHeight(true) - 10,
-			},
-			title: { text: null },
-			xAxis: {
-				labels: {
-					style: {
-						fontFamily: "arial",
-						fontSize: "0.8em",
-						color: "#888"
-					}
-				},
-				type: "datetime",
-				tickPixelInterval: 65
-			},
-			yAxis: axisCollection,
-			plotOptions: {
-				series: {
-					pointInterval: 24 * 3600 * 1000
-				},
-				line: {
-					shadow: false,
-					lineWidth: 3
+	var chart = new Highcharts.Chart({
+		chart: {
+			renderTo: container.attr("id"),
+			margin: [20, 20, 20, measurements.length * 40],
+			height: container.parent().height() - container.parent().find("h4").outerHeight(true) - 10,
+		},
+		title: { text: null },
+		xAxis: {
+			labels: {
+				style: {
+					fontFamily: "arial",
+					fontSize: "0.8em",
+					color: "#888"
 				}
 			},
-			legend: {
-				enabled: false
+			type: "datetime",
+			tickPixelInterval: 65
+		},
+		yAxis: axisCollection,
+		plotOptions: {
+			series: {
+				pointInterval: 24 * 3600 * 1000
 			},
-			series: seriesCollection
-		});
-	});
-};
-
-//--------------------------------------------------------------------------------------------------------------------------------------------
-/* Private Methods */
-
-LogWhatever.Controls.Chart.MeasurementsChart.prototype._getData = function (logName) {
-	return $.get(LogWhatever.Configuration.VirtualDirectory + "api/charts/measurements?logName=" + logName).error(function () {
-		LogWhatever.Feedback.error("An error has occurred while retrieving data for the measurements chart. Please contact technical support.");
+			line: {
+				shadow: false,
+				lineWidth: 3
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		series: seriesCollection
 	});
 };

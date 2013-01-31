@@ -11,17 +11,6 @@ LogWhatever.Controls.Chart.ChartDrawer.create = function() {
 //--------------------------------------------------------------------------------------------------------------------------------------------
 /* Private Methods */
 
-LogWhatever.Controls.Chart.ChartDrawer.prototype._loading = function(container) {
-	container.empty().append($.tmpl("chart-loading"));
-	var parent = container.parent();
-	var totalHeight = parent.height();
-	var headerHeight = parent.find("h4").outerHeight(true);
-	container.height(totalHeight - headerHeight);
-
-	var imageContainer = container.find(">div>div");
-	imageContainer.css("margin-top", ((totalHeight - headerHeight) / 2 - imageContainer.height() / 2) + "px");
-};
-
 LogWhatever.Controls.Chart.ChartDrawer.prototype._empty = function(container, message) {
 	if (!message)
 		message = "No data.";

@@ -43,6 +43,11 @@ namespace LogWhatever.Service.Caching
 			}
 		}
 
+		public bool ContainsKey<TCachedType>()
+		{
+			return _dictionary.ContainsKey(typeof (TCachedType));
+		}
+
 		public IEnumerable<TCachedType> StoreOrRetrieve<TCachedType>(IEnumerable<BaseModel> models) where TCachedType : BaseModel
 		{
 			lock (_dictionary)
@@ -104,6 +109,21 @@ namespace LogWhatever.Service.Caching
 				if (!_dictionary.ContainsKey(type))
 					_dictionary[type] = new List<BaseModel>();
 				_dictionary[type].Add(obj);
+			}
+		}
+
+		public void AddToList<TCachedType>(IEnumerable<TCachedType> list) where TCachedType : BaseModel
+		{
+			if (list == null)
+				throw new ArgumentNullException("list");
+
+			lock (_dictionary)
+			{
+				var type = typeof (TCachedType);
+				if (!_dictionary.ContainsKey(type))
+					_dictionary[type] = list.Cast<BaseModel>().ToList();
+				else
+					_dictionary[type].AddRange(list);
 			}
 		}
 

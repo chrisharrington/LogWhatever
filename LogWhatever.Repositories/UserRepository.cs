@@ -10,9 +10,9 @@ namespace LogWhatever.Repositories
 	public class UserRepository : BaseRepository, IUserRepository
 	{
 		#region Public Methods
-		public IEnumerable<User> All()
+		public virtual IEnumerable<User> All(Func<User, bool> filter = null)
 		{
-			return Retrieve<User>("select * from LogUsers");
+			return Retrieve("select * from LogUsers", filter);
 		}
 
 		public User Email(string emailAddress)

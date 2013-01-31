@@ -10,9 +10,9 @@ namespace LogWhatever.Repositories
 	public class LogRepository : BaseRepository, ILogRepository
 	{
 		#region Public Methods
-		public IEnumerable<Log> All()
+		public virtual IEnumerable<Log> All(Func<Log, bool> filter = null)
 		{
-			return Retrieve<Log>("select * from Logs order by Name");
+			return Retrieve("select * from Logs order by Name", filter);
 		}
 
 		public Log Name(string name)

@@ -9,7 +9,9 @@ using System.Web.Security;
 using Autofac;
 using Autofac.Integration.Mvc;
 using LogWhatever.Common.Adapters.Bundling;
+using LogWhatever.Common.Models;
 using LogWhatever.Container;
+using LogWhatever.RemoteRepositories;
 using log4net;
 using log4net.Config;
 
@@ -92,6 +94,8 @@ namespace LogWhatever.Web
 
 			builder.RegisterAssemblyTypes(typeof(MvcApplication).Assembly).Where(x => x.IsAssignableTo<IController>()).PropertiesAutowired();
 			builder.RegisterAssemblyTypes(typeof(MvcApplication).Assembly).Where(x => x.IsAssignableTo<IHttpController>()).PropertiesAutowired();
+			builder.RegisterAssemblyTypes(typeof(BaseRemoteRepository).Assembly).AsImplementedInterfaces().PropertiesAutowired();
+			builder.RegisterInstance(new BaseRemoteRepository()).PropertiesAutowired();
 
 			_container = builder.Build();
 

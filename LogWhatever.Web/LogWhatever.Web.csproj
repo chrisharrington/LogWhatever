@@ -253,6 +253,10 @@
       <Project>{8BFB80EB-8372-4236-8967-300A1CD8E921}</Project>
       <Name>LogWhatever.Messages</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogWhatever.RemoteRepositories\LogWhatever.RemoteRepositories.csproj">
+      <Project>{6E71DA36-6A7F-4A8C-808E-45C0E80F5414}</Project>
+      <Name>LogWhatever.RemoteRepositories</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogWhatever.Service\LogWhatever.Service.csproj">
       <Project>{a951e387-ffa3-494c-86ea-3cd309fbd29b}</Project>
       <Name>LogWhatever.Service</Name>

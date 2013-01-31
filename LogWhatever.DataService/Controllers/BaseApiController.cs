@@ -9,7 +9,7 @@ using LogWhatever.Common.Service.Caching;
 
 namespace LogWhatever.DataService.Controllers
 {
-	[CustomAuthorize]
+	[DataServiceAuthorize]
 	public class BaseApiController : ApiController
 	{
 		#region Properties

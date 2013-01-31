@@ -10,9 +10,9 @@ namespace LogWhatever.Repositories
 	public class TagRepository : BaseRepository, ITagRepository
 	{
 		#region Public Methods
-		public IEnumerable<Tag> All()
+		public virtual IEnumerable<Tag> All(Func<Tag, bool> filter = null)
 		{
-			return Retrieve<Tag>("select * from Tags");
+			return Retrieve("select * from Tags", filter);
 		}
 
 		public IEnumerable<Tag> Log(Guid logId)

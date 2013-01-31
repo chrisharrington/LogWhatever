@@ -10,7 +10,7 @@ using AuthorizeAttribute = System.Web.Http.AuthorizeAttribute;
 
 namespace LogWhatever.Common.Service.Authentication
 {
-	public class CustomAuthorizeAttribute : AuthorizeAttribute
+	public class DataServiceAuthorize : AuthorizeAttribute
 	{
 		#region Properties
 		private ICollectionCache Cache
@@ -25,11 +25,15 @@ namespace LogWhatever.Common.Service.Authentication
 			if (context.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any())
 				return true;
 
-			var token = HttpContext.Current.Request.Cookies["log-auth"];
-			if (token == null)
+			var parts = HttpUtility.ParseQueryString(context.Request.RequestUri.Query);
+			if (parts.AllKeys.All(x => x != "auth"))
 				return false;
 
-			var tokenId = new Guid(token.Value);
+			var token = parts["auth"];
+			if (string.IsNullOrEmpty(token))
+				return false;
+
+			var tokenId = new Guid(token);
 			var session = Cache.Retrieve<Session>().FirstOrDefault(x => x.Id == tokenId);
 			return session != null;
 		}

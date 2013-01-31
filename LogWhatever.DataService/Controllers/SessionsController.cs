@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Security;
@@ -7,7 +8,7 @@ using LogWhatever.Common.Service.Authentication;
 
 namespace LogWhatever.DataService.Controllers
 {
-	public class UsersController : BaseApiController
+	public class SessionsController : BaseApiController
 	{
 		#region Properties
 		public IMembershipProvider MembershipProvider { get; set; }
@@ -21,10 +22,21 @@ namespace LogWhatever.DataService.Controllers
 			return GetCurrentlySignedInUser();
 		}
 
+		[ActionName("sign-in-token")]
+		[AcceptVerbs("GET")]
+		[AllowAnonymous]
+		public Session SignInToken(Guid token)
+		{
+			if (token == Guid.Empty)
+				throw new ArgumentNullException("token");
+
+			return Cache.Retrieve<Session>().FirstOrDefault(x => x.Id == token);
+		}
+
 		[ActionName("sign-in")]
 		[AcceptVerbs("GET")]
 		[AllowAnonymous]
-		public User SignIn(string emailAddress, string password)
+		public Session SignIn(string emailAddress, string password)
 		{
 			if (string.IsNullOrEmpty(emailAddress))
 				throw new ArgumentNullException("emailAddress");
@@ -39,7 +51,7 @@ namespace LogWhatever.DataService.Controllers
 			var user = UserRepository.Email(emailAddress);
 			Cache.AddToList(new Session {Id = token, User = user});
 			HttpContext.Current.Response.Cookies.Add(new HttpCookie("log-auth", token.ToString()));
-			return user;
+			return new Session {Id = token, User = user};
 		}
 
 		[ActionName("sign-out")]

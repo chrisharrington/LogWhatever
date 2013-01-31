@@ -10,18 +10,19 @@ namespace LogWhatever.Web.Controllers.Pages
 	{
 		#region Properties
 		public IMeasurementRepository MeasurementRepository { get; set; }
-		public ILogRepository LogRepository { get; set; }
 		public ITagRepository TagRepository { get; set; }
 		public IEventRepository EventRepository { get; set; }
+		public ILogRepository LogRepository { get; set; }
 		#endregion
 
 		#region Public Methods
 		public IEnumerable<IEnumerable<Common.Models.Page.Log>> Get()
 		{
 			const int columns = 5;
-			var user = GetCurrentlySignedInUser();
-			var measurements = MeasurementRepository.User(user.Id).ToArray();
-			var logs = LogRepository.User(user.Id).ToArray();
+
+			var user = GetCurrentSession().User;
+			var measurements = MeasurementRepository.All(x => x.UserId == user.Id).ToArray();
+			var logs = LogRepository.All(x => x.UserId == user.Id).ToArray();
 			var events = EventRepository.Latest(user.Id).ToDictionary(x => x.LogId);
 
 			var models = logs.Select(log => new Common.Models.Page.Log {

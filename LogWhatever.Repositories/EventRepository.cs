@@ -10,9 +10,9 @@ namespace LogWhatever.Repositories
 	public class EventRepository : BaseRepository, IEventRepository
 	{
 		#region Public Methods
-		public IEnumerable<Event> All()
+		public virtual IEnumerable<Event> All(Func<Event, bool> filter = null)
 		{
-			return Retrieve<Event>("select * from Events");
+			return Retrieve("select * from Events", filter);
 		}
 
 		public IEnumerable<Event> Log(Guid logId)

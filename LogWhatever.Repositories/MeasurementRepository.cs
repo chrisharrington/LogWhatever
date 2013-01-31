@@ -10,9 +10,9 @@ namespace LogWhatever.Repositories
 	public class MeasurementRepository : BaseRepository, IMeasurementRepository
 	{
 		#region Public Methods
-		public IEnumerable<Measurement> All()
+		public virtual IEnumerable<Measurement> All(Func<Measurement, bool> filter = null)
 		{
-			return Retrieve<Measurement>("select * from Measurements");
+			return Retrieve("select * from Measurements", filter);
 		}
 
 		public IEnumerable<Measurement> Log(Guid logId)

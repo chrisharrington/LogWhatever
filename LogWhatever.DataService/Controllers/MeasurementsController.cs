@@ -15,15 +15,16 @@ namespace LogWhatever.DataService.Controllers
 		#endregion
 
 		#region Public Methods
-		[ActionName("log")]
-		public IEnumerable<Measurement> GetForLog([FromUri] string logName)
+		public IEnumerable<Measurement> Get()
 		{
-			var log = LogRepository.Name(logName);
-			if (log == null)
-				return new List<Measurement>();
+			return MeasurementRepository.All();
 
-			var logMeasurements = MeasurementRepository.Log(log.Id);
-			return logMeasurements.Any() ? logMeasurements.GroupBy(x => x.Date).OrderByDescending(x => x.Key).First().OrderBy(x => x.Name).ToList() : new List<Measurement>();
+			//var log = LogRepository.Name(logName);
+			//if (log == null)
+			//	return new List<Measurement>();
+
+			//var logMeasurements = MeasurementRepository.Log(log.Id);
+			//return logMeasurements.Any() ? logMeasurements.GroupBy(x => x.Date).OrderByDescending(x => x.Key).First().OrderBy(x => x.Name).ToList() : new List<Measurement>();
 		}
 		#endregion
 	}

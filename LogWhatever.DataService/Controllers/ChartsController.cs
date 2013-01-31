@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
-using System.Web.Http;
 using LogWhatever.Common.Extensions;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
@@ -16,27 +16,35 @@ namespace LogWhatever.DataService.Controllers
 		public IEventRepository EventRepository { get; set; }
 		public ITagRepository TagRepository { get; set; }
 		#endregion
-
+		
 		#region Public Methods
-		[ActionName("measurements")]
-		[AcceptVerbs("GET")]
-		public dynamic GetMeasurements([FromUri] string logName)
+		public dynamic Get(string logName)
 		{
-			return MeasurementRepository.Log(GetLogFromName(logName).Id).GroupBy(x => x.GroupId).Select(x => x.OrderBy(y => y.Date));
+			var log = GetLogFromName(logName);
+
+			dynamic result = new ExpandoObject();
+			result.measurements = Measurements(log);
+			result.tagRatios = TagRatios(log);
+			result.eventsOverTime = EventsOverTime(log);
+			result.popularDays = PopularDays(log);
+			return result;
+		}
+		#endregion
+
+		#region Private Methods
+		private dynamic Measurements(Log log)
+		{
+			return MeasurementRepository.Log(log.Id).GroupBy(x => x.GroupId).Select(x => x.OrderBy(y => y.Date));
 		}
 
-		[ActionName("tag-ratios")]
-		[AcceptVerbs("GET")]
-		public dynamic GetTagRatios([FromUri] string logName)
+		private dynamic TagRatios(Log log)
 		{
-			return TagRepository.Log(GetLogFromName(logName).Id).GroupBy(x => x.Name).Select(x => new {x.First().Name, Count = x.Count()});
+			return TagRepository.Log(log.Id).GroupBy(x => x.Name).Select(x => new { x.First().Name, Count = x.Count() });
 		}
 
-		[ActionName("events-per-week")]
-		[AcceptVerbs("GET")]
-		public dynamic GetEventsPerWeek([FromUri] string logName)
+		private dynamic EventsOverTime(Log log)
 		{
-			var events = EventRepository.Log(GetLogFromName(logName).Id).OrderBy(x => x.Date);
+			var events = EventRepository.Log(log.Id).OrderBy(x => x.Date);
 			if (!events.Any())
 				return null;
 
@@ -48,16 +56,11 @@ namespace LogWhatever.DataService.Controllers
 			return results;
 		}
 
-		[ActionName("popular-days")]
-		[AcceptVerbs("GET")]
-		public dynamic GetPopularDays([FromUri] string logName)
+		private dynamic PopularDays(Log log)
 		{
-			var log = GetLogFromName(logName);
-			return EventRepository.Log(log.Id).GroupBy(x => x.Date.DayOfWeek).Select(x => new {Day = x.Key.ToString(), Count = x.Count()});
+			return EventRepository.Log(log.Id).GroupBy(x => x.Date.DayOfWeek).Select(x => new { Day = x.Key.ToString(), Count = x.Count() });
 		}
-		#endregion
 
-		#region Private Methods
 		private Log GetLogFromName(string logName)
 		{
 			var log = LogRepository.Name(logName.Replace("-", " "));

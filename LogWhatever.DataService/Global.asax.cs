@@ -1,9 +1,11 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using LogWhatever.Container;
+using LogWhatever.Repositories;
 
 namespace LogWhatever.DataService
 {
@@ -28,7 +30,7 @@ namespace LogWhatever.DataService
 		#region Private Methods
 		internal virtual void RegisterRoutes()
 		{
-			var routes = GlobalConfiguration.Configuration.Routes;
+			var routes = RouteTable.Routes;
 			routes.MapHttpRoute("DefaultApi", "{controller}/{id}", new { id = RouteParameter.Optional });
 		}
 
@@ -39,6 +41,7 @@ namespace LogWhatever.DataService
 
 			builder.RegisterAssemblyTypes(typeof(MvcApplication).Assembly).Where(x => x.IsAssignableTo<IController>()).PropertiesAutowired();
 			builder.RegisterAssemblyTypes(typeof(MvcApplication).Assembly).Where(x => x.IsAssignableTo<IHttpController>()).PropertiesAutowired();
+			builder.RegisterAssemblyTypes(typeof(BaseRepository).Assembly).AsImplementedInterfaces().PropertiesAutowired();
 
 			_container = builder.Build();
 

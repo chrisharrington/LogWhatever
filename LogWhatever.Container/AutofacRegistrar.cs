@@ -12,7 +12,6 @@ namespace LogWhatever.Container
 		#region Public Methods
 		public void Register(ContainerBuilder builder)
 		{
-			builder.RegisterAssemblyTypes(typeof (BaseRepository).Assembly).AsImplementedInterfaces().PropertiesAutowired();
 			builder.RegisterAssemblyTypes(typeof (SendGridEmailer).Assembly).AsImplementedInterfaces().PropertiesAutowired();
 			builder.RegisterAssemblyTypes(typeof (IBundleFactory).Assembly).AsImplementedInterfaces().PropertiesAutowired();
 			builder.RegisterAssemblyTypes(typeof (BaseCommandHandler).Assembly).AsImplementedInterfaces().PropertiesAutowired();
