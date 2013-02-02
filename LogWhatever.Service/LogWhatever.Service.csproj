@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\AspMembership.cs" />
+    <Compile Include="Authentication\SessionManager.cs" />
     <Compile Include="Caching\MemoryCollectionCache.cs" />
     <Compile Include="Email\SendGridEmailer.cs" />
     <Compile Include="Http\HttpRequestor.cs" />

@@ -1,7 +1,9 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 using Autofac;
 using Autofac.Integration.Mvc;
 using LogWhatever.Container;
@@ -22,6 +24,7 @@ namespace LogWhatever.DataService
 
 			RegisterRoutes();
 			BuildDependencyContainer();
+			EnsureRolesExist();
 
 			GlobalFilters.Filters.Add(new HandleErrorAttribute());
 		}
@@ -48,6 +51,13 @@ namespace LogWhatever.DataService
 			DependencyResolver.SetResolver(new AutofacDependencyResolver(_container));
 			var autofacDependencyResolver = new AutofacDependencyResolver(_container);
 			GlobalConfiguration.Configuration.DependencyResolver = new AspAutofacDependencyResolver(autofacDependencyResolver);
+		}
+
+		internal void EnsureRolesExist()
+		{
+			var existingRoles = Roles.GetAllRoles();
+			foreach (var role in new[] { "Administrator", "User", "Read Only" }.Where(role => existingRoles.All(x => x != role)))
+				Roles.CreateRole(role);
 		}
 		#endregion
 	}

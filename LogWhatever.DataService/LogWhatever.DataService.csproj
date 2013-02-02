@@ -139,6 +139,7 @@
     <Compile Include="Controllers\MeasurementsController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\SessionsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

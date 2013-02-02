@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Http;
+using LogWhatever.Common.Models;
 using LogWhatever.Common.Service.Http;
 using Newtonsoft.Json;
 
@@ -11,16 +12,14 @@ namespace LogWhatever.Service.Http
 	public class HttpRequestor : IHttpRequestor
 	{
 		#region Public Methods
-		public TResponseType Get<TResponseType>(string url, object parameters = null, params Cookie[] cookies)
+		public TResponseType Get<TResponseType>(string url, object parameters = null, Session session = null)
 		{
 			try
 			{
-				var requestUriString = url + (parameters == null ? "" : CreateUrlParameterString(parameters));
+				var requestUriString = url + CreateUrlParameterString(parameters, session);
 				var request = (HttpWebRequest) WebRequest.Create(requestUriString);
 				request.Method = "GET";
 				request.ContentType = "application/json";
-
-				AddCookiesToRequest(request, cookies);
 
 				var response = (HttpWebResponse) request.GetResponse();
 				if (response.StatusCode != HttpStatusCode.OK)
@@ -35,37 +34,36 @@ namespace LogWhatever.Service.Http
 			}
 		}
 
-		private void AddCookiesToRequest(HttpWebRequest request, IEnumerable<Cookie> cookies)
+		public void Post(string url, object parameters = null, Session session = null)
 		{
-			if (cookies == null)
-				return;
-
-			if (request.CookieContainer == null)
-				request.CookieContainer = new CookieContainer();
-			foreach (var cookie in cookies)
-				request.CookieContainer.Add(cookie);
-		}
-
-		public void Post(string url, object parameters = null, params Cookie[] cookies)
-		{
-			var request = (HttpWebRequest) WebRequest.Create(url + (parameters == null ? "" : CreateUrlParameterString(parameters)));
+			var request = (HttpWebRequest)WebRequest.Create(url + CreateUrlParameterString(parameters, session));
 			request.Method = "POST";
 			request.ContentType = "application/json";
 
-			AddCookiesToRequest(request, cookies);
+			var serializeObject = JsonConvert.SerializeObject(parameters);
+			var body = Encoding.UTF8.GetBytes(serializeObject);
+			request.ContentLength = body.Length;
 
-			var response = (HttpWebResponse) request.GetResponse();
-			if (response.StatusCode != HttpStatusCode.OK)
+			using (var stream = request.GetRequestStream())
+				stream.Write(body, 0, body.Length);
+
+			var response = (HttpWebResponse)request.GetResponse();
+			if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
 				throw new HttpResponseException(response.StatusCode);
 		}
 		#endregion
 
 		#region Private Methods
-		internal virtual string CreateUrlParameterString(object parameters)
+		internal virtual string CreateUrlParameterString(object parameters, Session session)
 		{
 			var result = "";
-			foreach (var property in parameters.GetType().GetProperties())
-				result += "&" + property.Name + "=" + HttpUtility.UrlEncode(property.GetValue(parameters).ToString());
+			if (parameters != null)
+			{
+				foreach (var property in parameters.GetType().GetProperties())
+					result += "&" + property.Name + "=" + HttpUtility.UrlEncode(property.GetValue(parameters).ToString());
+			}
+			if (session != null)
+				result += "&auth=" + session.Id.ToString();
 			return "?" + result.Substring(1);
 		}
 		#endregion

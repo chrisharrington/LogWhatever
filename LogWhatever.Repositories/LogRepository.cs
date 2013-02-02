@@ -31,7 +31,7 @@ namespace LogWhatever.Repositories
 			return All().Where(x => x.UserId == userId);
 		}
 
-		public void Create(Log log)
+		public virtual void Create(Log log)
 		{
 			if (log == null)
 				throw new ArgumentNullException("log");

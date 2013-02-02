@@ -14,6 +14,11 @@ namespace LogWhatever.RemoteRepositories
 		{
 			return Repository.All("users", filter);
 		}
+
+		public override void Create(User user)
+		{
+			Repository.HttpRequestor.Post(ConfigurationProvider.DataServiceLocation + "users", user);
+		}
 		#endregion
 	}
 }

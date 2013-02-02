@@ -50,7 +50,7 @@ namespace LogWhatever.Repositories
 			return All().FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
 		}
 
-		public void Create(Tag tag)
+		public virtual void Create(Tag tag)
 		{
 			if (tag == null)
 				throw new ArgumentNullException("tag");

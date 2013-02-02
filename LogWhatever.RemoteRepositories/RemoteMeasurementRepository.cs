@@ -16,6 +16,12 @@ namespace LogWhatever.RemoteRepositories
 		{
 			return Repository.All("measurements", filter);
 		}
+
+		public override void Create(Measurement measurement)
+		{
+			Repository.HttpRequestor.Post(ConfigurationProvider.DataServiceLocation + "measurements", measurement, Repository.SessionManager.GetCurrent());
+			Cache.AddToList(measurement);
+		}
 		#endregion
 	}
 }

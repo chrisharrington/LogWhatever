@@ -53,7 +53,7 @@ namespace LogWhatever.Web.Controllers.Api
 				if (session == null)
 					throw new HttpResponseException(HttpStatusCode.Unauthorized);
 
-				var result = HttpRequestor.Get<IEnumerable<TModel>>(ConfigurationProvider.DataServiceLocation + controller, new { auth = session.Id.ToString() });
+				var result = HttpRequestor.Get<IEnumerable<TModel>>(ConfigurationProvider.DataServiceLocation + controller, session: session);
 				Cache.AddToList(result);
 				if (filter != null)
 					result = result.Where(filter);

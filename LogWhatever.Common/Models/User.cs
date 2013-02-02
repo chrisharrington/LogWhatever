@@ -7,6 +7,7 @@ namespace LogWhatever.Common.Models
 		#region Properties
 		public string EmailAddress { get; set; }
 		public string Name { get; set; }
+		public string Password { get; set; }
 		#endregion
 	}
 }

@@ -52,6 +52,7 @@ namespace LogWhatever.Web.Controllers.Api
 
 		[ActionName("registration")]
 		[AcceptVerbs("GET")]
+		[AllowAnonymous]
 		public User Register(string name, string email, string password)
 		{
 			if (string.IsNullOrEmpty(name))
@@ -61,18 +62,12 @@ namespace LogWhatever.Web.Controllers.Api
 			if (string.IsNullOrEmpty(password))
 				throw new ArgumentNullException("password");
 
-			//MembershipCreateStatus status;
-			//MembershipProvider.CreateUser(email, password, email, "User", null, null, true, null, out status);
-			//if (status != MembershipCreateStatus.Success)
-			//	throw new MembershipCreateUserException(status);
-
-			//var user = new User {Name = name, EmailAddress = email};
-			//UserRepository.Create(user);
-
-			//FormsAuthentication.SetAuthCookie(email, false);
-
-			//return user;
-			throw new NotImplementedException();
+			var user = new User {EmailAddress = email, Name = name, Password = password};
+			UserRepository.Create(user);
+			FormsAuthentication.SetAuthCookie(user.Id.ToString(), false);
+			Cache.AddToList(new Session {EmailAddress = user.EmailAddress, Id = user.Id, Name = user.Name, UserId = user.Id});
+			user.Password = "";
+			return user;
 		}
 		#endregion
 	}

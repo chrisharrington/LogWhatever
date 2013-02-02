@@ -31,7 +31,7 @@ namespace LogWhatever.Repositories
 			return All().Where(x => x.UserId == userId);
 		}
 
-		public void Create(Measurement measurement)
+		public virtual void Create(Measurement measurement)
 		{
 			if (measurement == null)
 				throw new ArgumentNullException("measurement");

@@ -26,6 +26,11 @@ namespace LogWhatever.DataService.Controllers
 			//var logMeasurements = MeasurementRepository.Log(log.Id);
 			//return logMeasurements.Any() ? logMeasurements.GroupBy(x => x.Date).OrderByDescending(x => x.Key).First().OrderBy(x => x.Name).ToList() : new List<Measurement>();
 		}
+
+		public void Post(Measurement measurement)
+		{
+			MeasurementRepository.Create(measurement);
+		}
 		#endregion
 	}
 }

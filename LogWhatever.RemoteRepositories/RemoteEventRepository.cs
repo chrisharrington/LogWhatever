@@ -16,6 +16,12 @@ namespace LogWhatever.RemoteRepositories
 		{
 			return Repository.All("events", filter);
 		}
+
+		public override void Create(Event @event)
+		{
+			Repository.HttpRequestor.Post(ConfigurationProvider.DataServiceLocation + "events", @event, Repository.SessionManager.GetCurrent());
+			Cache.AddToList(@event);
+		}
 		#endregion
 	}
 }

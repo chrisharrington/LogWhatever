@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Web.Http;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 
@@ -9,13 +8,17 @@ namespace LogWhatever.DataService.Controllers
 	{
 		#region Properties
 		public ITagRepository TagRepository { get; set; }
-		public ILogRepository LogRepository { get; set; }
 		#endregion
 
 		#region Public Methods
 		public IEnumerable<Tag> Get()
 		{
 			return TagRepository.All();
+		}
+
+		public void Post(Tag tag)
+		{
+			TagRepository.Create(tag);
 		}
 		#endregion
 	}

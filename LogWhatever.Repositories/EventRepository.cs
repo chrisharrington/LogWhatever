@@ -31,7 +31,7 @@ namespace LogWhatever.Repositories
 			return All().Where(x => x.UserId == userId).GroupBy(x => x.LogId).Select(x => x.OrderByDescending(y => y.Date).First());
 		}
 
-		public void Create(Event @event)
+		public virtual void Create(Event @event)
 		{
 			if (@event == null)
 				throw new ArgumentNullException("@event");

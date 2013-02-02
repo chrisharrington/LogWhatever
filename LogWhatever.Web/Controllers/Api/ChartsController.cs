@@ -7,7 +7,7 @@ namespace LogWhatever.Web.Controllers.Api
 		#region Public Methods
 		public dynamic Get([FromUri] string logName)
 		{
-			return HttpRequestor.Get<object>(ConfigurationProvider.DataServiceLocation + "charts", new { logName, auth = GetCurrentSession().Id.ToString() });
+			return HttpRequestor.Get<object>(ConfigurationProvider.DataServiceLocation + "charts", new {logName}, GetCurrentSession());
 		}
 		#endregion
 	}

@@ -14,6 +14,12 @@ namespace LogWhatever.RemoteRepositories
 		{
 			return Repository.All("logs", filter);
 		}
+
+		public override void Create(Log log)
+		{
+			Repository.HttpRequestor.Post(ConfigurationProvider.DataServiceLocation + "logs", log, Repository.SessionManager.GetCurrent());
+			Cache.AddToList(log);
+		}
 		#endregion
 	}
 }

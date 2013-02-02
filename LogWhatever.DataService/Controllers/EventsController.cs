@@ -18,6 +18,11 @@ namespace LogWhatever.DataService.Controllers
 		{
 			return EventRepository.All();
 		}
+
+		public void Post(Event @event)
+		{
+			EventRepository.Create(@event);
+		}
 		#endregion
 	}
 }

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http;
 using LogWhatever.Common.Configuration;
 using LogWhatever.Common.Models;
+using LogWhatever.Common.Service.Authentication;
 using LogWhatever.Common.Service.Caching;
 using LogWhatever.Common.Service.Http;
 
@@ -17,6 +18,7 @@ namespace LogWhatever.RemoteRepositories
 		public IHttpRequestor HttpRequestor { get; set; }
 		public IConfigurationProvider Configuration { get; set; }
 		public ICollectionCache Cache { get; set; }
+		public ISessionManager SessionManager { get; set; }
 		#endregion
 
 		#region Public Methods
@@ -36,7 +38,7 @@ namespace LogWhatever.RemoteRepositories
 				if (session == null)
 					throw new HttpResponseException(HttpStatusCode.Unauthorized);
 
-				var result = HttpRequestor.Get<IEnumerable<TModel>>(Configuration.DataServiceLocation + controller, new { auth = session.Id.ToString() });
+				var result = HttpRequestor.Get<IEnumerable<TModel>>(Configuration.DataServiceLocation + controller, session: session);
 				Cache.AddToList(result);
 				if (filter != null)
 					result = result.Where(filter);
@@ -57,7 +59,7 @@ namespace LogWhatever.RemoteRepositories
 				if (session == null)
 					throw new HttpResponseException(HttpStatusCode.Unauthorized);
 
-				var result = HttpRequestor.Get<IEnumerable<TModel>>(Configuration.DataServiceLocation + controller, new { auth = session.Id.ToString() });
+				var result = HttpRequestor.Get<IEnumerable<TModel>>(Configuration.DataServiceLocation + controller, session: session);
 				Cache.AddToList(result);
 				return result.FirstOrDefault(filter);
 			}

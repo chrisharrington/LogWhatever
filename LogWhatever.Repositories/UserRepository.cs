@@ -23,7 +23,7 @@ namespace LogWhatever.Repositories
 			return All().FirstOrDefault(x => x.EmailAddress.ToLower() == emailAddress.ToLower());
 		}
 
-		public void Create(User user)
+		public virtual void Create(User user)
 		{
 			if (user == null)
 				throw new ArgumentNullException("user");
