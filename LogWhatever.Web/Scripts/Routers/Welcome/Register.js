@@ -71,9 +71,9 @@ LogWhatever.Routers.Welcome.Register.prototype._sendRegisterCommand = function(p
 	$.get(LogWhatever.Configuration.VirtualDirectory + "api/users/registration", params).success(function (user) {
 		LogWhatever.User = user;
 		Finch.navigate("/dashboard");
+		$("#user-account>span").text(LogWhatever.User.Name);
 		$("header>div.user").fadeIn(200);
-		$("#user-name").text((LogWhatever.User = user).Name);
-	}).error(function() {
+	}).error(function () {
 		LogWhatever.Feedback.error("An error has occurred while performing your registration. Please contact technical support.");
 	}).complete(function() {
 		inputs.attr("disabled", false);

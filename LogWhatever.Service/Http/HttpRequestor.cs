@@ -60,7 +60,10 @@ namespace LogWhatever.Service.Http
 			if (parameters != null)
 			{
 				foreach (var property in parameters.GetType().GetProperties())
-					result += "&" + property.Name + "=" + HttpUtility.UrlEncode(property.GetValue(parameters).ToString());
+				{
+					var value = property.GetValue(parameters);
+					result += "&" + property.Name + "=" + (value == null ? null : HttpUtility.UrlEncode(value.ToString()));
+				}
 			}
 			if (session != null)
 				result += "&auth=" + session.Id.ToString();
