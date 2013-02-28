@@ -9,7 +9,6 @@ namespace LogWhatever.Common.Service.Caching
 		#region Public Methods
 		bool ContainsKey<TCachedType>();
 		IEnumerable<TCachedType> StoreOrRetrieve<TCachedType>(IEnumerable<BaseModel> models) where TCachedType : BaseModel;
-		IEnumerable<TCachedType> StoreOrRetrieve<TCachedType>(BaseModel model) where TCachedType : BaseModel;
 		IEnumerable<TCachedType> Retrieve<TCachedType>() where TCachedType : BaseModel;
 		void RemoveFromList<TCachedType>(Guid id);
 		void AddToList<TCachedType>(TCachedType obj) where TCachedType : BaseModel;

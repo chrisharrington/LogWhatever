@@ -10,7 +10,7 @@ using AuthorizeAttribute = System.Web.Http.AuthorizeAttribute;
 
 namespace LogWhatever.Common.Service.Authentication
 {
-	public class DataServiceAuthorize : AuthorizeAttribute
+	public class DataServiceAuthorizeAttribute : AuthorizeAttribute
 	{
 		#region Properties
 		private ICollectionCache Cache

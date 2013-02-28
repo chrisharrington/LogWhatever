@@ -5,6 +5,7 @@ using System.Web.Security;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 using LogWhatever.Common.Service.Authentication;
+using LogWhatever.Common.Service.Logging;
 
 namespace LogWhatever.DataService.Controllers
 {

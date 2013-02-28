@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 
@@ -14,9 +15,9 @@ namespace LogWhatever.DataService.Controllers
 		#endregion
 
 		#region Public Methods
-		public IEnumerable<Event> Get()
+		public IEnumerable<Event> Get(Guid? userId = null)
 		{
-			return EventRepository.All();
+			return EventRepository.All(x => userId == null || x.UserId == userId.Value);
 		}
 
 		public void Post(Event @event)

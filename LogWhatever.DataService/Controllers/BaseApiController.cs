@@ -6,15 +6,19 @@ using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 using LogWhatever.Common.Service.Authentication;
 using LogWhatever.Common.Service.Caching;
+using LogWhatever.Common.Service.Logging;
 
 namespace LogWhatever.DataService.Controllers
 {
 	[DataServiceAuthorize]
+	[CustomHandleError]
+	[CustomHandleAction]
 	public class BaseApiController : ApiController
 	{
 		#region Properties
 		public IUserRepository UserRepository { get; set; }
 		public ICollectionCache Cache { get; set; }
+		public ILogger Logger { get; set; }
 		#endregion
 
 		#region Protected Methods

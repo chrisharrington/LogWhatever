@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 
@@ -13,9 +13,9 @@ namespace LogWhatever.DataService.Controllers
 		#endregion
 
 		#region Public Methods
-		public IEnumerable<Log> Get()
+		public IEnumerable<Log> Get(Guid? userId = null)
 		{
-			return LogRepository.All().OrderBy(x => x.Name);
+			return LogRepository.All(x => userId == null || x.UserId == userId.Value).OrderBy(x => x.Name);
 		} 
 
 		public void Post(Log log)

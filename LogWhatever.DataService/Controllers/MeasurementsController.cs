@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System;
+using System.Collections.Generic;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 
@@ -15,16 +14,9 @@ namespace LogWhatever.DataService.Controllers
 		#endregion
 
 		#region Public Methods
-		public IEnumerable<Measurement> Get()
+		public IEnumerable<Measurement> Get(Guid? userId = null)
 		{
-			return MeasurementRepository.All();
-
-			//var log = LogRepository.Name(logName);
-			//if (log == null)
-			//	return new List<Measurement>();
-
-			//var logMeasurements = MeasurementRepository.Log(log.Id);
-			//return logMeasurements.Any() ? logMeasurements.GroupBy(x => x.Date).OrderByDescending(x => x.Key).First().OrderBy(x => x.Name).ToList() : new List<Measurement>();
+			return MeasurementRepository.All(x => userId == null || x.UserId == userId.Value);
 		}
 
 		public void Post(Measurement measurement)

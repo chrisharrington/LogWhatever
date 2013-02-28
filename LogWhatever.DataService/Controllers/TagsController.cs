@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using LogWhatever.Common.Models;
 using LogWhatever.Common.Repositories;
 
@@ -11,9 +12,9 @@ namespace LogWhatever.DataService.Controllers
 		#endregion
 
 		#region Public Methods
-		public IEnumerable<Tag> Get()
+		public IEnumerable<Tag> Get(Guid? userId = null)
 		{
-			return TagRepository.All();
+			return TagRepository.All(x => userId == null || x.UserId == userId);
 		}
 
 		public void Post(Tag tag)

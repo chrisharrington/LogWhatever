@@ -112,7 +112,7 @@
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ITagRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
-    <Compile Include="Service\Authentication\DataServiceAuthorize.cs" />
+    <Compile Include="Service\Authentication\DataServiceAuthorizeAttribute.cs" />
     <Compile Include="Service\Authentication\IMembershipProvider.cs" />
     <Compile Include="Service\Caching\ICollectionCache.cs" />
     <Compile Include="Service\Email\IEmailer.cs" />
@@ -120,6 +120,8 @@
     <Compile Include="Service\Http\IMeasurementsDataService.cs" />
     <Compile Include="Service\Http\ITagsDataService.cs" />
     <Compile Include="Service\Http\ISessionDataService.cs" />
+    <Compile Include="Service\Logging\CustomHandleActionAttribute.cs" />
+    <Compile Include="Service\Logging\CustomHandleErrorAttribute.cs" />
     <Compile Include="Service\Logging\ILogger.cs" />
   </ItemGroup>
   <ItemGroup>
