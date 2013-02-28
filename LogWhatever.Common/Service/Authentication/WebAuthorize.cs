@@ -15,7 +15,7 @@ namespace LogWhatever.Common.Service.Authentication
 		private ICollectionCache Cache
 		{
 			get { return DependencyResolver.Current.GetService<ICollectionCache>(); }
-		}
+		}	
 		#endregion
 
 		#region Protected Methods
