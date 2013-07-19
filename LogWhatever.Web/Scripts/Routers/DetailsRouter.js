@@ -30,7 +30,7 @@ LogWhatever.Routers.DetailsRouter.prototype._drawCharts = function () {
 		LogWhatever.Controls.Chart.MeasurementsChart.create().draw(me._container.find("#measurements-chart"), data.measurements);
 		LogWhatever.Controls.Chart.TagRatiosChart.create().draw(me._container.find("#tag-ratios-chart"), me._container.find("#tag-ratios-legend"), data.tagRatios);
 		LogWhatever.Controls.Chart.EventsPerWeekChart.create().draw(me._container.find("#events-per-week-chart"), data.eventsOverTime);
-		LogWhatever.Controls.Chart.PopularDaysChart.create().draw(me._container.find("#popular-days-chart"), data.popularDays);
+		LogWhatever.Controls.Chart.PopularDaysChart.create().draw(me._container.find("#popular-days-chart"), me._container.find("#popular-days-legend"), data.popularDays);
 	});
 };
 

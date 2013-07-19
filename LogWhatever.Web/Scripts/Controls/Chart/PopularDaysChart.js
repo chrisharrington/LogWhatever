@@ -14,7 +14,7 @@ $.extend(LogWhatever.Controls.Chart.PopularDaysChart.prototype, LogWhatever.Cont
 //--------------------------------------------------------------------------------------------------------------------------------------------
 /* Public Methods */
 
-LogWhatever.Controls.Chart.PopularDaysChart.prototype.draw = function (container, data) {
+LogWhatever.Controls.Chart.PopularDaysChart.prototype.draw = function (container, legend, data) {
 	var me = this;
 	if (data.length == 0) {
 		me._empty(container);
@@ -47,7 +47,10 @@ LogWhatever.Controls.Chart.PopularDaysChart.prototype.draw = function (container
 		plotOptions: {
 			pie: {
 				borderWidth: 1,
-				animation: false
+				animation: false,
+				dataLabels: {
+					enabled: false
+				}
 			}
 		},
 		series: [{
@@ -55,4 +58,6 @@ LogWhatever.Controls.Chart.PopularDaysChart.prototype.draw = function (container
 			data: series
 		}]
 	});
+
+	this._drawLegend(legend, chart);
 };
