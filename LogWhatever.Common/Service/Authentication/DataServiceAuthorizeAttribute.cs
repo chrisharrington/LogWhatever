@@ -33,9 +33,18 @@ namespace LogWhatever.Common.Service.Authentication
 			if (string.IsNullOrEmpty(token))
 				return false;
 
-			var tokenId = new Guid(token);
-			var session = Cache.Retrieve<Session>().FirstOrDefault(x => x.Id == tokenId);
-			return session != null;
+			Guid tokenId;
+			if (!Guid.TryParse(token, out tokenId))
+				return false;
+
+			return Cache.Retrieve<Session>().Any(x => x.Id == tokenId);
+		}
+		#endregion
+
+		#region Private Methods
+		private string GetToken(HttpActionContext context)
+		{
+			throw new NotImplementedException();
 		}
 		#endregion
 	}

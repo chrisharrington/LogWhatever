@@ -13,9 +13,13 @@
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
     </Imports>
-		<Startup>
-			<Task commandLine="StartupScript.cmd" executionContext="elevated" />
-		</Startup>
+    <Startup>
+      <Task commandLine="StartupScript.cmd" executionContext="elevated" />
+    </Startup>
+    <Certificates>
+    </Certificates>
   </WebRole>
 </ServiceDefinition>
