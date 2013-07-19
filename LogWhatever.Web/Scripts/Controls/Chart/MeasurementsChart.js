@@ -55,7 +55,8 @@ LogWhatever.Controls.Chart.MeasurementsChart.prototype.draw = function (containe
 		yAxis: axisCollection,
 		plotOptions: {
 			series: {
-				pointInterval: 24 * 3600 * 1000
+				pointInterval: 24 * 3600 * 1000,
+				animation: false
 			},
 			line: {
 				shadow: false,

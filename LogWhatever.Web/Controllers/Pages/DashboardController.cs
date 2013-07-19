@@ -32,6 +32,9 @@ namespace LogWhatever.Web.Controllers.Pages
 				Tags = TagRepository.LatestForUserAndLog(user.Id, log.Name)
 			}).OrderByDescending(x => x.Date).ToArray();
 
+			if (!models.Any())
+				return null;
+
 			var list = new List<IEnumerable<Common.Models.Page.Log>>();
 			for (var i = 0; i < columns; i++)
 				list.Add(models.Skip(i).TakeEvery(columns));

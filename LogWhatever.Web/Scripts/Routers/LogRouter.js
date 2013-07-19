@@ -169,7 +169,6 @@ LogWhatever.Routers.LogRouter.prototype._sendLogCommand = function (parameters) 
 	var me = this;
 	var inputs = this._container.find("input, textarea, select").attr("disabled", true);
 	$.post(LogWhatever.Configuration.VirtualDirectory + "api/logs", parameters).success(function () {
-		//LogWhatever.Feedback.success("Your data has been logged.");
 		me._loadMeasurements(parameters.Name, true);
 		me._loadEvents(parameters.Name);
 	}).error(function () {

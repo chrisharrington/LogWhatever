@@ -56,6 +56,9 @@ LogWhatever.Controls.Chart.EventsPerWeekChart.prototype.draw = function (contain
 			enabled: false
 		},
 		plotOptions: {
+			series: {
+				animation: false
+			}
 		},
 		title: {
 			text: null

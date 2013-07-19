@@ -37,7 +37,8 @@ LogWhatever.Controls.Chart.TagRatiosChart.prototype.draw = function (container, 
 		title: { text: null },
 		plotOptions: {
 			pie: {
-				borderWidth: 1
+				borderWidth: 1,
+				animation: false
 			}
 		},
 		series: [{

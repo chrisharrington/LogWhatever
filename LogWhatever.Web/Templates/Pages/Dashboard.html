@@ -9,23 +9,36 @@
 	div.log>div.measurements>div>span.value { float:right; }
 	div.log>div.tags { margin-top:5px;  }
 	div.log>div.tags>div { float:left; width:auto; margin-top:3px; margin-right:3px; }
+
+	div.no-data { float:left; width:100%; }
+	div.no-data>h3 { float:left; width:100%; color:#498FCC; }
+	div.no-data>span { float:left; width:100%; margin-top:10px; color:#555; }
+	div.no-data a { text-decoration:underline; cursor:pointer; }
+	div.no-data i { font-size:9px; font-style:normal; }
 </style>
 
-{{each(i, logColumn) data}}
-	<div class="log-column">
-		{{each(j, log) logColumn}}
-			<div class="tile log">
-				<h3>${log.Name}</h3>
-				<span>{{html formatDateToShortDateString(log.Date) + " " + formatDateToShortTimeString(log.Date) }}</span>
-				<div class="tags">
-					{{each(k, measurement) log.Measurements}}
-						<div class="floating-tag">${measurement.Name ? measurement.Name + '/ ' : ''}${measurement.Quantity.toFixed(2)}${measurement.Unit ? ' ' + measurement.Unit : ''}</div>
-					{{/each}}
-					{{each(k, tag) log.Tags}}
-						<div class="floating-tag">${tag.Name}</div>
-					{{/each}}
+{{if data != null}}
+	{{each(i, logColumn) data}}
+		<div class="log-column">
+			{{each(j, log) logColumn}}
+				<div class="tile log">
+					<h3>${log.Name}</h3>
+					<span>{{html formatDateToShortDateString(log.Date) + " " + formatDateToShortTimeString(log.Date) }}</span>
+					<div class="tags">
+						{{each(k, measurement) log.Measurements}}
+							<div class="floating-tag">${measurement.Name ? measurement.Name + '/ ' : ''}${measurement.Quantity.toFixed(2)}${measurement.Unit ? ' ' + measurement.Unit : ''}</div>
+						{{/each}}
+						{{each(k, tag) log.Tags}}
+							<div class="floating-tag">${tag.Name}</div>
+						{{/each}}
+					</div>
 				</div>
-			</div>
-		{{/each}}
+			{{/each}}
+		</div>
+	{{/each}}
+{{else}}
+	<div class="no-data">
+		<h3>You've logged no data!</h3>
+		<span>You have yet to record any data with us. You can begin by clicking <a>here</a> to log some stuff, or by clicking the "Log Some Stuff" link in the upper right corner. You can log whatever you want; the number of apples you had yesterday, how far you ran last week, or the number of times your newborn baby woke up last night <i>I'm so tired</i>.</span>
 	</div>
-{{/each}}
+{{/if}}
