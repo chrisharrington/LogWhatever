@@ -12,8 +12,8 @@
 
 	div.no-data { float:left; width:100%; }
 	div.no-data>h3 { float:left; width:100%; color:#498FCC; }
-	div.no-data>span { float:left; width:100%; margin-top:10px; color:#555; }
-	div.no-data a { text-decoration:underline; cursor:pointer; }
+	div.no-data>span { float:left; width:100%; margin-top:10px; color:#666; }
+	div.no-data a { text-decoration:underline; cursor:pointer; color:#000; }
 	div.no-data i { font-size:9px; font-style:normal; }
 </style>
 
@@ -39,6 +39,6 @@
 {{else}}
 	<div class="no-data">
 		<h3>You've logged no data!</h3>
-		<span>You have yet to record any data with us. You can begin by clicking <a>here</a> to log some stuff, or by clicking the "Log Some Stuff" link in the upper right corner. You can log whatever you want; the number of apples you had yesterday, how far you ran last week, or the number of times your newborn baby woke up last night <i>I'm so tired</i>.</span>
+		<span>You have yet to record any data with us. You can begin by clicking <a href="#/log-some-stuff">here</a> to log some stuff, or by clicking the "Log Some Stuff" link in the upper right corner. You can log whatever you want; the number of apples you had yesterday, how far you ran last week, or the number of times your newborn baby woke up last night <i>I'm so tired</i>.</span>
 	</div>
 {{/if}}
