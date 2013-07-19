@@ -28,7 +28,7 @@ LogWhatever.Routers.DetailsRouter.prototype._drawCharts = function () {
 	var me = this;
 	$.when(this._getChartData(logName)).done(function (data) {
 		LogWhatever.Controls.Chart.MeasurementsChart.create().draw(me._container.find("#measurements-chart"), data.measurements);
-		LogWhatever.Controls.Chart.TagRatiosChart.create().draw(me._container.find("#tag-ratios-chart"), data.tagRatios);
+		LogWhatever.Controls.Chart.TagRatiosChart.create().draw(me._container.find("#tag-ratios-chart"), me._container.find("#tag-ratios-legend"), data.tagRatios);
 		LogWhatever.Controls.Chart.EventsPerWeekChart.create().draw(me._container.find("#events-per-week-chart"), data.eventsOverTime);
 		LogWhatever.Controls.Chart.PopularDaysChart.create().draw(me._container.find("#popular-days-chart"), data.popularDays);
 	});
@@ -45,6 +45,9 @@ LogWhatever.Routers.DetailsRouter.prototype._setChartsLoading = function() {
 		var container = $(this).empty().append($.tmpl("chart-loading"));
 		var parent = container.parent();
 		var totalHeight = parent.height();
+		var legend = $(this).parent().find(".legend");
+		if (legend.length > 0)
+			totalHeight -= legend.height();
 		var headerHeight = parent.find("h4").outerHeight(true);
 		container.height(totalHeight - headerHeight);
 

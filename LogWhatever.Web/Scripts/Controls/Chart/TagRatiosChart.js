@@ -14,7 +14,7 @@ $.extend(LogWhatever.Controls.Chart.TagRatiosChart.prototype, LogWhatever.Contro
 //--------------------------------------------------------------------------------------------------------------------------------------------
 /* Public Methods */
 
-LogWhatever.Controls.Chart.TagRatiosChart.prototype.draw = function (container, data) {
+LogWhatever.Controls.Chart.TagRatiosChart.prototype.draw = function (container, legend, data) {
 	var me = this;
 	if (data.length == 0) {
 		me._empty(container);
@@ -29,16 +29,19 @@ LogWhatever.Controls.Chart.TagRatiosChart.prototype.draw = function (container, 
 	var chart = new Highcharts.Chart({
 		chart: {
 			renderTo: container.attr("id"),
-			height: container.parent().height() - container.parent().find("h4").outerHeight(true) - 10,
+			height: container.parent().height() - container.parent().find("h4").outerHeight(true) - (legend ? 30 : 10),
 			backgroundColor: "transparent",
 			plotBackgroundColor: "transparent",
-			margin: [20, 40, 20, 40],
+			margin: [20, 0, 20, 0],
 		},
 		title: { text: null },
 		plotOptions: {
 			pie: {
 				borderWidth: 1,
-				animation: false
+				animation: false,
+				dataLabels: {
+					enabled: false
+				}
 			}
 		},
 		series: [{
@@ -46,4 +49,10 @@ LogWhatever.Controls.Chart.TagRatiosChart.prototype.draw = function (container, 
 			data: series
 		}]
 	});
+
+	var labels = new Array();
+	$(chart.series[0].data).each(function() {
+		labels.push({ label: this.name.toLowerCase(), color: this.color.stops[0][1] });
+	});
+	this._drawLegend(legend, { data: labels });
 };

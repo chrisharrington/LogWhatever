@@ -56,7 +56,7 @@ LogWhatever.Controls.TagResizer.prototype._getTotalWidth = function (elements) {
 LogWhatever.Controls.TagResizer.prototype._setStoredTagWidths = function (labels, width) {
 	if (labels.length == 0)
 		return;
-
+	
 	labels[labels.length - 1].css("margin-right", "0px");
 
 	var totalLabelWidth = 0;
@@ -66,7 +66,7 @@ LogWhatever.Controls.TagResizer.prototype._setStoredTagWidths = function (labels
 
 	var differential = width - totalLabelWidth;
 	var additionalWidthPerLabel = differential / labels.length;
-	$(labels).each(function() {
+	$(labels).each(function () {
 		$(this).outerWidth($(this).outerWidth() + additionalWidthPerLabel);
 	});
 };

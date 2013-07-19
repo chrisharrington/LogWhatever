@@ -24,3 +24,7 @@ LogWhatever.Controls.Chart.ChartDrawer.prototype._empty = function(container, me
 	var label = container.find("span");
 	label.css("margin-top", ((totalHeight - headerHeight) / 2 - label.height() / 2) + "px");
 };
+
+LogWhatever.Controls.Chart.ChartDrawer.prototype._drawLegend = function(container, labels) {
+	container.empty().append($.tmpl("chart-legend", labels));
+};

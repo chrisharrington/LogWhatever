@@ -211,6 +211,7 @@
     <Content Include="Scripts\Routers\WelcomeRouter.js" />
     <Content Include="Scripts\Routers\Welcome\Register.js" />
     <Content Include="Scripts\ThirdParty\jquery.uuid.js" />
+    <Content Include="Templates\Chart\Legend.html" />
     <Content Include="Templates\Chart\Loading.html" />
     <Content Include="Templates\Chart\Empty.html" />
     <Content Include="Templates\Log\Events.html" />
