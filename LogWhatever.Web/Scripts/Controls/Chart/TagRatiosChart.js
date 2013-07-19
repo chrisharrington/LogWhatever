@@ -50,9 +50,9 @@ LogWhatever.Controls.Chart.TagRatiosChart.prototype.draw = function (container, 
 		}]
 	});
 
-	var labels = new Array();
-	$(chart.series[0].data).each(function() {
-		labels.push({ label: this.name.toLowerCase(), color: this.color.stops[0][1] });
-	});
-	this._drawLegend(legend, { data: labels });
+	//var labels = new Array();
+	//$(chart.series[0].data).each(function() {
+	//	labels.push({ label: this.name.toLowerCase(), color: this.color.stops[0][1] });
+	//});
+	this._drawLegend(legend, chart);
 };
