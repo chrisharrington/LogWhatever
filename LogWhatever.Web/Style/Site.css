@@ -1,7 +1,7 @@
 ﻿html { background:#DCEDF2 url(Images/body-gradient.jpg) repeat-x; height:100%; }
 body { background-color:#FFF; margin:0; padding:0; font-family:'Segoe UI', helvetica; font-size:14px; }
 
-div.container { float:left; width:100%; height:500px; box-sizing:border-box; padding:1%; border-top:solid 3px #70C8EB; }
+div.container { float:left; width:100%; height:500px; box-sizing:border-box; -moz-box-sizing:border-box; padding:1%; border-top:solid 3px #70C8EB; }
 div.content { float:left; width:100%; display:table; }
 
 h1 { font-family:trade-gothic-next; font-size:2.67em; text-transform:uppercase; margin:0; padding:0; font-weight:normal; }
@@ -15,16 +15,16 @@ h6 { font-family:trade-gothic-next; font-size:1em; text-transform:uppercase; mar
 .ellipsis { text-overflow:ellipsis; overflow:hidden; white-space:nowrap; }
 
 button { font-family:'Segoe UI'; text-transform:uppercase; background:#2A67AD url(Images/button-gradient.jpg) repeat-x; color:#EEE; padding:3px 8px; margin:0px; border-radius:3px; border:none; cursor:pointer; }
-input[type='text'], input[type='password'] { border:solid 1px #CCC; padding:3px 5px; box-sizing:border-box; border-radius:3px; }
+input[type='text'], input[type='password'] { border:solid 1px #CCC; padding:3px 5px; box-sizing:border-box; -moz-box-sizing:border-box; border-radius:3px; }
 input.error { border-color:red !important; }
 
-div.tile { box-sizing:border-box; background-color:transparent; box-shadow:0 2px 8px rgba(0, 0, 0, 0.3); background-color:#FFF; border-radius:4px; box-sizing:border-box; padding:10px; }
+div.tile { box-sizing:border-box; -moz-box-sizing:border-box; background-color:transparent; box-shadow:0 2px 8px rgba(0, 0, 0, 0.3); background-color:#FFF; border-radius:4px; box-sizing:border-box; -moz-box-sizing:border-box; padding:10px; }
 div.tile>h3 { float:left; width:100%; color:#498FCC; }
 div.tile>div { float:left; width:100%; margin-top:10px; }
 
-div.header { float:left; width:100%; height:50px; background:url(Images/header-gradient.jpg) repeat-x; padding:0px 1%; color:#DDD; box-sizing:border-box; font-size:1em; }
+div.header { float:left; width:100%; height:50px; background:url(Images/header-gradient.jpg) repeat-x; padding:0px 1%; color:#DDD; box-sizing:border-box; -moz-box-sizing:border-box; font-size:1em; }
 div.header>div.user { float:right; display:none; height:100%; }
-div.header>div.user>div { float:left; box-sizing:border-box; padding:10px 15px; padding-top:16px; height:100%; border-left:solid 1px #666; cursor:pointer; }
+div.header>div.user>div { float:left; box-sizing:border-box; -moz-box-sizing:border-box; padding:10px 15px; padding-top:16px; height:100%; border-left:solid 1px #666; cursor:pointer; }
 div.header>div.user>div:last-child { padding-right:0px; }
 div.header>div.user>div>img { float:left; width:18px; height:18px; margin-top:1px; }
 div.header>div.user>div>span { float:left; margin-left:10px; text-transform:uppercase; }
@@ -42,7 +42,7 @@ div.subheader>div>span { float:left; margin-top:18px; margin-left:10px; color:#0
 div.form>div { float:left; width:100%; margin-top:10px; }
 div.form>div:first-child { margin-top:0px; }
 div.form>div>span { float:left; width:100%; color:#777; text-transform:none; font-weight:normal; }
-div.form>div>input[type='text'], div.form>div>input[type='password'] { float:left; width:100%; border:solid 1px #AAA; padding:5px; border-radius:3px; box-sizing:border-box; }
+div.form>div>input[type='text'], div.form>div>input[type='password'] { float:left; width:100%; border:solid 1px #AAA; padding:5px; border-radius:3px; box-sizing:border-box; -moz-box-sizing:border-box; }
 div.form>div.btn>div { float:right; }
 div.form>div.btn>div>button { float:left; margin-left:10px; }
 
@@ -70,7 +70,7 @@ div.chart-legend>div { float:left; margin-right:10px; }
 div.chart-legend>div>i { float:left; width:13px; height:13px; border-radius:2px; margin-top:1px; }
 div.chart-legend>div>span { float:left; margin-left:5px; font-size:0.85em; color:#777; }
 
-div.no-data>h3 { float:left; width:100%; color:#498FCC; }
-div.no-data>span { float:left; width:100%; margin-top:10px; color:#666; }
-div.no-data a { text-decoration:underline; cursor:pointer; color:#000; }
-div.no-data i { font-size:9px; font-style:normal; }
+div.non-tile>h3 { float:left; width:100%; color:#498FCC; }
+div.non-tile>span { float:left; width:100%; margin-top:10px; color:#666; }
+div.non-tile a { text-decoration:underline; cursor:pointer; color:#000; }
+div.non-tile i { font-size:9px; font-style:normal; }

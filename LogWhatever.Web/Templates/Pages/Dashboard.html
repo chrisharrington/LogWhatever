@@ -10,7 +10,7 @@
 	div.log>div.tags { margin-top:5px;  }
 	div.log>div.tags>div { float:left; width:auto; margin-top:3px; margin-right:3px; }
 	
-	div.no-data { float:left; width:100%; }
+	div.non-tile { float:left; width:100%; }
 </style>
 
 {{if data != null}}
@@ -33,7 +33,7 @@
 		</div>
 	{{/each}}
 {{else}}
-	<div class="no-data">
+	<div class="non-tile">
 		<h3>You've logged no data!</h3>
 		<span>You have yet to record any data with us. You can begin by clicking <a href="#/log-some-stuff">here</a> to log some stuff, or by clicking the "Log Some Stuff" link in the upper right corner. You can log whatever you want; the number of apples you had yesterday, how far you ran last week, or the number of times your newborn baby woke up last night <i>I'm so tired</i>.</span>
 	</div>

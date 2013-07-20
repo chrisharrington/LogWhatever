@@ -1,6 +1,6 @@
 ﻿<style type="text/css">
 	div.events { float:left; width:450px; }
-	div.charts, div.no-data { position:relative; margin-left:465px; }
+	div.charts, div.non-tile { position:relative; margin-left:465px; }
 	
 	div.charts>div>div { margin-top:0px; }
 	div.charts>div>h4 { float:left; width:100%; color:#498FCC; margin-bottom:10px; }
@@ -31,7 +31,7 @@
 </div>
 
 {{if data.length < 3}}
-	<div class="no-data">
+	<div class="non-tile">
 		<h3>Keep logging to see fancy charts and analyses</h3>
 		<span>There isn't currently enough data for us to provide you any sort of analysis. Keep logging and after a few entries, you'll see graphs and tables here to indicate how well (or poorly) you're doing, and provide you with predictions of what you'll be doing in the future.</span>
 	</div>
