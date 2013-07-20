@@ -282,13 +282,17 @@
     <Content Include="Templates\Pages\Log.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\Pages\Dashboard.html" />
+    <Content Include="Templates\Pages\Dashboard.html">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Pages\Welcome.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\Pages\Details.html" />
+    <Content Include="Templates\Pages\Details.html">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

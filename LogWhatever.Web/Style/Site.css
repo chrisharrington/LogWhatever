@@ -69,3 +69,8 @@ div.chart>div.loading>div>img { margin:auto; width:25px; height:25px; }
 div.chart-legend>div { float:left; margin-right:10px; }
 div.chart-legend>div>i { float:left; width:13px; height:13px; border-radius:2px; margin-top:1px; }
 div.chart-legend>div>span { float:left; margin-left:5px; font-size:0.85em; color:#777; }
+
+div.no-data>h3 { float:left; width:100%; color:#498FCC; }
+div.no-data>span { float:left; width:100%; margin-top:10px; color:#666; }
+div.no-data a { text-decoration:underline; cursor:pointer; color:#000; }
+div.no-data i { font-size:9px; font-style:normal; }

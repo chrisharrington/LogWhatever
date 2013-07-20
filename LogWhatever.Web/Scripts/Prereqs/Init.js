@@ -58,6 +58,8 @@ LogWhatever.Init.prototype._getLoggedInUser = function () {
         var userPanel = $("header>div.user");
         userPanel.find("#user-account>span").text(user.Name);
         userPanel.fadeIn(200);
+	}).error(function () {
+	    LogWhatever.Feedback.error("An error has occurred while retrieving the logged in user data.");
     });
 };
 
