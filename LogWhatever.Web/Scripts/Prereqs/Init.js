@@ -4,6 +4,10 @@
 /* Constructors */
 
 LogWhatever.Init = function () {
+	var date = "2013-07-20T16:47:00";
+	//alert(Date.parse(date).toString("M/d/yyyy"));
+
+
 	if (this._isUnsupportedBrowser()) {
 		$("div.unsupported-browser").show();
 	} else {

@@ -101,12 +101,12 @@ Date.prototype.addDays = function (count) {
 
 function formatDateToShortDateString(date) {
 	if (typeof (date) != typeof (Date))
-		date = new Date(date);
-	return new Date(date).toShortDateString();
+		date = Date.parse(date);
+	return date.toString("M/d/yyyy");
 }
 
 function formatDateToShortTimeString(date) {
 	if (typeof (date) != typeof (Date))
-		date = new Date(date);
-	return new Date(date).toShortTimeString();
+		date = Date.parse(date);
+	return new Date(date).toString("h:mm tt");
 }

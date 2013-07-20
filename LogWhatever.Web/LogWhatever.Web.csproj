@@ -213,6 +213,8 @@
     <Content Include="Scripts\Routers\DashboardRouter.js" />
     <Content Include="Scripts\Routers\WelcomeRouter.js" />
     <Content Include="Scripts\Routers\Welcome\Register.js" />
+    <Content Include="Scripts\ThirdParty\date.js" />
+    <Content Include="Scripts\ThirdParty\jquery.browser.js" />
     <Content Include="Scripts\ThirdParty\jquery.uuid.js" />
     <Content Include="Templates\Chart\Legend.html" />
     <Content Include="Templates\Chart\Loading.html" />
