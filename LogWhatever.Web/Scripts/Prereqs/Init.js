@@ -4,17 +4,23 @@
 /* Constructors */
 
 LogWhatever.Init = function () {
-    var me = this;
-    $.when(this._loadTemplates(), this._getConfigurationData(), this._getLoggedInUser()).done(function () {
-        me._createRouters();
-        me._hookupMenuLinks();
-	    me._setChartColours();
+	if (this._isUnsupportedBrowser()) {
+		$("div.unsupported-browser").show();
+	} else {
+		$("div.header .menu").show();
 
-	    $("div.tile.selectable, div.tile.deletable").live("click", function () { $(this).toggleClass("selected"); });
-	    
-	    if (window.location.hash == "")
-	    	Finch.navigate("/dashboard");
-    });
+		var me = this;
+		$.when(this._loadTemplates(), this._getConfigurationData(), this._getLoggedInUser()).done(function () {
+			me._createRouters();
+			me._hookupMenuLinks();
+			me._setChartColours();
+
+			$("div.tile.selectable, div.tile.deletable").live("click", function () { $(this).toggleClass("selected"); });
+
+			if (window.location.hash == "")
+				Finch.navigate("/dashboard");
+		});
+	}
 };
 
 LogWhatever.Init.create = function() {
@@ -100,6 +106,16 @@ LogWhatever.Init.prototype._setChartColours = function () {
 			]
 		};
 	});
+};
+
+LogWhatever.Init.prototype._isUnsupportedBrowser = function () {
+	if ($.browser.msie && parseInt($.browser.version.substring(0, 2)) >= 9)
+		return false;
+	if ($.browser.chrome && parseInt($.browser.version.substring(0, 2)) >= 25)
+		return false;
+	if ($.browser.mozilla && parseInt($.browser.version.substring(0, 2)) >= 20)
+		return false;
+	return true;
 };
 
 $(function () {

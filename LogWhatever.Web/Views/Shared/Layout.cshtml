@@ -9,13 +9,9 @@
 	</head>
 	<body>
 		
-		<div class="unsupported-browser">
-			
-		</div>
-		
 		<div class="header">
-			<div class="menu">
-				<a  data-navigation="dashboard">Dashboard</a>
+			<div class="menu hidden">
+				<a data-navigation="dashboard">Dashboard</a>
 			</div>
 			<div class="user">
 				<div id="user-account">
@@ -37,7 +33,11 @@
 			<span>Oh noes! An error!</span>
 		</div>
 		
-		<div class="container">	
+		<div class="container">
+			<div class="unsupported-browser non-tile hidden">
+				<h3>Unsupported browser :(</h3>
+				<span>Unforunately, it looks as though you're using an unsupported browser. That sucks. We recommend you use the latest version of any of the major browsers, but, failing that, at least try to have Internet Explorer 9, Firefox 22 or Chrome 25 installed; these are the browsers we've tested the application on. Thanks, and sorry for the inconvenience!</span>
+			</div>	
 			<div class="content hidden"></div>
 		</div>
 
