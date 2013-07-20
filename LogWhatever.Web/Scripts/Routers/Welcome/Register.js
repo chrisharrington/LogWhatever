@@ -72,7 +72,7 @@ LogWhatever.Routers.Welcome.Register.prototype._sendRegisterCommand = function(p
 		LogWhatever.User = user;
 		Finch.navigate("/dashboard");
 		$("#user-account>span").text(LogWhatever.User.Name);
-		$("header>div.user").fadeIn(200);
+		$("div.header>div.user").fadeIn(200);
 	}).error(function () {
 		LogWhatever.Feedback.error("An error has occurred while performing your registration. Please contact technical support.");
 	}).complete(function() {

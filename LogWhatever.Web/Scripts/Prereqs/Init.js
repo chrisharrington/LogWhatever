@@ -34,7 +34,7 @@ LogWhatever.Init.prototype._createRouters = function () {
 
 LogWhatever.Init.prototype._hookupMenuLinks = function () {
 	var me = this;
-	$("header [data-navigation]").click(function () { Finch.navigate("/" + $(this).attr("data-navigation")); });
+	$("div.header [data-navigation]").click(function () { Finch.navigate("/" + $(this).attr("data-navigation")); });
 	$("#sign-out").click(function() { me._signOut(); });
 };
 
@@ -55,7 +55,7 @@ LogWhatever.Init.prototype._getLoggedInUser = function () {
         if (!user)
             return;
 
-        var userPanel = $("header>div.user");
+        var userPanel = $("div.header>div.user");
         userPanel.find("#user-account>span").text(user.Name);
         userPanel.fadeIn(200);
 	}).error(function () {
@@ -74,7 +74,7 @@ LogWhatever.Init.prototype._logOut = function () {
 LogWhatever.Init.prototype._signOut = function () {
 	$.post(LogWhatever.Configuration.VirtualDirectory + "api/users/sign-out").success(function() {
 		Finch.navigate("/welcome");
-		$("header>div.user").fadeOut(200);
+		$("div.header>div.user").fadeOut(200);
 	}).error(function() {
 		LogWhatever.Feedback.error("An error has occurred while signing you out. Please contact technical support.");
 	});

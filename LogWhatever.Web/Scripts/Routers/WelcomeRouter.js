@@ -52,7 +52,7 @@ LogWhatever.Routers.WelcomeRouter.prototype._sendSignInCommand = function (email
 			LogWhatever.Feedback.clear();
 			LogWhatever.User = user;
 			Finch.navigate("/dashboard");
-			$("header>div.user").fadeIn(200);
+			$("div.header>div.user").fadeIn(200);
 			$("#user-account>span").text(LogWhatever.User.Name);
 		}
 	}).error(function() {
