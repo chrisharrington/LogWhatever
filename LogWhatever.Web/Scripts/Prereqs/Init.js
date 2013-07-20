@@ -115,6 +115,8 @@ LogWhatever.Init.prototype._isUnsupportedBrowser = function () {
 		return false;
 	if ($.browser.mozilla && parseInt($.browser.version.substring(0, 2)) >= 20)
 		return false;
+	if ($.browser.safari && parseInt($.browser.version.substring(0, 1)) >= 5)
+		return false;
 	return true;
 };
 
