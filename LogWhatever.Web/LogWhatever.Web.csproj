@@ -175,6 +175,8 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Images\ajax-loader.gif" />
+    <Content Include="Images\body-gradient.jpg" />
+    <Content Include="Images\header-gradient.jpg" />
     <Content Include="Images\log-icon.png" />
     <Content Include="Images\menu-selected-icon.png" />
     <Content Include="Images\remove-icon.png" />

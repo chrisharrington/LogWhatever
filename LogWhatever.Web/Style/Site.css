@@ -14,7 +14,7 @@ h6 { font-family:trade-gothic-next; font-size:1em; text-transform:uppercase; mar
 .hidden { display:none; }
 .ellipsis { text-overflow:ellipsis; overflow:hidden; white-space:nowrap; }
 
-button { font-family:'Segoe UI'; text-transform:uppercase; background:-webkit-linear-gradient(top, #5F93CF, #2A67AD); color:#EEE; padding:3px 8px; margin:0px; border-radius:3px; border:none; cursor:pointer; }
+button { font-family:'Segoe UI'; text-transform:uppercase; background:#2A67AD url(Images/button-gradient.jpg) repeat-x; color:#EEE; padding:3px 8px; margin:0px; border-radius:3px; border:none; cursor:pointer; }
 input[type='text'], input[type='password'] { border:solid 1px #CCC; padding:3px 5px; box-sizing:border-box; border-radius:3px; }
 input.error { border-color:red !important; }
 
