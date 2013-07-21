@@ -40,12 +40,17 @@ namespace LogWhatever.Service.Http
 			request.Method = "POST";
 			request.ContentType = "application/json";
 
-			var serializeObject = JsonConvert.SerializeObject(parameters);
-			var body = Encoding.UTF8.GetBytes(serializeObject);
-			request.ContentLength = body.Length;
+			if (parameters != null)
+			{
+				var serializeObject = JsonConvert.SerializeObject(parameters);
+				var body = Encoding.UTF8.GetBytes(serializeObject);
+				request.ContentLength = body.Length;
 
-			using (var stream = request.GetRequestStream())
-				stream.Write(body, 0, body.Length);
+				using (var stream = request.GetRequestStream())
+					stream.Write(body, 0, body.Length);
+			}
+			else
+				request.ContentLength = 0;
 
 			var response = (HttpWebResponse)request.GetResponse();
 			if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
@@ -67,7 +72,7 @@ namespace LogWhatever.Service.Http
 			}
 			if (session != null)
 				result += "&auth=" + session.Id.ToString();
-			return "?" + result.Substring(1);
+			return string.IsNullOrEmpty(result) ? "" : ("?" + result.Substring(1));
 		}
 		#endregion
 	}

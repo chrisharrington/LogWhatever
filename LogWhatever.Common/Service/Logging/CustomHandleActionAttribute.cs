@@ -22,7 +22,7 @@ namespace LogWhatever.Common.Service.Logging
 		#region Public Methods
 		public override void OnActionExecuting(System.Web.Http.Controllers.HttpActionContext context)
 		{
-			Logger.Info(context.ControllerContext.RouteData.Route + ": " + context.ActionArguments.Values.Aggregate((first, second) => first + ", " + second));
+			Logger.Info(context.ControllerContext.RouteData.Route + ": " + (context.ActionArguments.Any() ? context.ActionArguments.Values.Aggregate((first, second) => first + ", " + second) : "<no arguments>"));
 			base.OnActionExecuting(context);
 		}
 

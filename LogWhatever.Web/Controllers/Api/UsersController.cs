@@ -45,8 +45,9 @@ namespace LogWhatever.Web.Controllers.Api
 		[AcceptVerbs("POST")]
 		public void SignOut()
 		{
-			Cache.RemoveFromList<Session>(GetCurrentSession().Id);
-			HttpRequestor.Post(ConfigurationProvider.DataServiceLocation + "sign-out");
+			var session = GetCurrentSession();
+			HttpRequestor.Post(ConfigurationProvider.DataServiceLocation + "sessions/sign-out", session: session);
+			Cache.RemoveFromList<Session>(session.Id);
 			FormsAuthentication.SignOut();
 		}
 

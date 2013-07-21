@@ -37,7 +37,8 @@ namespace LogWhatever.Common.Service.Authentication
 			if (!Guid.TryParse(token, out tokenId))
 				return false;
 
-			return Cache.Retrieve<Session>().Any(x => x.Id == tokenId);
+			var isAuthorized = Cache.Retrieve<Session>().Any(x => x.Id == tokenId);
+			return isAuthorized;
 		}
 		#endregion
 
