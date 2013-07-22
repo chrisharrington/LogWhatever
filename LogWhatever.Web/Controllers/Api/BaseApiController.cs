@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Http;
 using LogWhatever.Common.Configuration;
 using LogWhatever.Common.Models;
@@ -21,6 +22,11 @@ namespace LogWhatever.Web.Controllers.Api
 		public IDataService DataService { get; set; }
 		public IHttpRequestor HttpRequestor { get; set; }
 		public IConfigurationProvider ConfigurationProvider { get; set; }
+
+		public int TimezoneOffset
+		{
+			get { return Convert.ToInt32(HttpContext.Current.Request.QueryString["timezone-offset"]); }
+		}
 		#endregion
 
 		#region Protected Methods

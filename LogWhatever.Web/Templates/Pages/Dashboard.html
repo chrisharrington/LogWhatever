@@ -19,7 +19,7 @@
 			{{each(j, log) logColumn}}
 				<div class="tile log">
 					<h3>${log.Name}</h3>
-					<span>{{html formatDateToShortDateString(log.Date) + " " + formatDateToShortTimeString(log.Date) }}</span>
+					<span>{{html formatUTCStringToShortDateString(log.Date) + " " + formatDateToShortTimeString(log.Date) }}</span>
 					<div class="tags">
 						{{each(k, measurement) log.Measurements}}
 							<div class="floating-tag">${measurement.Name ? measurement.Name + ' / ' : ''}${measurement.Quantity.toFixed(2)}${measurement.Unit ? ' ' + measurement.Unit : ''}</div>

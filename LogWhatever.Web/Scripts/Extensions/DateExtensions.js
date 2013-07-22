@@ -99,14 +99,10 @@ Date.prototype.addDays = function (count) {
 	return date;
 };
 
-function formatDateToShortDateString(date) {
-	if (typeof (date) != typeof (Date))
-		date = Date.parse(date);
-	return date.toString("M/d/yyyy");
+function formatUTCStringToShortDateString(date) {
+	return moment(date).format("M/d/YYYY");
 }
 
 function formatDateToShortTimeString(date) {
-	if (typeof (date) != typeof (Date))
-		date = Date.parse(date);
-	return new Date(date).toString("h:mm tt");
+	return moment(date).format("h:mm A");
 }

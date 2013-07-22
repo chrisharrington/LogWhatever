@@ -16,7 +16,7 @@
 <div class="events">
 	{{each(i, event) data}}
 		<div class="tile event">
-			<h4>{{html formatDateToShortDateString(event.Date)}}</h4>
+			<h4>{{html formatUTCStringToShortDateString(event.Date)}}</h4>
 			<span>{{html formatDateToShortTimeString(event.Date)}}</span>
 			<div class="tags">
 				{{each(k, measurement) event.Measurements}}
