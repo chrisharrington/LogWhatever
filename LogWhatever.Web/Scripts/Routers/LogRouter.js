@@ -179,31 +179,31 @@ LogWhatever.Routers.LogRouter.prototype._sendLogCommand = function (parameters) 
 };
 
 LogWhatever.Routers.LogRouter.prototype._loadMeasurements = function (logName, afterSave) {
-	var container = this._container.find("div.measurements>div.list");
+	var list = this._container.find("div.measurements>div.list");
 	var add = this._container.find("div.measurements>div.add");
 	$.when(this._getMeasurements(logName)).done(function (measurements) {
 		if (afterSave) {
 			add.slideUpDeferred(200);
-		} else if (container.find(">*").length > 0 && measurements.length == 0) {
-			container.slideUpDeferred(200, function() {
-				container.empty();
+		} else if (list.find(">*").length > 0 && measurements.length == 0) {
+			list.slideUpDeferred(200, function() {
+				list.empty().show();
 				add.slideDownDeferred(200);
 			});
-		} else if (container.find(">*").length == 0 && measurements.length == 0) {
+		} else if (list.find(">*").length == 0 && measurements.length == 0) {
 			add.slideDownDeferred(200);
-		} else if (container.find(">*").length > 0 && measurements.length > 0) {
-			container.slideUpDeferred(200, function() {
-				container.hide().empty();
-				$.tmpl("log-add-measurement", measurements).appendTo(container);
-				container.find("input.measurement-name, input.measurement-units").attr("readonly", true).css("color", "#AAA");
-				container.slideDownDeferred(200);
+		} else if (list.find(">*").length > 0 && measurements.length > 0) {
+			list.slideUpDeferred(200, function() {
+				list.hide().empty();
+				$.tmpl("log-add-measurement", measurements).appendTo(list);
+				list.find("input.measurement-name, input.measurement-units").attr("readonly", true).css("color", "#AAA");
+				list.slideDownDeferred(200);
 			});
-		} else if (container.find(">*").length == 0 && measurements.length > 0) {
+		} else if (list.find(">*").length == 0 && measurements.length > 0) {
 			add.slideUpDeferred(200, function () {
-				container.hide().empty();
-				$.tmpl("log-add-measurement", measurements).appendTo(container);
-				container.find("input.measurement-name, input.measurement-units").attr("readonly", true).css("color", "#AAA");
-				container.slideDownDeferred(200);
+				list.hide().empty();
+				$.tmpl("log-add-measurement", measurements).appendTo(list);
+				list.find("input.measurement-name, input.measurement-units").attr("readonly", true).css("color", "#AAA");
+				list.slideDownDeferred(200);
 			});
 		}
 	});
