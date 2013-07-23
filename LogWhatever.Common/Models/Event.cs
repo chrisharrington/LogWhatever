@@ -8,7 +8,6 @@ namespace LogWhatever.Common.Models
 		public Guid UserId { get; set; }
 		public Guid LogId { get; set; }
 		public string LogName { get; set; }
-		public DateTime Date { get; set; }
 		#endregion
 	}
 }

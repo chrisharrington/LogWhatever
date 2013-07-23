@@ -100,7 +100,7 @@ Date.prototype.addDays = function (count) {
 };
 
 function formatUTCStringToShortDateString(date) {
-	return moment(date).format("M/d/YYYY");
+	return moment(date).format("MM/DD/YYYY");
 }
 
 function formatDateToShortTimeString(date) {

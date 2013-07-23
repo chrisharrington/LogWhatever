@@ -34,7 +34,7 @@ namespace LogWhatever.Common.Extensions
             connection.Execute(CreateInsertStatement(table, parameters, ignore), parameters);
         }
 
-        public static void Update(this IDbConnection connection, string table, object parameters, params string[] where)
+	    public static void Update(this IDbConnection connection, string table, object parameters, params string[] where)
         {
             if (string.IsNullOrEmpty(table))
                 throw new ArgumentNullException("table");

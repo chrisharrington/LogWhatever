@@ -2,7 +2,7 @@
 
 namespace LogWhatever.Common.Models
 {
-	public class BaseModel
+	public class BaseModel : DateModel
 	{
 		#region Properties
 		public Guid Id { get; set; }

@@ -4,6 +4,11 @@
 /* Constructors */
 
 LogWhatever.Init = function () {
+	//var date = "7/29/2013";
+	//var time = "4:30 PM";
+	//var blah = moment(date + " " + time, "M/D/YYYY hh:mm A").format("YYYY-MM-DDTHH:mmZ");
+	//alert(blah);
+
 	if (this._isUnsupportedBrowser()) {
 		$("div.unsupported-browser").show();
 	} else {

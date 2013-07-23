@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using LogWhatever.Common.Extensions;
 using LogWhatever.Common.Repositories;
 using Event = LogWhatever.Common.Models.Page.Event;
 
@@ -19,12 +21,12 @@ namespace LogWhatever.Web.Controllers.Api
 		public IEnumerable<Event> GetForLog(string logName)
 		{
 			logName = logName.Replace("-", " ").ToLower();
-			var events = EventRepository.All(x => x.LogName.ToLower() == logName);
+			var events = EventRepository.All(x => x.LogName.ToLower() == logName).ToArray();
 			var measurements = MeasurementRepository.All(x => x.LogName == logName);
 			var tags = TagRepository.All(x => x.LogName == logName);
 
 			return events.OrderByDescending(x => x.Date).Select(x => new Event {
-				Date = x.Date.AddMinutes(TimezoneOffset*-1),
+				Date = x.Date,
 				Measurements = measurements.Where(y => y.EventId == x.Id),
 				Tags = tags.Where(y => y.EventId == x.Id).OrderBy(y => y.Name)
 			});

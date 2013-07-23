@@ -40,7 +40,7 @@ namespace LogWhatever.Web.Controllers.Api
 
 		private Event CreateEvent(LogData data, Log log)
 		{
-			var @event = new Event { Date = MergeDateAndTime(data.Date, data.Time), Id = Guid.NewGuid(), LogId = log.Id, LogName = log.Name, UserId = data.User.Id };
+			var @event = new Event { Date = MergeDateAndTime(data.Date.AddMinutes(TimezoneOffset), data.Time), Id = Guid.NewGuid(), LogId = log.Id, LogName = log.Name, UserId = data.User.Id };
 			EventRepository.Create(@event);
 			return @event;
 		}
@@ -68,6 +68,7 @@ namespace LogWhatever.Web.Controllers.Api
 			#region Properties
 			public User User { get; set; }
 			public string Name { get; set; }
+			public DateTime MergedDate { get; set; }
 			public DateTime Date { get; set; }
 			public DateTime Time { get; set; }
 			public IEnumerable<MeasurementData> Measurements { get; set; }
