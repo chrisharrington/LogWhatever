@@ -141,16 +141,14 @@ LogWhatever.Routers.LogRouter.prototype._validateTime = function () {
 LogWhatever.Routers.LogRouter.prototype._getLogParameters = function () {
 	return {
 		Name: this._container.find("#name").clearbox("value"),
-		MergedDate: this._mergeDateAndTime(this._container.find("#date").val(), this._container.find("#time").val()),
-		Date: this._container.find("#date").val(),
-		Time: this._container.find("#time").val(),
+		Date: this._mergeDateAndTime(this._container.find("#date").val(), this._container.find("#time").val()),
 		Measurements: this._getLogMeasurementParameters(),
 		Tags: this._getLogTagParameters()
 	};
 };
 
 LogWhatever.Routers.LogRouter.prototype._mergeDateAndTime = function(date, time) {
-	return moment(date + " " + time, "M/D/YYYY hh:mm A").format("YYYY-MM-DDTHH:mm") + "Z";
+	return moment(date + " " + time, "M/D/YYYY hh:mm A").utc().format("YYYY-MM-DDTHH:mm");
 };
 
 LogWhatever.Routers.LogRouter.prototype._getLogMeasurementParameters = function () {

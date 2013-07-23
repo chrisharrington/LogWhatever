@@ -23,7 +23,6 @@ namespace LogWhatever.Repositories
 		protected internal virtual IEnumerable<TModelType> Retrieve<TModelType>(string query, Func<TModelType, bool> filter = null) where TModelType : BaseModel
 		{
 			var results = Query<TModelType>(query);
-			SetDatesAsUTC(results);
 			Cache.StoreOrRetrieve<TModelType>(results);
 			return filter == null ? results : results.Where(filter);
 		}
@@ -54,13 +53,6 @@ namespace LogWhatever.Repositories
 			{
 				return connection.Query<TQueriedObjectType>(query, parameters);
 			}
-		}
-
-		private void SetDatesAsUTC(IEnumerable<object> items)
-		{
-			foreach (var item in items)
-				foreach (var property in item.GetType().GetProperties().Where(x => x.PropertyType == typeof(DateTime)))
-					property.SetValue(item, DateTime.SpecifyKind((DateTime) property.GetValue(item), DateTimeKind.Utc));
 		}
 		#endregion
 	}
